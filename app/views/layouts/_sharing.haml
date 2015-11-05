@@ -1,0 +1,20 @@
+- title = content_for(:meta_title) ? yield(:meta_title) : ENV["TITLE"]
+- description = content_for(:meta_description) ? yield(:meta_description) : ENV["DESCRIPTION"]
+- image = content_for(:meta_image) ? yield(:meta_image) : asset_url("logo.jpg")
+- url = request.original_url
+
+%title= title
+%meta(name="description" content="#{description}")
+%link(rel="canonical" href="#{url}")
+
+%meta(property="og:type" content="website")
+%meta(property="og:title" content="#{title}")
+%meta(property="og:description" content="#{description}")
+%meta(property="og:image" content="#{image}")
+%meta(property="og:url" content="#{url}")
+%meta(name="twitter:card" content="summary")
+%meta(name="twitter:site" content="@tomprats")
+%meta(name="twitter:title" content="#{title}")
+%meta(name="twitter:description" content="#{description}")
+%meta(name="twitter:image" content="#{image}")
+%meta(name="twitter:url" content="#{url}")

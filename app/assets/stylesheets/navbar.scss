@@ -1,0 +1,21 @@
+@import "variables";
+
+.navbar.center {
+  text-align: center;
+}
+
+.navbar.center .nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.admin-navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  border-color: $red;
+  background-color: $red;
+  .navbar-nav > li > a {
+    color: $white;
+  }
+}

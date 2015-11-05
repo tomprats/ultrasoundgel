@@ -1,0 +1,26 @@
+= form_for [:admin, @page], html: { class: "form-horizontal" } do |f|
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :active
+          Active?
+  .form-group
+    = f.label :rank, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :rank, placeholder: "Rank", class: "form-control"
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, placeholder: "Name", class: "form-control"
+  .form-group
+    = f.label :path, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :path, placeholder: "Path", class: "form-control"
+  .form-group
+    = f.label :text, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :text, placeholder: "Text", class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

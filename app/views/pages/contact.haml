@@ -1,0 +1,21 @@
+.spacer-30
+.container-fluid
+  .row
+    .col-md-8.col-md-offset-2
+      .text-center
+        = @html
+        - if ENV["EMAIL"]
+          %p
+            = link_to "mailto:#{ENV["EMAIL"].downcase}", target: :_blank do
+              = fa_icon :send
+              = ENV["EMAIL"]
+        - if ENV["FACEBOOK"]
+          %p
+            = link_to "https://www.facebook.com/#{ENV["FACEBOOK"]}", target: :_blank do
+              = fa_icon :facebook
+              = ENV["FACEBOOK"]
+        - if ENV["TWITTER"]
+          %p
+            = link_to "https://www.twitter.com/#{ENV["TWITTER"]}", target: :_blank do
+              = fa_icon :twitter
+              = ENV["TWITTER"]
