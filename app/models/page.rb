@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   validates_presence_of :rank, :path, :name
   validates_uniqueness_of :path
 

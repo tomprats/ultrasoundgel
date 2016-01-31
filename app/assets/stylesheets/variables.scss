@@ -1,6 +1,10 @@
-@import "bootstrap/variables";
-
 $white: white;
 $black: black;
 $blue: #4D90FE;
-$red: #A61A23;
+$green: #42B755;
+
+$theme: $green;
+$brand-primary: $blue;
+$brand-success: $green;
+
+@import "bootstrap/variables";
