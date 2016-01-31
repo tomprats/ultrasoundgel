@@ -1,0 +1,2 @@
+class FileUpload < Upload
+end

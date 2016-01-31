@@ -1,6 +1,6 @@
-class CreateFiles < ActiveRecord::Migration
+class CreateUploads < ActiveRecord::Migration
   def change
-    create_table :files do |t|
+    create_table :uploads do |t|
       t.string  :type,         null: false, index: true
       t.string  :name,         null: false
       t.string  :location,     null: false
@@ -10,5 +10,7 @@ class CreateFiles < ActiveRecord::Migration
 
       t.timestamps             null: false
     end
+
+    add_index :uploads, [:type, :name]
   end
 end
