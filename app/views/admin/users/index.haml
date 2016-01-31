@@ -14,7 +14,6 @@
         %table.table.table-bordered.table-hover
           %thead
             %tr
-              %th ID
               %th Admin
               %th Email
               %th First Name
@@ -24,12 +23,11 @@
           %tbody
             - @users.each do |user|
               %tr
-                %td= user.id
                 %td= user.admin ? "Yes" : "No"
                 %td= user.email
                 %td= user.first_name
                 %td= user.last_name
-                %td= user.created_at.strftime("%m/%d/%y %I:%M %p")
+                %td= user.created_at_date
                 %td
                   = link_to "Edit", edit_admin_user_path(user)
                   &vert;

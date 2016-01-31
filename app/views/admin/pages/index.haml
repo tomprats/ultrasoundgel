@@ -14,7 +14,6 @@
         %table.table.table-bordered.table-hover
           %thead
             %tr
-              %th ID
               %th Active
               %th Rank
               %th Name
@@ -24,12 +23,11 @@
           %tbody
             - @pages.each do |page|
               %tr
-                %td= page.id
                 %td= page.active ? "Yes" : "No"
                 %td= page.rank
                 %td= page.name
                 %td= page.path
-                %td= page.created_at.strftime("%m/%d/%y %I:%M %p")
+                %td= page.created_at_date
                 %td
                   = link_to "Visit", page_path(page.path)
                   &vert;
