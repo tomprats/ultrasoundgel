@@ -10,6 +10,7 @@ gem "pg"
 gem "carrierwave"
 gem "fog"
 gem "mini_magick"
+gem "taglib-ruby"
 
 # Users
 gem "bcrypt"

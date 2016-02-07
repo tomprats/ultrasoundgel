@@ -16,18 +16,40 @@ ActiveRecord::Schema.define(version: 20160128044108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "files", force: :cascade do |t|
-    t.string   "type",         null: false
-    t.string   "name",         null: false
-    t.string   "location",     null: false
-    t.string   "size",         null: false
-    t.string   "content_type", null: false
-    t.integer  "duration"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  create_table "channels", force: :cascade do |t|
+    t.integer  "image_id"
+    t.string   "title",                        null: false
+    t.string   "subtitle"
+    t.string   "author"
+    t.string   "link"
+    t.string   "owner_name"
+    t.string   "owner_email"
+    t.string   "summary"
+    t.string   "categories"
+    t.boolean  "explicit",     default: false
+    t.datetime "published_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["published_at"], name: "index_channels_on_published_at", using: :btree
   end
 
-  add_index "files", ["type"], name: "index_files_on_type", using: :btree
+  create_table "episodes", force: :cascade do |t|
+    t.integer  "channel_id"
+    t.integer  "audio_id"
+    t.integer  "image_id"
+    t.string   "uid",                          null: false
+    t.string   "title",                        null: false
+    t.string   "subtitle"
+    t.string   "author"
+    t.string   "summary"
+    t.boolean  "explicit",     default: false
+    t.datetime "published_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["channel_id"], name: "index_episodes_on_channel_id", using: :btree
+    t.index ["published_at", "channel_id"], name: "index_episodes_on_published_at_and_channel_id", using: :btree
+    t.index ["published_at"], name: "index_episodes_on_published_at", using: :btree
+  end
 
   create_table "pages", force: :cascade do |t|
     t.boolean  "active",     default: false, null: false
@@ -37,55 +59,35 @@ ActiveRecord::Schema.define(version: 20160128044108) do
     t.text     "text"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["active", "rank"], name: "index_pages_on_active_and_rank", using: :btree
+    t.index ["path"], name: "index_pages_on_path", using: :btree
+    t.index ["rank"], name: "index_pages_on_rank", using: :btree
   end
-
-  add_index "pages", ["active", "rank"], name: "index_pages_on_active_and_rank", using: :btree
-  add_index "pages", ["path"], name: "index_pages_on_path", using: :btree
-  add_index "pages", ["rank"], name: "index_pages_on_rank", using: :btree
-
-  create_table "podcast_channel", force: :cascade do |t|
-    t.integer  "image_id",                    null: false
-    t.string   "title",                       null: false
-    t.string   "subtitle",                    null: false
-    t.string   "author",                      null: false
-    t.string   "link",                        null: false
-    t.string   "owner_name",                  null: false
-    t.string   "owner_email",                 null: false
-    t.string   "summary",                     null: false
-    t.string   "category"
-    t.boolean  "explicit",    default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
-  create_table "podcast_episodes", force: :cascade do |t|
-    t.integer  "audio_id",                     null: false
-    t.integer  "image_id",                     null: false
-    t.string   "uid",                          null: false
-    t.string   "title",                        null: false
-    t.string   "subtitle",                     null: false
-    t.string   "author",                       null: false
-    t.string   "summary",                      null: false
-    t.boolean  "explicit",     default: false
-    t.datetime "published_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
-
-  add_index "podcast_episodes", ["published_at"], name: "index_podcast_episodes_on_published_at", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.integer  "podcast_episode_id"
-    t.string   "title",              null: false
+    t.integer  "episode_id"
+    t.string   "title",        null: false
     t.text     "text"
     t.text     "tags"
     t.datetime "published_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["episode_id"], name: "index_posts_on_episode_id", using: :btree
+    t.index ["published_at"], name: "index_posts_on_published_at", using: :btree
   end
 
-  add_index "posts", ["podcast_episode_id"], name: "index_posts_on_podcast_episode_id", using: :btree
-  add_index "posts", ["published_at"], name: "index_posts_on_published_at", using: :btree
+  create_table "uploads", force: :cascade do |t|
+    t.string   "type",         null: false
+    t.string   "name",         null: false
+    t.string   "file",         null: false
+    t.string   "size",         null: false
+    t.string   "content_type", null: false
+    t.integer  "duration"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["type", "name"], name: "index_uploads_on_type_and_name", using: :btree
+    t.index ["type"], name: "index_uploads_on_type", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.boolean  "admin",           default: false, null: false
@@ -95,10 +97,9 @@ ActiveRecord::Schema.define(version: 20160128044108) do
     t.string   "password_digest",                 null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.index ["admin"], name: "index_users_on_admin", using: :btree
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["last_name", "first_name"], name: "index_users_on_last_name_and_first_name", using: :btree
   end
-
-  add_index "users", ["admin"], name: "index_users_on_admin", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["last_name", "first_name"], name: "index_users_on_last_name_and_first_name", using: :btree
 
 end

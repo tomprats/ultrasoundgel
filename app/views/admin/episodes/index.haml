@@ -27,8 +27,8 @@
                 %tr
                   %td= episode.published_at_date
                   %td= episode.channel && link_to(episode.channel.title, edit_admin_channel_path(episode.channel))
-                  %td= episode.audio && link_to(episode.audio.name, edit_admin_upload_path(episode.audio))
-                  %td= episode.image && link_to(episode.image.name, edit_admin_upload_path(episode.image))
+                  %td= episode.audio && link_to(episode.audio.name, episode.audio.file.url, target: :_blank)
+                  %td= episode.image && link_to(episode.image.name, episode.image.file.url, target: :_blank)
                   %td= episode.title
                   %td= episode.author
                   %td

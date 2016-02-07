@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.integer :podcast_episode_id, index: true
+      t.integer :episode_id, index: true
       t.string :title, null: false
       t.text   :text
       t.text   :tags

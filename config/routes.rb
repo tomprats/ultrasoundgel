@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :index, :edit, :create, :update, :destroy]
     resources :episodes, only: [:index, :edit, :create, :update, :destroy]
     resources :channels, only: [:index, :edit, :create, :update, :destroy]
-    resources :uploads, only: [:index, :edit, :create, :update, :destroy]
+    resources :uploads, only: [:index, :create, :destroy]
   end
 
   get ":path", to: "pages#show", as: :page
