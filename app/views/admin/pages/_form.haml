@@ -20,7 +20,7 @@
   .form-group
     = f.label :text, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :text, placeholder: "Text", class: "form-control"
+      = render partial: "partials/markdown_field", locals: { f: f, field: :text }
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

@@ -1,0 +1,37 @@
+.container-fluid
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 New/Edit Episode
+        .panel-body
+          = render partial: "form"
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 Episodes
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th Published
+                %th Channel
+                %th Audio
+                %th Image
+                %th Title
+                %th Author
+                %th
+            %tbody
+              - Episode.all.each do |episode|
+                %tr
+                  %td= episode.published_at_date
+                  %td= episode.channel && link_to(episode.channel.title, edit_admin_channel_path(episode.channel))
+                  %td= episode.audio && link_to(episode.audio.name, edit_admin_upload_path(episode.audio))
+                  %td= episode.image && link_to(episode.image.name, edit_admin_upload_path(episode.image))
+                  %td= episode.title
+                  %td= episode.author
+                  %td
+                    = link_to "Edit", edit_admin_episode_path(episode)
+                    &vert;
+                    = link_to "Delete", admin_episode_path(episode), method: :delete, data: { confirm: "Are you sure you want to delete #{episode.title}?" }

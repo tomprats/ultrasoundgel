@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :create, :update, :destroy]
     resources :paintings, only: [:index, :edit, :create, :update, :destroy]
     resources :pages, only: [:index, :edit, :create, :update, :destroy]
+    resources :posts, only: [:show, :index, :edit, :create, :update, :destroy]
+    resources :episodes, only: [:index, :edit, :create, :update, :destroy]
+    resources :channels, only: [:index, :edit, :create, :update, :destroy]
+    resources :uploads, only: [:index, :edit, :create, :update, :destroy]
   end
 
   get ":path", to: "pages#show", as: :page

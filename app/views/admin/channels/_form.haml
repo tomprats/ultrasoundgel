@@ -1,0 +1,58 @@
+= form_for [:admin, @channel], html: { class: "form-horizontal" } do |f|
+  - if ImageUpload.podcast_approved.count.zero?
+    .form-group
+      = f.label :image_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static
+          There are no uploaded images with the right file type available.
+          = link_to "Create one", admin_uploads_path
+          and attach it here before publishing this channel.
+  - elsif @channel.published_at.blank?
+    .form-group
+      = f.label :image_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.collection_select :image_id, ImageUpload.podcast_approved, :id, :name, { prompt: "None" }, class: "form-control"
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :title, placeholder: "Title", class: "form-control"
+  .form-group
+    = f.label :subtitle, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :subtitle, placeholder: "Subtitle", class: "form-control"
+  .form-group
+    = f.label :author, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :author, placeholder: "Author", class: "form-control"
+  .form-group
+    = f.label :link, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.url_field :link, placeholder: "Link", class: "form-control"
+  .form-group
+    = f.label :owner_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :owner_name, placeholder: "Owner Name", class: "form-control"
+  .form-group
+    = f.label :owner_email, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.email_field :owner_email, placeholder: "Owner Email", class: "form-control"
+  .form-group
+    = f.label :summary, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :summary, placeholder: "Summary", class: "form-control"
+  .form-group
+    = f.label :categories, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :categories, placeholder: "Ex: Tomify, Great Jokes", class: "form-control"
+      %p.help-block
+        For a list of categories, follow the instructions
+        = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#category", target: :_blank
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :explicit
+          Explicit?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

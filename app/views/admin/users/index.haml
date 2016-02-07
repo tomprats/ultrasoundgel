@@ -11,24 +11,25 @@
       .panel.panel-default
         .panel-heading
           %h4 Users
-        %table.table.table-bordered.table-hover
-          %thead
-            %tr
-              %th Admin
-              %th Email
-              %th First Name
-              %th Last Name
-              %th Created At
-              %th
-          %tbody
-            - @users.each do |user|
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %thead
               %tr
-                %td= user.admin ? "Yes" : "No"
-                %td= user.email
-                %td= user.first_name
-                %td= user.last_name
-                %td= user.created_at_date
-                %td
-                  = link_to "Edit", edit_admin_user_path(user)
-                  &vert;
-                  = link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete #{user.name}?" }
+                %th Admin
+                %th Email
+                %th First Name
+                %th Last Name
+                %th Created At
+                %th
+            %tbody
+              - @users.each do |user|
+                %tr
+                  %td= user.admin ? "Yes" : "No"
+                  %td= user.email
+                  %td= user.first_name
+                  %td= user.last_name
+                  %td= user.created_at_date
+                  %td
+                    = link_to "Edit", edit_admin_user_path(user)
+                    &vert;
+                    = link_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete #{user.name}?" }

@@ -1,0 +1,6 @@
+%p.form-control-static
+  You can use
+  = link_to "markdown syntax", "https://guides.github.com/features/mastering-markdown/#examples", target: :_blank
+  to bedazzle the content
+= f.text_area field, placeholder: "## Example Markdown\n\nTry to **be bold** or *maybe italic*.\n\nWrite a link [to somewhere](http://tomify.me) or even embed an image with ![Some alt text](http://tomify.me/logo.jpg).\n\nCopy the \"view\" link of an uploaded file to use it here.", rows: 5, class: "form-control"
+%p.help-block Drag the bottom right corner down to enlarge the box

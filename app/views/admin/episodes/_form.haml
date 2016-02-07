@@ -1,0 +1,65 @@
+= form_for [:admin, @episode], html: { class: "form-horizontal" } do |f|
+  - if Channel.count.zero?
+    .form-group
+      = f.label :channel_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static
+          There are no channels available.
+          = link_to "Create one", admin_channels_path
+          and attach it here before publishing this episode.
+  - elsif @episode.published_at.blank?
+    .form-group
+      = f.label :channel_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.collection_select :channel_id, Channel.all, :id, :title, { prompt: "None" }, class: "form-control"
+  - if AudioUpload.podcast_approved.count.zero?
+    .form-group
+      = f.label :audio_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static
+          There are no uploaded audio files with the right file type available.
+          = link_to "Create one", admin_uploads_path
+          and attach it here before publishing this episode.
+  - elsif @episode.published_at.blank?
+    .form-group
+      = f.label :audio_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.collection_select :audio_id, AudioUpload.podcast_approved, :id, :name, { prompt: "None" }, class: "form-control"
+  - if ImageUpload.podcast_approved.count.zero?
+    .form-group
+      = f.label :image_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static
+          There are no uploaded images with the right file type available.
+          = link_to "Create one", admin_uploads_path
+          and attach it here before publishing this episode.
+  - elsif @episode.published_at.blank?
+    .form-group
+      = f.label :image_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.collection_select :image_id, ImageUpload.podcast_approved, :id, :name, { prompt: "None" }, class: "form-control"
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :title, placeholder: "Title", class: "form-control"
+  .form-group
+    = f.label :subtitle, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :subtitle, placeholder: "Subtitle", class: "form-control"
+  .form-group
+    = f.label :author, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :author, placeholder: "Author", class: "form-control"
+  .form-group
+    = f.label :summary, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :summary, placeholder: "Summary", class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :explicit
+          Explicit?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"
