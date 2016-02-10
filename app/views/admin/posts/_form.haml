@@ -1,5 +1,5 @@
 = form_for [:admin, @post], html: { class: "form-horizontal" } do |f|
-  - if Episode.unpublished.count.zero?
+  - if !@post.published? && Episode.unpublished.count.zero?
     .form-group
       = f.label :episode_id, class: "col-sm-2 control-label"
       .col-sm-10

@@ -26,12 +26,16 @@
               - Channel.all.each do |channel|
                 %tr
                   %td= channel.published_at_date
-                  %td= channel.image && link_to(channel.image.name, edit_admin_file_path(channel.image))
+                  %td= channel.image && link_to(channel.image.name, channel.image.file.url, target: :_blank)
                   %td= channel.title
                   %td= channel.author
                   %td= channel.owner_name
                   %td= channel.owner_email
                   %td
-                    = link_to "Edit", edit_admin_channel_path(channel)
-                    &vert;
+                    - unless channel.published?
+                      = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_channel_publish_path(channel) }
+                      &vert;
+                      = link_to "Edit", edit_admin_channel_path(channel)
+                      &vert;
                     = link_to "Delete", admin_channel_path(channel), method: :delete, data: { confirm: "Are you sure you want to delete #{channel.title}?" }
+= render partial: "partials/publish_modal"

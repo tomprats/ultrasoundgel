@@ -27,6 +27,16 @@ class Admin::PostsController < AdminController
     end
   end
 
+  def publish
+    @post = Post.find(params[:id])
+    published_at = params[:published_at].blank? ? DateTime.now : DateTime.strptime(params[:published_at], "%m/%d/%Y %I:%M %P")
+    if @post.update(published_at: published_at)
+      redirect_to({ action: :index }, success: "#{@post.title} published")
+    else
+      render :index, warning: @post.errors.full_messages.join(", ")
+    end
+  end
+
   def destroy
     @post = Post.find(params[:id])
     @post.destroy

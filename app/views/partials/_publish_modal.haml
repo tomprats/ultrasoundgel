@@ -1,0 +1,18 @@
+.modal.fade#publish-modal(tabindex="-1" role="dialog")
+  .modal-dialog
+    .modal-content
+      = form_tag "#", class: "form-horizontal" do
+        .modal-header
+          %button.close(type="button" data-dismiss="modal" aria-label="Close")
+            %span(aria-hidden="true") &times;
+          %h4.modal-title Publish
+        .modal-body
+          - if controller_name == "posts"
+            %p Publishing this post will also publish the connected episode.
+          .form-group
+            = label_tag :published_at, "Publish At", class: "control-label col-sm-3"
+            .col-sm-9
+              = datetime_field_tag :published_at, "", placeholder: DateTime.now.strftime("%m/%d/%Y %I:%M %P"), class: "form-control"
+        .modal-footer
+          %button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+          = submit_tag "Publish", class: "btn btn-primary"

@@ -11,4 +11,8 @@ class PagesController < ApplicationController
       render @page.path, layout: true
     end
   end
+
+  def home
+    @posts = Post.published
+  end
 end

@@ -32,6 +32,10 @@
                   %td= episode.title
                   %td= episode.author
                   %td
-                    = link_to "Edit", edit_admin_episode_path(episode)
-                    &vert;
+                    - unless episode.published?
+                      = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_episode_publish_path(episode) }
+                      &vert;
+                      = link_to "Edit", edit_admin_episode_path(episode)
+                      &vert;
                     = link_to "Delete", admin_episode_path(episode), method: :delete, data: { confirm: "Are you sure you want to delete #{episode.title}?" }
+= render partial: "partials/publish_modal"
