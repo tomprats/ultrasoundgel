@@ -1,4 +1,9 @@
 = form_for [:admin, @channel], html: { class: "form-horizontal" } do |f|
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      %p.form-control-static
+        For where these fields are displayed and what they represent, view the guidelines
+        = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#rss", target: :_blank
   - if ImageUpload.podcast_approved.count.zero?
     .form-group
       = f.label :image_id, class: "col-sm-2 control-label"
@@ -15,37 +20,37 @@
   .form-group
     = f.label :title, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :title, placeholder: "Title", class: "form-control"
+      = f.text_field :title, placeholder: "Ultra Sound of Music", class: "form-control"
   .form-group
     = f.label :subtitle, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :subtitle, placeholder: "Subtitle", class: "form-control"
+      = f.text_field :subtitle, placeholder: "Visualize more than muscles", class: "form-control"
   .form-group
     = f.label :author, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :author, placeholder: "Author", class: "form-control"
+      = f.text_field :author, placeholder: "Ultra Sound Gel", class: "form-control"
   .form-group
     = f.label :link, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.url_field :link, placeholder: "Link", class: "form-control"
+      = f.url_field :link, placeholder: "https://www.ultrasoundgel.net", class: "form-control"
   .form-group
     = f.label :owner_name, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :owner_name, placeholder: "Owner Name", class: "form-control"
+      = f.text_field :owner_name, placeholder: "Mike Prats", class: "form-control"
   .form-group
     = f.label :owner_email, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.email_field :owner_email, placeholder: "Owner Email", class: "form-control"
+      = f.email_field :owner_email, placeholder: "mikeprats@gmail.com", class: "form-control"
   .form-group
     = f.label :summary, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :summary, placeholder: "Summary", class: "form-control"
+      = f.text_area :summary, placeholder: "Long-winded description of the channel", class: "form-control"
   .form-group
     = f.label :categories, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :categories, placeholder: "Ex: Tomify, Great Jokes", class: "form-control"
+      = f.text_field :categories, placeholder: "Tomify, Great Jokes", class: "form-control"
       %p.help-block
-        For a list of categories, follow the instructions
+        For a list of categories, read the examples
         = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#category", target: :_blank
   .form-group
     .col-sm-offset-2.col-sm-10
@@ -56,3 +61,4 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
+      %span.help-text This will not yet publish your channel

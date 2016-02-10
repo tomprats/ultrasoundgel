@@ -8,29 +8,29 @@
   .form-group
     = f.label :email, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.email_field :email, placeholder: "Email", class: "form-control"
+      = f.email_field :email, placeholder: "tom@tomprats.com", class: "form-control"
   .form-group
     = f.label :first_name, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :first_name, placeholder: "First Name", class: "form-control"
+      = f.text_field :first_name, placeholder: "Tom", class: "form-control"
   .form-group
     = f.label :last_name, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :last_name, placeholder: "Last Name", class: "form-control"
+      = f.text_field :last_name, placeholder: "Prats", class: "form-control"
   - if @user.id
     .form-group
       = f.label :password, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.password_field :password, placeholder: "Password (Optional)", class: "form-control"
+        = f.password_field :password, placeholder: "(Optional)", class: "form-control"
   - else
     .form-group
       = f.label :password, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.password_field :password, placeholder: "Password", class: "form-control"
+        = f.password_field :password, placeholder: "password", class: "form-control"
     .form-group
       = f.label :password_confirmation, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.password_field :password_confirmation, placeholder: "Password Confirmation", class: "form-control"
+        = f.password_field :password_confirmation, placeholder: "password", class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

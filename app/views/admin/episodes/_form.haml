@@ -1,4 +1,9 @@
 = form_for [:admin, @episode], html: { class: "form-horizontal" } do |f|
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      %p.form-control-static
+        For where these fields are displayed and what they represent, view the guidelines
+        = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#rss", target: :_blank
   - if Channel.count.zero?
     .form-group
       = f.label :channel_id, class: "col-sm-2 control-label"
@@ -41,19 +46,19 @@
   .form-group
     = f.label :title, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :title, placeholder: "Title", class: "form-control"
+      = f.text_field :title, placeholder: "Colon-ial Times", class: "form-control"
   .form-group
     = f.label :subtitle, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :subtitle, placeholder: "Subtitle", class: "form-control"
+      = f.text_field :subtitle, placeholder: "Sub-mach", class: "form-control"
   .form-group
     = f.label :author, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :author, placeholder: "Author", class: "form-control"
+      = f.text_field :author, placeholder: "Ultra Sound Gel", class: "form-control"
   .form-group
     = f.label :summary, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :summary, placeholder: "Summary", class: "form-control"
+      = f.text_area :summary, placeholder: "Long-winded description of the episode", class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
       .checkbox
@@ -63,3 +68,4 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
+      %span.help-text This will not yet publish your episode
