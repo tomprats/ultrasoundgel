@@ -4,8 +4,7 @@ class Admin::ChannelsController < AdminController
   end
 
   def edit
-    @channel = Channel.find(params[:id])
-
+    @channel = Channel.find_by(uid: params[:uid])
     render :index
   end
 
@@ -19,7 +18,7 @@ class Admin::ChannelsController < AdminController
   end
 
   def update
-    @channel = Channel.find(params[:id])
+    @channel = Channel.find_by(uid: params[:uid])
     if @channel.update(channel_params)
       redirect_to({ action: :index }, success: "#{@channel.title} updated")
     else
@@ -28,7 +27,7 @@ class Admin::ChannelsController < AdminController
   end
 
   def publish
-    @channel = Channel.find(params[:id])
+    @channel = Channel.find_by(uid: params[:uid])
     published_at = params[:published_at].blank? ? DateTime.now : DateTime.strptime(params[:published_at], "%m/%d/%Y %I:%M %P")
     if @channel.update(published_at: published_at)
       redirect_to({ action: :index }, success: "#{@channel.title} published")
@@ -38,7 +37,7 @@ class Admin::ChannelsController < AdminController
   end
 
   def destroy
-    @channel = Channel.find(params[:id])
+    @channel = Channel.find_by(uid: params[:uid])
     @channel.destroy
     redirect_to({ action: :index }, danger: "#{@channel.title} deleted")
   end

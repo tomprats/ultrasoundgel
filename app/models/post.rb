@@ -15,8 +15,11 @@ class Post < ApplicationRecord
 
   belongs_to :episode
 
+  before_validation :set_uid, on: :create
   before_save :publish, if: -> (post) { post.published_at_changed? && post.published_at }
   before_destroy :never_published
+
+  to_html :text
 
   def tag_list
     tags && tags.split(",").collect(&:trim)
@@ -35,14 +38,16 @@ class Post < ApplicationRecord
     episode.update(published_at: published_at) unless episode.published_before?(published_at)
   end
 
-  def to_html
-    Rails.cache.fetch(self) do
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-      markdown.render(text || "").html_safe
-    end
+  def to_param
+    uid
   end
 
   private
+  def set_uid
+    self.uid = SecureRandom.urlsafe_base64
+    set_uid if self.class.where(uid: self.uid).exists?
+  end
+
   def never_published
     !published? && !episode.published?
   end

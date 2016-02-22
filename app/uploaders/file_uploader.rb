@@ -7,7 +7,7 @@ class FileUploader < CarrierWave::Uploader::Base
   process :set_model
 
   def store_dir
-    "upload/#{model.id}"
+    "upload/#{model.try(:uid) || model.id}"
   end
 
   def filename
@@ -31,7 +31,6 @@ class FileUploader < CarrierWave::Uploader::Base
     model.content_type = model.file.content_type
 
     TagLib::FileRef.open(model.file.path) { |ref| model.duration = ref.audio_properties.length } if audio?
-    # AudioInfo.open(model.file.path) { |info| model.duration = info.length } if audio?
   end
 
   def audio?(*args)

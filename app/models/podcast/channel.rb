@@ -16,10 +16,27 @@ class Channel < ApplicationRecord
   has_many :episodes
   has_many :posts, through: :episodes
 
+  before_validation :set_uid, on: :create
   before_destroy :never_published
+
+  delegate :url_helpers, to: "Rails.application.routes"
 
   def category_list
     categories && categories.split(",").collect(&:trim)
+  end
+
+  def image_url
+    url_helpers.channel_image_url(uid, format: image.extension)
+  end
+
+  def to_param
+    uid
+  end
+
+  private
+  def set_uid
+    self.uid = SecureRandom.urlsafe_base64
+    set_uid if self.class.where(uid: self.uid).exists?
   end
 
   def never_published

@@ -2,6 +2,7 @@ class CreateUploads < ActiveRecord::Migration
   def change
     create_table :uploads do |t|
       t.string  :type,         null: false, index: true
+      t.string  :uid,          null: false
       t.string  :name,         null: false
       t.string  :file,         null: false
       t.string  :size,         null: false

@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160128044108) do
 
   create_table "channels", force: :cascade do |t|
     t.integer  "image_id"
+    t.string   "uid",                          null: false
     t.string   "title",                        null: false
     t.string   "subtitle"
     t.string   "author"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160128044108) do
 
   create_table "posts", force: :cascade do |t|
     t.integer  "episode_id"
+    t.string   "uid",          null: false
     t.string   "title",        null: false
     t.text     "text"
     t.text     "tags"
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160128044108) do
 
   create_table "uploads", force: :cascade do |t|
     t.string   "type",         null: false
+    t.string   "uid",          null: false
     t.string   "name",         null: false
     t.string   "file",         null: false
     t.string   "size",         null: false

@@ -21,9 +21,17 @@ a {
 em {
   font-size: 24px;
 }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
 
 .btn-themed {
   @include button-variant(white, $theme, $theme);
+}
+
+.breadcrumb li.without:before {
+  padding: 0;
+  content: "";
 }
 
 @for $i from 1 through 8 {

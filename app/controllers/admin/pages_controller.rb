@@ -7,7 +7,6 @@ class Admin::PagesController < AdminController
   def edit
     @page = Page.find(params[:id])
     @pages = Page.all
-
     render :index
   end
 

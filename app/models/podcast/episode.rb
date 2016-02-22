@@ -23,6 +23,8 @@ class Episode < ApplicationRecord
   before_save :publish, if: -> (episode) { episode.published_at_changed? && episode.published_at }
   before_destroy :never_published
 
+  delegate :url_helpers, to: "Rails.application.routes"
+
   def publishable
     old_published_at = channel.published_at
     channel.published_at = published_at
@@ -32,6 +34,18 @@ class Episode < ApplicationRecord
 
   def publish
     channel.update(published_at: published_at) unless channel.published_before?(published_at)
+  end
+
+  def audio_url
+    url_helpers.episode_audio_url(uid, format: audio.extension)
+  end
+
+  def image_url
+    url_helpers.episode_image_url(uid, format: image.extension)
+  end
+
+  def to_param
+    uid
   end
 
   private

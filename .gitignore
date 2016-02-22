@@ -12,4 +12,5 @@
 !/log/.keep
 /tmp
 /config/local_variables.rb
+/config/local_variables.example.rb
 /public/uploads/*

@@ -4,8 +4,7 @@ class Admin::EpisodesController < AdminController
   end
 
   def edit
-    @episode = Episode.find(params[:id])
-
+    @episode = Episode.find_by(uid: params[:uid])
     render :index
   end
 
@@ -19,7 +18,7 @@ class Admin::EpisodesController < AdminController
   end
 
   def update
-    @episode = Episode.find(params[:id])
+    @episode = Episode.find_by(uid: params[:uid])
     if @episode.update(episode_params)
       redirect_to({ action: :index }, success: "#{@episode.title} updated")
     else
@@ -28,7 +27,7 @@ class Admin::EpisodesController < AdminController
   end
 
   def publish
-    @episode = Episode.find(params[:id])
+    @episode = Episode.find_by(uid: params[:uid])
     published_at = params[:published_at].blank? ? DateTime.now : DateTime.strptime(params[:published_at], "%m/%d/%Y %I:%M %P")
     if @episode.update(published_at: published_at)
       redirect_to({ action: :index }, success: "#{@episode.title} published")
@@ -38,7 +37,7 @@ class Admin::EpisodesController < AdminController
   end
 
   def destroy
-    @episode = Episode.find(params[:id])
+    @episode = Episode.find_by(uid: params[:uid])
     @episode.destroy
     redirect_to({ action: :index }, danger: "#{@episode.title} deleted")
   end

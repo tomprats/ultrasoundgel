@@ -9,13 +9,20 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :create, :update, :destroy]
     resources :pages, only: [:index, :edit, :create, :update, :destroy]
     resources :uploads, only: [:index, :create, :destroy]
-    resources :channels, only: [:index, :edit, :create, :update, :destroy]
-    resources :episodes, only: [:index, :edit, :create, :update, :destroy]
-    resources :posts, only: [:show, :index, :edit, :create, :update, :destroy]
-    post "channels/:id/publish", to: "channels#publish", as: :channel_publish
-    post "episodes/:id/publish", to: "episodes#publish", as: :episode_publish
-    post "posts/:id/publish", to: "posts#publish", as: :post_publish
+    resources :channels, only: [:index, :edit, :create, :update, :destroy], param: :uid
+    resources :episodes, only: [:index, :edit, :create, :update, :destroy], param: :uid
+    resources :posts, only: [:index, :edit, :create, :update, :destroy], param: :uid
+    post "channels/:uid/publish", to: "channels#publish", as: :channel_publish
+    post "episodes/:uid/publish", to: "episodes#publish", as: :episode_publish
+    post "posts/:uid/publish", to: "posts#publish", as: :post_publish
   end
+
+  get "channels/:uid", to: "channels#show", as: :channel
+  get "channels/:uid/image", to: "channels#image", as: :channel_image
+  get "episodes/:uid", to: "episodes#show", as: :episode
+  get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
+  get "episodes/:uid/image", to: "episodes#image", as: :episode_image
+  get "posts/:uid", to: "posts#show", as: :post
 
   get ":path", to: "pages#show", as: :page
 end

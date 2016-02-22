@@ -19,6 +19,7 @@ class CreatePodcasts < ActiveRecord::Migration
 
     create_table :channels do |t|
       t.integer :image_id
+      t.string  :uid,   null: false
       t.string  :title, null: false
       t.string  :subtitle
       t.string  :author

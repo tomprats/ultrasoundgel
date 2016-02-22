@@ -1,0 +1,33 @@
+.container-fluid
+  .row
+    .col-md-6.col-md-offset-3
+      .row
+        .col-xs-12
+          %ol.breadcrumb
+            %li= link_to "Podcasts", home_path
+            %li.active= @channel.title
+      .row
+        .col-sm-6
+          = image_tag @channel.image_url, class: "img-responsive"
+          .spacer-5
+          %hr
+          .spacer-5
+          %h3 Episodes
+          - @channel.episodes.each do |episode|
+            .row
+              .col-xs-12
+                %h4
+                  = episode.title
+                  %span
+                    = link_to fa_icon("pencil-square"), episode.post
+                    = link_to fa_icon("headphones"), episode.audio_url
+                    = link_to fa_icon("info-circle"), episode
+          .hidden-lg.hidden-md.hidden-sm
+            .spacer-5
+            %hr
+            .spacer-5
+        .col-sm-6
+          %h3= @channel.title
+          %h4= @channel.subtitle
+          %p By #{@channel.author} on #{@channel.published_at_date || "Unpublished"}
+          %p= @channel.summary

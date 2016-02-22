@@ -7,7 +7,6 @@ class Admin::UsersController < AdminController
   def edit
     @user = User.find(params[:id])
     @users = User.all
-
     render :index
   end
 

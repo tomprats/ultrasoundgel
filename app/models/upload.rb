@@ -7,7 +7,22 @@ class Upload < ApplicationRecord
   default_scope { order(:created_at) }
   scope :podcast_approved, -> { where("content_type ilike any(array[?])", podcast_approved_types_sql) }
 
+  before_validation :set_uid, on: :create
+
+  def extension
+    file.url.split(".")[-1]
+  end
+
+  def to_param
+    uid
+  end
+
   private
+  def set_uid
+    self.uid = SecureRandom.urlsafe_base64
+    set_uid if self.class.where(uid: self.uid).exists?
+  end
+
   def self.podcast_approved_types
     []
   end

@@ -13,7 +13,7 @@ class Admin::UploadsController < AdminController
   end
 
   def destroy
-    @upload = Upload.find(params[:id])
+    @upload = Upload.find_by(uid: params[:uid])
     @upload.destroy
     redirect_to({ action: :index }, danger: "#{@upload.name} deleted")
   end

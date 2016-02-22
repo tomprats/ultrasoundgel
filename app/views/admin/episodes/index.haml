@@ -15,6 +15,7 @@
           %table.table.table-bordered.table-hover
             %thead
               %tr
+                %th UID
                 %th Published
                 %th Channel
                 %th Audio
@@ -25,6 +26,7 @@
             %tbody
               - Episode.all.each do |episode|
                 %tr
+                  %td= episode.uid
                   %td= episode.published_at_date
                   %td= episode.channel && link_to(episode.channel.title, edit_admin_channel_path(episode.channel))
                   %td= episode.audio && link_to(episode.audio.name, episode.audio.file.url, target: :_blank)
@@ -32,6 +34,8 @@
                   %td= episode.title
                   %td= episode.author
                   %td
+                    = link_to "View", episode
+                    &vert;
                     - unless episode.published?
                       = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_episode_publish_path(episode) }
                       &vert;

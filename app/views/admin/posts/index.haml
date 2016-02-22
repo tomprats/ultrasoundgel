@@ -28,7 +28,7 @@
                   %td= post.title
                   %td= post.tags
                   %td
-                    = link_to "View", admin_post_path(post)
+                    = link_to "View", post
                     &vert;
                     - unless post.published?
                       = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_post_publish_path(post) }
