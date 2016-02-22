@@ -11,6 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
+/config/database.yml
 /config/local_variables.rb
 /config/local_variables.example.rb
 /public/uploads/*
