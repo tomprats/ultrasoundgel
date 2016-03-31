@@ -1,0 +1,33 @@
+.container-fluid
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 App
+        .panel-body
+          = render partial: "form"
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 Images
+        %table.table.table-bordered.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Link
+          %tbody
+            %tr
+              %td Share Image
+              %td
+                - if app.navbar_image
+                  = link_to app.share_image.file.url, app.share_image.file.url
+                - else
+                  None
+            %tr
+              %td Navbar Image
+              %td
+                - if app.navbar_image
+                  = link_to app.navbar_image.file.url, app.navbar_image.file.url
+                - else
+                  None

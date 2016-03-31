@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128044108) do
+ActiveRecord::Schema.define(version: 20160330062624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "apps", force: :cascade do |t|
+    t.string "share_title"
+    t.string "share_description"
+    t.string "share_image_id"
+    t.string "navbar_image_id"
+    t.string "contact_email"
+    t.string "twitter"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "google_analytics_code"
+    t.text   "sidebar"
+  end
 
   create_table "channels", force: :cascade do |t|
     t.integer  "image_id"

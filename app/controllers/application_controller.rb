@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   add_flash_types :success, :info, :warning, :danger
 
+  def app
+    @app ||= App.default
+  end
+  helper_method :app
+
   def current_user
     @current_user ||= User.find_by(id: session[:current_user_id])
   end

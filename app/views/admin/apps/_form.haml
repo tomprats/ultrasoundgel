@@ -1,0 +1,44 @@
+= form_for [:admin, app], html: { class: "form-horizontal" } do |f|
+  .form-group
+    = f.label :share_title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :share_title, placeholder: "Share Title", class: "form-control"
+  .form-group
+    = f.label :share_description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :share_description, placeholder: "Share Description", class: "form-control"
+  .form-group
+    = f.label :share_image_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.collection_select :share_image_id, ImageUpload.all, :id, :name, { prompt: "None" }, class: "form-control"
+  .form-group
+    = f.label :navbar_image_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.collection_select :navbar_image_id, ImageUpload.all, :id, :name, { prompt: "None" }, class: "form-control"
+  .form-group
+    = f.label :sidebar, class: "col-sm-2 control-label"
+    .col-sm-10
+      = render partial: "partials/markdown_field", locals: { f: f, field: :sidebar }
+  .form-group
+    = f.label :contact_email, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.email_field :contact_email, placeholder: "Contact Email", class: "form-control"
+  .form-group
+    = f.label :twitter, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :twitter, placeholder: "Twitter", class: "form-control"
+  .form-group
+    = f.label :facebook, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :facebook, placeholder: "Facebook", class: "form-control"
+  .form-group
+    = f.label :instagram, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :instagram, placeholder: "Instagram", class: "form-control"
+  .form-group
+    = f.label :google_analytics_code, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :google_analytics_code, placeholder: "Google Analytics Code", class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

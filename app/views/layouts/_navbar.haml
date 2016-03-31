@@ -2,6 +2,7 @@
   .admin-navbar.navbar.navbar-default.center
     .container-fluid
       %ul.nav.navbar-nav
+        %li= link_to "App", admin_apps_path
         %li= link_to "Users", admin_users_path
         %li= link_to "Pages", admin_pages_path
         %li= link_to "Uploads", admin_uploads_path
@@ -11,7 +12,10 @@
         %li= link_to "Logout", session_path, method: :delete
 %nav.navbar.navbar-default.center
   .container-fluid
+    - if false && app.navbar_image
+      .navbar-header
+        = link_to home_path, class: "navbar-brand" do
+          = image_tag app.navbar_image.file.small, class: "img-responsive"
     %ul.nav.navbar-nav
-      %li= link_to "Home", home_path
       - pages.each do |page|
         %li= link_to page.name, page_path(page.path)

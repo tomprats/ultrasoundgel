@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   root "pages#home", as: :home
+  get :home, to: "pages#home"
 
   resource :session, only: [:new, :create, :destroy]
 
   namespace :admin do
-    root "users#index"
+    root "apps#index"
 
+    resources :apps, only: [:index, :update]
     resources :users, only: [:index, :edit, :create, :update, :destroy]
     resources :pages, only: [:index, :edit, :create, :update, :destroy]
     resources :uploads, only: [:index, :create, :destroy]

@@ -10,6 +10,14 @@ class ApplicationRecord < ActiveRecord::Base
         end
       end
     end
+
+    define_method("bust_html_cache") do
+      attrs.each do |attr|
+        Rails.cache.delete("#{self.class.name.downcase}-#{id}-#{attr}")
+      end
+    end
+
+    after_save :bust_html_cache
   end
 
   def self.date_from(*attrs)

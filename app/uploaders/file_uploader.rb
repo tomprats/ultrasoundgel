@@ -22,6 +22,14 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
+  version :small, if: :image? do
+    process resize_to_fill: [400, 400]
+
+    def full_filename(for_file = model.file.file)
+      "small.#{for_file.split(".").last}"
+    end
+  end
+
   def set_model
     model.type = "AudioUpload" if model.file.content_type.include? "audio"
     model.type ||= "ImageUpload" if model.file.content_type.include? "image"

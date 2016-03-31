@@ -1,19 +1,21 @@
-- title = content_for(:meta_title) ? yield(:meta_title) : ENV["TITLE"]
-- description = content_for(:meta_description) ? yield(:meta_description) : ENV["DESCRIPTION"]
-- image = content_for(:meta_image) ? yield(:meta_image) : asset_url("logo.jpg")
+- title = content_for(:meta_title) ? yield(:meta_title) : app.share_title
+- description = content_for(:meta_description) ? yield(:meta_description) : app.share_description
+- image = yield(:meta_image) if content_for(:meta_image)
+- image ||= app.share_image.file.url if app.share_image
 - url = request.original_url
 
 %title= title
 %meta(name="description" content="#{description}")
 %link(rel="canonical" href="#{url}")
 
-%meta(property="og:type" content="website")
+%meta(property="og:type" content="article")
 %meta(property="og:title" content="#{title}")
 %meta(property="og:description" content="#{description}")
 %meta(property="og:image" content="#{image}")
 %meta(property="og:url" content="#{url}")
 %meta(name="twitter:card" content="summary")
-%meta(name="twitter:site" content="@tomprats")
+- if app.twitter.present?
+  %meta(name="twitter:site" content="@#{app.twitter}")
 %meta(name="twitter:title" content="#{title}")
 %meta(name="twitter:description" content="#{description}")
 %meta(name="twitter:image" content="#{image}")
