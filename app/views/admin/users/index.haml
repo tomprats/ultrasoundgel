@@ -10,12 +10,36 @@
     .col-xs-12
       .panel.panel-default
         .panel-heading
+          %h4 Admins
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th Email
+                %th First Name
+                %th Last Name
+                %th Created At
+                %th
+            %tbody
+              - User.admin.each do |admin|
+                %tr
+                  %td= admin.email
+                  %td= admin.first_name
+                  %td= admin.last_name
+                  %td= admin.created_at_date
+                  %td
+                    = link_to "Edit", edit_admin_user_path(admin)
+                    &vert;
+                    = link_to "Delete", admin_user_path(admin), method: :delete, data: { confirm: "Are you sure you want to delete #{admin.name}?" }
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
           %h4 Users
         .table-responsive
           %table.table.table-bordered.table-hover
             %thead
               %tr
-                %th Admin
                 %th Email
                 %th First Name
                 %th Last Name
@@ -24,7 +48,6 @@
             %tbody
               - @users.each do |user|
                 %tr
-                  %td= user.admin ? "Yes" : "No"
                   %td= user.email
                   %td= user.first_name
                   %td= user.last_name

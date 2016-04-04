@@ -1,0 +1,51 @@
+.new-comment.row(id="post-#{post.id}-comments-new")
+  .col-xs-12
+    = form_for Comment.new(post: post) do |f|
+      = f.hidden_field :post_id, value: post.id
+      = f.text_area :text, placeholder: "What do you think?", class: "form-control"
+      - if current_user
+        .row
+          .col-sm-8
+            .checkbox
+              %label
+                = f.check_box :anonymous
+                Post Anonymously?
+          .col-sm-4
+            = f.submit "Comment", class: "btn btn-primary pull-right"
+      - else
+        = hidden_field_tag :recaptcha
+        %button.btn.btn-primary.pull-right.open-comment-modal(type="button") Comment
+.comments.hidden(id="post-#{post.id}-comments")
+  - post.comments.each do |comment|
+    .comment.media
+      .media-left
+        = image_tag comment.image, width: 60, class: "media-object"
+      .media-body
+        .small
+          By #{comment.name} on #{comment.created_at_date}
+          - if current_user && (current_user == comment.user || current_user.admin)
+            = link_to "x", comment, method: :delete, class: "pull-right", data: { confirm: "Are you sure you want to hide this comment?" }
+        = comment.text
+- unless current_user
+  .modal.fade#comment-modal(tabindex="-1" role="dialog")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close(type="button" data-dismiss="modal" aria-label="Close")
+            %span(aria-hidden="true") &times;
+          %h4.modal-title Comment
+        .modal-body
+          .row.text-center
+            .col-md-6
+              .g-recaptcha.inline-block(data-sitekey="#{ENV["RECAPTCHA_PUBLIC_KEY"]}")
+            .col-md-6
+              or
+              = link_to "Sign In or Up", new_session_path, target: :_blank
+              to
+              %ul.text-left
+                %li Comment Publicly
+                %li Manage Comments
+                %li Recieve Notifications
+        .modal-footer
+          %button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+          %button.btn.btn-primary.save-comment(type="button") Comment

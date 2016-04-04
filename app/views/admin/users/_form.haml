@@ -32,5 +32,9 @@
       .col-sm-10
         = f.password_field :password_confirmation, placeholder: "password", class: "form-control"
   .form-group
+    = f.label :image, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.file_field :image, class: "form-control"
+  .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

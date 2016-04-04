@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get :home, to: "pages#home"
 
   resource :session, only: [:new, :create, :destroy]
+  resources :comments, only: [:create, :destroy]
+  resource :user, only: [:create, :edit, :update]
 
   namespace :admin do
     root "apps#index"

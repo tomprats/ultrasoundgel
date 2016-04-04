@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330062624) do
+ActiveRecord::Schema.define(version: 20160402070114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,19 @@ ActiveRecord::Schema.define(version: 20160330062624) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["published_at"], name: "index_channels_on_published_at", using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.boolean  "active",     default: true
+    t.text     "text"
+    t.boolean  "anonymous"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["active", "created_at"], name: "index_comments_on_active_and_created_at", using: :btree
+    t.index ["post_id"], name: "index_comments_on_post_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "episodes", force: :cascade do |t|
@@ -113,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160330062624) do
     t.string   "password_digest",                 null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "image"
     t.index ["admin"], name: "index_users_on_admin", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["last_name", "first_name"], name: "index_users_on_last_name_and_first_name", using: :btree

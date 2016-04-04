@@ -266,6 +266,8 @@ GEM
       builder
       nokogiri (>= 1.4.1)
       trollop
+    recaptcha (1.2.0)
+      json
     redcarpet (3.3.4)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -327,6 +329,7 @@ DEPENDENCIES
   pg
   pry
   rails!
+  recaptcha
   redcarpet
   sass-rails
   spring

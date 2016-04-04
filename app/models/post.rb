@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
   include Published
 
+  has_many :comments
+  belongs_to :episode
+
   validates_presence_of :title
   validate :episode_check, if: :episode_id_changed?
 
@@ -12,8 +15,6 @@ class Post < ApplicationRecord
   on_unpublish do |record|
     record.validate :never_published
   end
-
-  belongs_to :episode
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (post) { post.published_at_changed? && post.published_at }

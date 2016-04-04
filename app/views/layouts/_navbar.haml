@@ -9,7 +9,6 @@
         %li= link_to "Channels", admin_channels_path
         %li= link_to "Episodes", admin_episodes_path
         %li= link_to "Posts", admin_posts_path
-        %li= link_to "Logout", session_path, method: :delete
 %nav.navbar.navbar-default.center
   .container-fluid
     - if false && app.navbar_image
@@ -19,3 +18,8 @@
     %ul.nav.navbar-nav
       - pages.each do |page|
         %li= link_to page.name, page_path(page.path)
+      - if current_user
+        %li= link_to "Profile", edit_user_path
+        %li= link_to "Sign Out", session_path, method: :delete
+      - else
+        %li= link_to "Sign In/Up", new_session_path

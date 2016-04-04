@@ -28,6 +28,9 @@ h1, h2, h3, h4, h5, h6 {
 .btn-themed {
   @include button-variant(white, $theme, $theme);
 }
+.inline-block {
+  display: inline-block;
+}
 
 .breadcrumb li.without:before {
   padding: 0;

@@ -8,10 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by(email: email)
     if user && user.authenticate(params[:user][:password])
       session[:current_user_id] = user.id
-      redirect_to admin_root_path
+      redirect_to home_path, success: "Signed In!"
     else
       @user = User.new(email: email)
-      render :new
+      render :new, warning: "Invalid email/password combination"
     end
   end
 
