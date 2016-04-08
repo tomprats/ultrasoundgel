@@ -1,0 +1,22 @@
+.row
+  .col-sm-6
+    = image_tag episode_image_url(episode.uid, format: episode.audio.extension), class: "img-responsive"
+    .hidden-lg.hidden-md.hidden-sm
+      .spacer-5
+      %hr
+      .spacer-5
+  .col-sm-6
+    %h3.no-space= episode.title
+    .spacer-5
+    %div
+      - if episode.post && episode.post.published_at_date
+        = link_to episode.post do
+          = fa_icon("pencil-square")
+          Post
+      = link_to episode_audio_url(episode.uid, format: episode.audio.extension) do
+        = fa_icon("headphones")
+        Listen
+    .spacer-10
+    %h4= episode.subtitle
+    %p By #{episode.author} on #{episode.published_at_date || "Unpublished"}
+    %p= episode.summary

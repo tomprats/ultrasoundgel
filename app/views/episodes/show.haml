@@ -1,29 +1,4 @@
 .container-fluid
   .row
     .col-md-6.col-md-offset-3
-      .row
-        .col-xs-12
-          %ol.breadcrumb
-            %li= link_to "Podcasts", home_path
-            %li= link_to @episode.channel.title, @episode.channel
-            %li.active= @episode.title
-            %li.without.pull-right
-              %div
-                = link_to @episode.post do
-                  = fa_icon("pencil-square")
-                  Post
-                = link_to @episode.audio_url do
-                  = fa_icon("headphones")
-                  Podcast
-      .row
-        .col-sm-6
-          = image_tag @episode.image_url, class: "img-responsive"
-          .hidden-lg.hidden-md.hidden-sm
-            .spacer-5
-            %hr
-            .spacer-5
-        .col-sm-6
-          %h3= @episode.title
-          %h4= @episode.subtitle
-          %p By #{@episode.author} on #{@episode.published_at_date || "Unpublished"}
-          %p= @episode.summary
+      = render partial: "partials/episode", locals: { episode: @episode }

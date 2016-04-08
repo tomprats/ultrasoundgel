@@ -2,6 +2,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   has_many :comments
+  has_many :comment_notifications
 
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email

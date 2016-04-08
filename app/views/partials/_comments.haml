@@ -11,11 +11,11 @@
                 = f.check_box :anonymous
                 Post Anonymously?
           .col-sm-4
-            = f.submit "Comment", class: "btn btn-primary pull-right"
+            = f.submit "Comment", class: "btn btn-themed pull-right"
       - else
         = hidden_field_tag :recaptcha
-        %button.btn.btn-primary.pull-right.open-comment-modal(type="button") Comment
-.comments.hidden(id="post-#{post.id}-comments")
+        %button.btn.btn-themed.pull-right.open-comment-modal(type="button") Comment
+.comments(id="post-#{post.id}-comments")
   - post.comments.each do |comment|
     .comment.media
       .media-left

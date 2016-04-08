@@ -32,9 +32,9 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
 }
 
-.breadcrumb li.without:before {
+.no-space {
+  margin: 0;
   padding: 0;
-  content: "";
 }
 
 @for $i from 1 through 8 {

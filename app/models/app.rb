@@ -4,7 +4,7 @@ class App < ApplicationRecord
 
   validate :only_one
 
-  to_html :sidebar
+  to_html :announcements, :resources
 
   def self.default
     @app ||= App.first

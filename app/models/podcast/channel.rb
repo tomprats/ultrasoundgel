@@ -19,14 +19,8 @@ class Channel < ApplicationRecord
   before_validation :set_uid, on: :create
   before_destroy :never_published
 
-  delegate :url_helpers, to: "Rails.application.routes"
-
   def category_list
     categories && categories.split(",").collect(&:trim)
-  end
-
-  def image_url
-    url_helpers.channel_image_url(uid, format: image.extension)
   end
 
   def to_param

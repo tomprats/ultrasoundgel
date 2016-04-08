@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
   def home
     @page = Page.home
-    @posts = Post.published
+    @episodes = Episode.published
 
     show
   end

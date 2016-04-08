@@ -16,9 +16,13 @@
     .col-sm-10
       = f.collection_select :navbar_image_id, ImageUpload.all, :id, :name, { prompt: "None" }, class: "form-control"
   .form-group
-    = f.label :sidebar, class: "col-sm-2 control-label"
+    = f.label :announcements, class: "col-sm-2 control-label"
     .col-sm-10
-      = render partial: "partials/markdown_field", locals: { f: f, field: :sidebar }
+      = render partial: "partials/markdown_field", locals: { f: f, field: :announcements }
+  .form-group
+    = f.label :resources, class: "col-sm-2 control-label"
+    .col-sm-10
+      = render partial: "partials/markdown_field", locals: { f: f, field: :resources }
   .form-group
     = f.label :contact_email, class: "col-sm-2 control-label"
     .col-sm-10

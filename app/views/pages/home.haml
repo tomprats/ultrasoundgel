@@ -1,13 +1,22 @@
 .container-fluid
   .row
-    .col-md-6(class="col-md-offset-#{app.sidebar.blank? ? 3 : 1}")
+    - sidebar = app.announcements.blank? && app.resources.blank?
+    .col-md-6(class="col-md-offset-#{sidebar ? 3 : 1}")
       - if @html
         .text-center= @html
-      - @posts.each do |post|
-        = render partial: "partials/post", locals: { post: post }
-    - if app.sidebar.present?
+      - @episodes.each_with_index do |episode, index|
+        = render partial: "partials/episode", locals: { episode: episode }
+        - unless index == @episodes.length - 1
+          %hr
+    - if app.announcements.present?
       .col-md-4
         .spacer-10
         .panel.panel-success
-          .panel-heading More Information
-          .panel-body= app.sidebar_to_html
+          .panel-heading Announcements
+          .panel-body= app.announcements_to_html
+    - if app.resources.present?
+      .col-md-4
+        .spacer-10
+        .panel.panel-success
+          .panel-heading Resources
+          .panel-body= app.resources_to_html

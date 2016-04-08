@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
+    @post = @comment.post
+
     if current_user
       recaptcha = true
       @comment.user = current_user
@@ -13,9 +15,13 @@ class CommentsController < ApplicationController
     end
 
     if recaptcha && @comment.save
-      redirect_to @comment.post, success: "Comment Saved"
+      current_user && current_user.comment_notifications.find_or_create_by(post_id: @post.id)
+      User.joins(:comment_notifications).where(comment_notifications: { post_id: @post.id }).each do |user|
+        PostMailer.comment_email(user, post_url(@post)).deliver_now
+      end
+      redirect_to @post, success: "Comment Saved"
     else
-      redirect_to @comment.post, warning: @comment.errors.full_messages.join(", ")
+      redirect_to @post, warning: @comment.errors.full_messages.join(", ")
     end
   end
 
