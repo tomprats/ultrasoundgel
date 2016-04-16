@@ -32,7 +32,10 @@
                   %td= channel.owner_name
                   %td= channel.owner_email
                   %td
-                    - unless channel.published?
+                    - if channel.published?
+                      = link_to "Edit", edit_admin_channel_path(channel), data: { confirm: "#{channel.title} is already published. Still want to edit?" }
+                      &vert;
+                    - else
                       = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_channel_publish_path(channel) }
                       &vert;
                       = link_to "Edit", edit_admin_channel_path(channel)

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get "episodes/:uid", to: "episodes#show", as: :episode
   get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
   get "episodes/:uid/image", to: "episodes#image", as: :episode_image
+  get :feed, to: "channels#index"
 
   get ":path", to: "pages#show", as: :page
 end

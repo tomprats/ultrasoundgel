@@ -20,7 +20,7 @@ class Channel < ApplicationRecord
   before_destroy :never_published
 
   def category_list
-    categories && categories.split(",").collect(&:trim)
+    categories ? categories.split(",").collect(&:strip) : []
   end
 
   def to_param

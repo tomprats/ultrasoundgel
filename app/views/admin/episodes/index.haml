@@ -36,7 +36,10 @@
                   %td
                     = link_to "View", episode
                     &vert;
-                    - unless episode.published?
+                    - if episode.published?
+                      = link_to "Edit", edit_admin_episode_path(episode), data: { confirm: "#{episode.title} is already published. Still want to edit?" }
+                      &vert;
+                    - else
                       = link_to "Publish", "#", class: "publish", data: { toggle: "modal", target: "#publish-modal", action: admin_episode_publish_path(episode) }
                       &vert;
                       = link_to "Edit", edit_admin_episode_path(episode)
