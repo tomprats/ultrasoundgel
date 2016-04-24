@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407062340) do
+ActiveRecord::Schema.define(version: 20160420001453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20160407062340) do
   create_table "apps", force: :cascade do |t|
     t.string "share_title"
     t.string "share_description"
-    t.string "share_image_id"
-    t.string "navbar_image_id"
+    t.string "share_image"
+    t.string "navbar_image"
     t.string "contact_email"
     t.string "twitter"
     t.string "facebook"

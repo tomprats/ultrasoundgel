@@ -15,19 +15,17 @@
           %thead
             %tr
               %th Name
-              %th Link
+              %th Image
           %tbody
             %tr
               %td Share Image
-              %td
-                - if app.navbar_image
-                  = link_to app.share_image.file.url, app.share_image.file.url
-                - else
-                  None
+              - if app.share_image.present?
+                %td= image_tag app.share_image.square
+              - else
+                %td None
             %tr
               %td Navbar Image
-              %td
-                - if app.navbar_image
-                  = link_to app.navbar_image.file.url, app.navbar_image.file.url
-                - else
-                  None
+              - if app.navbar_image.present?
+                %td= image_tag app.navbar_image.small
+              - else
+                %td None

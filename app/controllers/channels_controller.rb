@@ -2,7 +2,7 @@ class ChannelsController < ApplicationController
   before_action :set_channel
 
   def image
-    redirect_to @channel.image.file.url
+    redirect_to @channel.image.file.large.url
   end
 
   def index

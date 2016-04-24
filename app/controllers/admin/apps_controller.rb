@@ -11,7 +11,7 @@ class Admin::AppsController < AdminController
   def app_params
     params.require(:app).permit(
       :share_title, :share_description,
-      :share_image_id, :navbar_image_id,
+      :share_image, :navbar_image,
       :announcements, :resources,
       :twitter, :facebook, :instagram,
       :contact_email, :google_analytics_code

@@ -6,7 +6,7 @@ class EpisodesController < ApplicationController
   end
 
   def image
-    redirect_to @episode.image.file.url
+    redirect_to @episode.image.file.large.url
   end
 
   private

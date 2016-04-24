@@ -1,25 +1,37 @@
 - if current_user.try(:admin)
   .admin-navbar.navbar.navbar-default.center
     .container-fluid
-      %ul.nav.navbar-nav
-        %li= link_to "App", admin_apps_path
-        %li= link_to "Users", admin_users_path
-        %li= link_to "Pages", admin_pages_path
-        %li= link_to "Uploads", admin_uploads_path
-        %li= link_to "Channels", admin_channels_path
-        %li= link_to "Episodes", admin_episodes_path
-        %li= link_to "Posts", admin_posts_path
+      .navbar-header
+        = link_to "Admin", admin_root_path, class: "navbar-brand"
+        %button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#admin-navbar")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+      #admin-navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to "App", admin_apps_path
+          %li= link_to "Users", admin_users_path
+          %li= link_to "Pages", admin_pages_path
+          %li= link_to "Uploads", admin_uploads_path
+          %li= link_to "Channels", admin_channels_path
+          %li= link_to "Episodes", admin_episodes_path
+          %li= link_to "Posts", admin_posts_path
 %nav.navbar.navbar-default.center
   .container-fluid
-    - if false && app.navbar_image
+    - if app.navbar_image.present?
       .navbar-header
         = link_to home_path, class: "navbar-brand" do
-          = image_tag app.navbar_image.file.small, class: "img-responsive"
-    %ul.nav.navbar-nav
-      - pages.each do |page|
-        %li= link_to page.name, page_path(page.path)
-      - if current_user
-        %li= link_to "Profile", edit_user_path
-        %li= link_to "Sign Out", session_path, method: :delete
-      - else
-        %li= link_to "Sign In/Up", new_session_path
+          = image_tag app.navbar_image.small, height: 40, alt: "Logo"
+        %button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#navbar")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+    #navbar.navbar-collapse.collapse
+      %ul.nav.navbar-nav.navbar-right
+        - pages.each do |page|
+          %li= link_to page.name, page_path(page.path)
+        - if current_user
+          %li= link_to "Profile", edit_user_path
+          %li= link_to "Sign Out", session_path, method: :delete
+        - else
+          %li= link_to "Sign In/Up", new_session_path

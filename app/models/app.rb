@@ -1,14 +1,14 @@
 class App < ApplicationRecord
-  belongs_to :share_image, class_name: ImageUpload
-  belongs_to :navbar_image, class_name: ImageUpload
+  mount_uploader :share_image, ShareImageUploader
+  mount_uploader :navbar_image, NavbarImageUploader
 
   validate :only_one
 
   to_html :announcements, :resources
 
   def self.default
-    @app ||= App.first
-    @app ||= App.create(
+    app ||= App.first
+    app ||= App.create(
       share_title: "Ultrasound GEL",
       share_description: "The Ultrasound GEL Podcast",
       contact_email: "michaelpratsmd@gmail.com"

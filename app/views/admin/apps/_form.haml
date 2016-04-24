@@ -8,13 +8,13 @@
     .col-sm-10
       = f.text_area :share_description, placeholder: "Share Description", class: "form-control"
   .form-group
-    = f.label :share_image_id, class: "col-sm-2 control-label"
+    = f.label :share_image, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.collection_select :share_image_id, ImageUpload.all, :id, :name, { prompt: "None" }, class: "form-control"
+      = f.file_field :share_image, class: "form-control"
   .form-group
-    = f.label :navbar_image_id, class: "col-sm-2 control-label"
+    = f.label :navbar_image, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.collection_select :navbar_image_id, ImageUpload.all, :id, :name, { prompt: "None" }, class: "form-control"
+      = f.file_field :navbar_image, class: "form-control"
   .form-group
     = f.label :announcements, class: "col-sm-2 control-label"
     .col-sm-10
