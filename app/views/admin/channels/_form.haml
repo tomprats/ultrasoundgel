@@ -12,7 +12,7 @@
           There are no uploaded images with the right file type available.
           = link_to "Create one", admin_uploads_path
           and attach it here before publishing this channel.
-  - elsif @channel.published_at.blank?
+  - else
     .form-group
       = f.label :image_id, class: "col-sm-2 control-label"
       .col-sm-10

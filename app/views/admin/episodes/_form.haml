@@ -12,7 +12,7 @@
           There are no channels available.
           = link_to "Create one", admin_channels_path
           and attach it here before publishing this episode.
-  - elsif @episode.published_at.blank?
+  - else
     .form-group
       = f.label :channel_id, class: "col-sm-2 control-label"
       .col-sm-10
@@ -25,7 +25,7 @@
           There are no uploaded audio files with the right file type available.
           = link_to "Create one", admin_uploads_path
           and attach it here before publishing this episode.
-  - elsif @episode.published_at.blank?
+  - else
     .form-group
       = f.label :audio_id, class: "col-sm-2 control-label"
       .col-sm-10
@@ -38,7 +38,7 @@
           There are no uploaded images with the right file type available.
           = link_to "Create one", admin_uploads_path
           and attach it here before publishing this episode.
-  - elsif @episode.published_at.blank?
+  - else
     .form-group
       = f.label :image_id, class: "col-sm-2 control-label"
       .col-sm-10
