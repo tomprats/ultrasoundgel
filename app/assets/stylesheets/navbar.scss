@@ -15,8 +15,14 @@
   border-radius: 0;
 }
 
+$navbar-height: 110px;
+$navbar-icon-height: 16px;
+$navbar-icon-padding-height: 14px;
+$navbar-icon-margin-height: ($navbar-height - $navbar-icon-height - $navbar-icon-padding-height*2)/2;
+$navbar-brand-height: $navbar-height/2;
+$navbar-brand-padding-height: $navbar-brand-height/2;
+
 nav.navbar {
-  min-height: 70px;
   border-color: $theme;
   background-color: $theme;
   .navbar-nav > li > a {
@@ -26,9 +32,6 @@ nav.navbar {
     height: auto;
   }
   .navbar-toggle {
-    padding: 14px 10px;
-    margin-top: 13px;
-    margin-bottom: 13px;
     &:hover, &:focus {
       background-color: darken($theme, 10%);
     }
@@ -39,8 +42,40 @@ nav.navbar {
 }
 
 @media screen and (min-width: $screen-sm) {
-  nav.navbar .navbar-nav > li > a {
-    font-size: 1.5em;
-    line-height: 40px;
+  nav.navbar {
+    .navbar-nav > li > a {
+      font-size: 1.5em;
+      line-height: $navbar-height - 30px;
+    }
+    .navbar-brand {
+      padding: $navbar-brand-padding-height 10px;
+      img {
+        height: $navbar-brand-height;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $screen-xs) {
+  nav.navbar {
+    min-height: $navbar-height;
+    .navbar-toggle {
+      padding: $navbar-icon-padding-height 10px;
+      margin-top: $navbar-icon-margin-height;
+      margin-bottom: $navbar-icon-margin-height;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-xs) and (max-width: $screen-sm) {
+  nav.navbar .navbar-brand {
+    padding-top: ($navbar-height - 40)/2;
+  }
+}
+
+@media screen and (max-width: $screen-sm) {
+  nav.navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
   }
 }

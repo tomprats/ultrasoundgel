@@ -16,7 +16,7 @@ class ShareImageUploader < CarrierWave::Uploader::Base
   end
 
   version :square do
-    process resize_to_fill: [400, 400]
+    process resize_to_fill: [600, 600]
 
     def full_filename(for_file = model.file.file)
       "square.#{for_file.split(".").last}"
