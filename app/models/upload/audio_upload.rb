@@ -7,6 +7,6 @@ class AudioUpload < Upload
 
   def duration_time
     format = duration >= 3600 ? "%H:%M:%S" : "%-m:%S"
-    Time.at(duration).utc.strftime(format)
+    Time.at(duration).strftime(format)
   end
 end
