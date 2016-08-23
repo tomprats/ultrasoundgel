@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420001453) do
+ActiveRecord::Schema.define(version: 20160823030522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160420001453) do
     t.datetime "published_at"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "itunes_link"
     t.index ["published_at"], name: "index_channels_on_published_at", using: :btree
   end
 
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160420001453) do
     t.datetime "published_at"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "itunes_link"
     t.index ["channel_id"], name: "index_episodes_on_channel_id", using: :btree
     t.index ["published_at", "channel_id"], name: "index_episodes_on_published_at_and_channel_id", using: :btree
     t.index ["published_at"], name: "index_episodes_on_published_at", using: :btree

@@ -16,6 +16,11 @@
       = link_to episode_audio_url(episode.uid, format: episode.audio.extension) do
         = fa_icon("headphones")
         Listen
+    - itunes_link = episode.itunes_link
+    - itunes_link = episode.channel.itunes_link if itunes_link.blank?
+    - if itunes_link.present?
+      .spacer-10
+      = link_to "", itunes_link, target: :_blank, style: "display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_itunes-lrg.svg) no-repeat;width:165px;height:40px;"
     .spacer-10
     %h4= episode.subtitle
     %p By #{episode.author} on #{episode.published_at_date || "Unpublished"}
