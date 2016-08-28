@@ -3,7 +3,7 @@
     - sidebar = app.announcements.blank? && app.resources.blank?
     .col-md-6(class="col-md-offset-#{sidebar ? 3 : 1}")
       - if @html
-        .text-center= @html
+        .custom-html.text-center= @html
       - @episodes.each_with_index do |episode, index|
         = render partial: "partials/episode", locals: { episode: episode }
         - unless index == @episodes.length - 1
@@ -13,10 +13,10 @@
         .spacer-10
         .panel.panel-success
           .panel-heading Announcements
-          .panel-body= app.announcements_to_html
+          .panel-body.custom-html= app.announcements_to_html
     - if app.resources.present?
       .col-md-4
         .spacer-10
         .panel.panel-success
           .panel-heading Cool Sites
-          .panel-body= app.resources_to_html
+          .panel-body.custom-html= app.resources_to_html

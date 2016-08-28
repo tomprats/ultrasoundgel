@@ -1,26 +1,25 @@
 .container-fluid
   .row
     .col-md-6.col-md-offset-3
-      .post
-        .row
-          .col-xs-12
-            .text-center
-              %h1= @post.title
-              - if @post.episode
-                %p
-                  = link_to episode_audio_url(@post.episode.uid, format: @post.episode.audio.extension) do
-                    = fa_icon("headphones")
-                    Podcast
-            = @post.text_to_html
-        .row.small
-          .col-md-6 Published on #{@post.published_at_date || "Unpublished"}
-          .col-md-6.text-right
-            - count = @post.comments.count
-            - if current_user.nil?
-              comments (#{count})
-            - elsif current_user.comment_notifications.where(post_id: @post.id).exists?
-              = link_to "unsubscribe to comments (#{count})", unsubscribe_post_path(@post), method: :post
-            - else
-              = link_to "subscribe to comments (#{count})", subscribe_post_path(@post), method: :post
+      .row
+        .col-xs-12
+          .text-center
+            %h1= @post.title
+            - if @post.episode
+              %p
+                = link_to episode_audio_url(@post.episode.uid, format: @post.episode.audio.extension) do
+                  = fa_icon("headphones")
+                  Podcast
+          .custom-html= @post.text_to_html
+      .row.small
+        .col-md-6 Published on #{@post.published_at_date || "Unpublished"}
+        .col-md-6.text-right
+          - count = @post.comments.count
+          - if current_user.nil?
+            comments (#{count})
+          - elsif current_user.comment_notifications.where(post_id: @post.id).exists?
+            = link_to "unsubscribe to comments (#{count})", unsubscribe_post_path(@post), method: :post
+          - else
+            = link_to "subscribe to comments (#{count})", subscribe_post_path(@post), method: :post
       .spacer-10
       = render partial: "partials/comments", locals: { post: @post }

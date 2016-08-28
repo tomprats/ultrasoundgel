@@ -2,7 +2,7 @@
   .row
     .col-md-8.col-md-offset-2
       .text-center
-        = @html
+        .custom-html= @html
         - if app.contact_email.present?
           %p
             = link_to "mailto:#{app.contact_email}", target: :_blank do
