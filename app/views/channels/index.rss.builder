@@ -20,7 +20,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", version:
       end
     end
     xml.itunes :explicit, @channel.explicit ? "yes" : "no"
-    @channel.episodes.published.each do |episode|
+    @channel.episodes.ascending.published.each do |episode|
       xml.item do
         xml.title episode.title
         xml.itunes :author, episode.author

@@ -18,8 +18,9 @@ module Published
       published_at_changed? && published_at.blank?
     end
 
-    default_scope { order(:published_at) }
+    default_scope { order(published_at: :desc) }
 
+    scope :ascending, -> { reorder(published_at: :asc) }
     scope :unpublished, -> { where(published_at: nil).or(scheduled) }
     scope :published, -> { where("published_at <= ?", DateTime.now) }
     scope :scheduled, -> { where("published_at > ?", DateTime.now) }
