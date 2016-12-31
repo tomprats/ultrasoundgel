@@ -11,7 +11,13 @@ class PagesController < ApplicationController
   def home
     @page = Page.home
     @episodes = Episode.published
+    search if @search = params[:search].presence
 
     show
+  end
+
+  private
+  def search
+    @episodes = @episodes.search(@search)
   end
 end

@@ -23,6 +23,18 @@ class Episode < ApplicationRecord
   before_save :publish, if: -> (episode) { episode.published_at_changed? && episode.published_at }
   before_destroy :never_published
 
+  def self.search(value)
+    result = left_joins(:post)
+    value.split(",").collect(&:strip).each do |v|
+      result = result.where("episodes.title ILIKE :search
+        OR posts.tags ILIKE :search
+        OR posts.title ILIKE :search",
+        search: "%#{v}%"
+      )
+    end
+    result
+  end
+
   def publishable
     old_published_at = channel.published_at
     channel.published_at = published_at

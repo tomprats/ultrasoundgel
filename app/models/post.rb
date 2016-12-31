@@ -23,7 +23,7 @@ class Post < ApplicationRecord
   to_html :text
 
   def tag_list
-    tags && tags.split(",").collect(&:trim)
+    tags && tags.split(",").collect(&:strip)
   end
 
   def publishable
