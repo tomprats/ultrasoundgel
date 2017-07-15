@@ -47,7 +47,7 @@ class Admin::ChannelsController < AdminController
     params.require(:channel).permit(
       :image_id, :title, :subtitle, :author, :link,
       :owner_name, :owner_email, :summary, :categories,
-      :explicit, :itunes_link
+      :explicit, :google_link, :itunes_link
     )
   end
 end

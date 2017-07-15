@@ -1,6 +1,10 @@
 = form_for [:admin, @channel], html: { class: "form-horizontal" } do |f|
   - if @channel.published?
     .form-group
+      = f.label :google_link, "Google Link", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.url_field :google_link, placeholder: "https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&link=https://play.google.com/music/m/Izwq4baivr3p5s2ewx2vizrk7sy?t%3DUltrasound_GEL%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16", class: "form-control"
+    .form-group
       = f.label :itunes_link, "iTunes Link", class: "col-sm-2 control-label"
       .col-sm-10
         = f.url_field :itunes_link, placeholder: "https://itunes.apple.com/us/podcast/ultrasound-gel/id1146063559?mt=2", class: "form-control"

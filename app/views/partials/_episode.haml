@@ -18,9 +18,16 @@
         Listen
     - itunes_link = episode.itunes_link
     - itunes_link = episode.channel.itunes_link if itunes_link.blank?
-    - if itunes_link.present?
-      .spacer-10
-      = link_to "", itunes_link, target: :_blank, style: "display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_itunes-lrg.svg) no-repeat;width:165px;height:40px;"
+    - google_link = episode.google_link
+    - google_link = episode.channel.google_link if google_link.blank?
+    - if itunes_link.present? || google_link.present?
+      %div
+        - if itunes_link.present?
+          = link_to itunes_link, target: :_blank, style: "display:inline-block;width:110px;height:60px;padding:10px 0px" do
+            = image_tag "https://linkmaker.itunes.apple.com/images/badges/en-us/badge_itunes-lrg.svg", alt: "Get it on iTunes", height: "100%"
+        - if google_link.present?
+          = link_to google_link, target: :_blank, style: "display:inline-block;width:110px;height:60px;" do
+            = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play", height: "100%"
     .spacer-10
     %h4= episode.subtitle
     %p By #{episode.author} on #{episode.published_at_date || "Unpublished"}

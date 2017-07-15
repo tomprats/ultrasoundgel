@@ -47,7 +47,7 @@ class Admin::EpisodesController < AdminController
     params.require(:episode).permit(
       :channel_id, :audio_id, :image_id, :uid,
       :title, :subtitle, :author, :summary,
-      :explicit, :itunes_link
+      :explicit, :google_link, :itunes_link
     )
   end
 end
