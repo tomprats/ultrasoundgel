@@ -2,13 +2,14 @@ source "https://rubygems.org"
 
 ruby "2.2.2"
 
-gem "rails", github: "rails"
+gem "rails"
 
 gem "pg"
 
 # Uploads
+gem "aws-sdk-s3"
 gem "carrierwave"
-gem "fog"
+gem "fog-aws"
 gem "mini_magick"
 gem "taglib-ruby"
 

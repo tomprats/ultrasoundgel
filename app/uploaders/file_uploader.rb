@@ -23,14 +23,14 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def set_model
-    model.type = "AudioUpload" if model.file.content_type.include? "audio"
-    model.type ||= "ImageUpload" if model.file.content_type.include? "image"
+    model.type = "AudioUpload" if file.content_type.include? "audio"
+    model.type ||= "ImageUpload" if file.content_type.include? "image"
     model.type ||= "FileUpload"
 
-    model.size = model.file.size
-    model.content_type = model.file.content_type
+    model.size = file.size
+    model.content_type = file.content_type
 
-    TagLib::FileRef.open(model.file.path) { |ref| model.duration = ref.audio_properties.length } if audio?
+    TagLib::FileRef.open(file.path) { |ref| model.duration = ref.audio_properties.length } if audio?
   end
 
   def audio?(*args)

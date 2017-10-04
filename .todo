@@ -1,0 +1,1 @@
+Raise error in callbacks instead of returning false

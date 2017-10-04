@@ -9,4 +9,19 @@ class AudioUpload < Upload
     format = duration >= 3600 ? "%H:%M:%S" : "%-m:%S"
     Time.at(duration).strftime(format)
   end
+
+  def add_tag
+    s3 = Aws::S3::Client.new
+    tag_set = s3.get_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path).tag_set
+    tag_set.delete_if { |tag| tag[:key] == "episode" }
+    tag_set.push(key: "episode", value: "audio")
+    s3.put_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path, tagging: { tag_set: tag_set })
+  end
+
+  def remove_tag
+    s3 = Aws::S3::Client.new
+    tag_set = s3.get_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path).tag_set
+    tag_set.delete_if { |tag| tag[:key] == "episode" }
+    s3.put_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path, tagging: { tag_set: tag_set })
+  end
 end

@@ -13,12 +13,12 @@ class Post < ApplicationRecord
   end
 
   on_unpublish do |record|
-    record.validate :never_published
+    record.validate :unpublishable
   end
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (post) { post.published_at_changed? && post.published_at }
-  before_destroy :never_published
+  before_destroy :never_published!
 
   to_html :text
 
@@ -27,16 +27,19 @@ class Post < ApplicationRecord
   end
 
   def publishable
-    if episode
-      old_published_at = episode.published_at
-      episode.published_at = published_at
-      errors.add(:episode, "is not ready to be published") unless episode.valid?
-      episode.published_at = old_published_at
-    end
+    return unless episode
+    old_published_at = episode.published_at
+    episode.published_at = published_at
+    errors.add(:episode, "is not ready to be published") unless episode.valid?
+    episode.published_at = old_published_at
   end
 
   def publish
     episode.update(published_at: published_at) unless episode.published_before?(published_at)
+  end
+
+  def publishing?
+    published_at.present? || episode.try(:publishing?)
   end
 
   def to_param
@@ -49,11 +52,16 @@ class Post < ApplicationRecord
     set_uid if self.class.where(uid: self.uid).exists?
   end
 
-  def never_published
-    !published? && !episode.published?
+  def never_published!
+    throw :abort if publishing?
+  end
+
+  def unpublishable
+    errors.add(:published_at, "cannot be changed if published or episode is publishing") if published? || episode.try(:publishing?)
   end
 
   def episode_check
-    errors.add(:episode, "cannot be changed if publish has been set") if published_at.present?
+    return errors.add(:episode, "cannot be changed if published") if published?
+    errors.add(:episode, "cannot be removed if publishing") if publishing?
   end
 end
