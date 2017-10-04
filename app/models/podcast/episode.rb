@@ -22,7 +22,7 @@ class Episode < ApplicationRecord
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (episode) { episode.published_at_changed? && episode.published_at }
-  before_destroy :never_published!
+  before_destroy :unpublished!
   after_save :update_tags, if: :saved_change_to_audio_id?
   after_destroy :remove_tag
 
@@ -63,8 +63,9 @@ class Episode < ApplicationRecord
     set_uid if self.class.where(uid: self.uid).exists?
   end
 
-  def never_published!
-    throw :abort if publishing?
+  def unpublished!
+    errors.add(:episode, "is already publishing") if publishing?
+    throw :abort if errors.any?
   end
 
   def unpublishable
@@ -72,6 +73,7 @@ class Episode < ApplicationRecord
   end
 
   def audio_check
+    return if AudioUpload.find_by(id: audio_id_was).blank?
     return errors.add(:audio, "cannot be changed if published") if published?
     errors.add(:audio, "cannot be removed if publishing") if publishing?
   end

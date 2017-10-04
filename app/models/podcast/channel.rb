@@ -17,7 +17,7 @@ class Channel < ApplicationRecord
   has_many :posts, through: :episodes
 
   before_validation :set_uid, on: :create
-  before_destroy :never_published!
+  before_destroy :unpublished!
 
   def category_list
     categories ? categories.split(",").collect(&:strip) : []
@@ -41,8 +41,10 @@ class Channel < ApplicationRecord
     set_uid if self.class.where(uid: self.uid).exists?
   end
 
-  def never_published!
-    throw :abort if publishing?
+  def unpublished!
+    errors.add(:channel, "is already publishing") if published_at.present?
+    errors.add(:episodes, "are already publishing") if episodes_publishing?
+    throw :abort if errors.any?
   end
 
   def unpublishable

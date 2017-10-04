@@ -38,8 +38,11 @@ class Admin::EpisodesController < AdminController
 
   def destroy
     @episode = Episode.find_by(uid: params[:uid])
-    @episode.destroy
-    redirect_to({ action: :index }, danger: "#{@episode.title} deleted")
+    if @episode.destroy
+      redirect_to({ action: :index }, danger: "#{@episode.title} deleted")
+    else
+      redirect_to({ action: :index }, warning: @episode.errors.full_messages.join(", "))
+    end
   end
 
   private

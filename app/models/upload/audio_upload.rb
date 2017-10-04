@@ -1,6 +1,10 @@
 class AudioUpload < Upload
   validates_presence_of :duration
 
+  has_many :episodes, foreign_key: :audio_id
+
+  before_destroy :check_associations
+
   def self.podcast_approved_types
     ["mp3", "mpeg"]
   end
@@ -23,5 +27,11 @@ class AudioUpload < Upload
     tag_set = s3.get_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path).tag_set
     tag_set.delete_if { |tag| tag[:key] == "episode" }
     s3.put_object_tagging(bucket: ENV["AWS_BUCKET"], key: file.path, tagging: { tag_set: tag_set })
+  end
+
+  private
+  def check_associations
+    errors.add(:episodes, "are still associated") if episodes.exists?
+    throw :abort if errors.any?
   end
 end

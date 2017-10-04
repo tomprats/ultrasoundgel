@@ -38,8 +38,11 @@ class Admin::PostsController < AdminController
 
   def destroy
     @post = Post.find_by(uid: params[:uid])
-    @post.destroy
-    redirect_to({ action: :index }, danger: "#{@post.title} deleted")
+    if @post.destroy
+      redirect_to({ action: :index }, danger: "#{@post.title} deleted")
+    else
+      redirect_to({ action: :index }, warning: @post.errors.full_messages.join(", "))
+    end
   end
 
   private

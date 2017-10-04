@@ -18,7 +18,7 @@ class Post < ApplicationRecord
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (post) { post.published_at_changed? && post.published_at }
-  before_destroy :never_published!
+  before_destroy :unpublished!
 
   to_html :text
 
@@ -52,8 +52,10 @@ class Post < ApplicationRecord
     set_uid if self.class.where(uid: self.uid).exists?
   end
 
-  def never_published!
-    throw :abort if publishing?
+  def unpublished!
+    errors.add(:post, "is already publishing") if published_at.present?
+    errors.add(:episode, "is already publishing") if episode.try(:publishing?)
+    throw :abort if errors.any?
   end
 
   def unpublishable

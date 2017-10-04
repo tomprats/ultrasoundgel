@@ -38,8 +38,11 @@ class Admin::ChannelsController < AdminController
 
   def destroy
     @channel = Channel.find_by(uid: params[:uid])
-    @channel.destroy
-    redirect_to({ action: :index }, danger: "#{@channel.title} deleted")
+    if @channel.destroy
+      redirect_to({ action: :index }, danger: "#{@channel.title} deleted")
+    else
+      redirect_to({ action: :index }, warning: @channel.errors.full_messages.join(", "))
+    end
   end
 
   private
