@@ -28,7 +28,7 @@ class Admin::EpisodesController < AdminController
 
   def publish
     @episode = Episode.find_by(uid: params[:uid])
-    published_at = params[:published_at].blank? ? DateTime.now : DateTime.strptime(params[:published_at], "%m/%d/%Y %I:%M %P")
+    published_at = params[:published_at].blank? ? Time.zone.now : Time.zone.parse(params[:published_at])
     if @episode.update(published_at: published_at)
       redirect_to({ action: :index }, success: "#{@episode.title} published")
     else

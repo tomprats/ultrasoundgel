@@ -13,6 +13,6 @@ class PostsController < ApplicationController
 
   private
   def set_post
-    @post = Post.find_by(uid: params[:uid])
+    @post = Post.find_by!(uid: params[:uid])
   end
 end
