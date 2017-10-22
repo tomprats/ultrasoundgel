@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  before_action :set_channel
+  before_action :set_channel, except: :index
 
   def image
     redirect_to @channel.image.file.large.url
