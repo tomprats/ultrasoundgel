@@ -29,9 +29,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if current_user && (current_user == @comment.user || current_user.admin)
       @comment.update(active: false)
-      redirect_to :back, danger: "Comment Removed"
+      redirect_back danger: "Comment Removed"
     else
-      redirect_to :back, danger: "You can't do that"
+      redirect_back danger: "You can't do that"
     end
   end
 

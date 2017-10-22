@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to :back, success: "Profile Updated!"
+      redirect_back success: "Profile Updated!"
     else
       render "sessions/new", warning: @user.errors.full_messages.join(", ")
     end

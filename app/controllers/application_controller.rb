@@ -22,4 +22,9 @@ class ApplicationController < ActionController::Base
   def not_found
     raise ActionController::RoutingError.new("Not Found")
   end
+
+  def redirect_back(options = {})
+    options[:fallback_location] ||= home_path
+    super(options)
+  end
 end

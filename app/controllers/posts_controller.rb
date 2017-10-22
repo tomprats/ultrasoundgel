@@ -3,12 +3,12 @@ class PostsController < ApplicationController
 
   def subscribe
     current_user.comment_notifications.find_or_create_by(post_id: @post.id)
-    redirect_to :back, success: "Subscribed"
+    redirect_back success: "Subscribed"
   end
 
   def unsubscribe
     current_user.comment_notifications.find_by(post_id: @post.id).try(:destroy)
-    redirect_to :back, danger: "Unsubscribed"
+    redirect_back danger: "Unsubscribed"
   end
 
   private
