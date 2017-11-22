@@ -32,7 +32,16 @@ class Admin::PostsController < AdminController
     if @post.update(published_at: published_at)
       redirect_to({ action: :index }, success: "#{@post.title} published")
     else
-      render :index, warning: @post.errors.full_messages.join(", ")
+      redirect_to({ action: :index }, warning: @post.errors.full_messages.join(", "))
+    end
+  end
+
+  def unpublish
+    @post = Post.find_by(uid: params[:uid])
+    if @post.update(published_at: nil)
+      redirect_to({ action: :index }, success: "#{@post.title} unpublished")
+    else
+      redirect_to({ action: :index }, warning: @post.errors.full_messages.join(", "))
     end
   end
 

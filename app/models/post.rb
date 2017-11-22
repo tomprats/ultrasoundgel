@@ -63,7 +63,9 @@ class Post < ApplicationRecord
   end
 
   def episode_check
+    return if Episode.find_by(id: episode_id_was).blank?
     return errors.add(:episode, "cannot be changed if published") if published?
+    return if Episode.find_by(id: episode_id).present?
     errors.add(:episode, "cannot be removed if publishing") if publishing?
   end
 end

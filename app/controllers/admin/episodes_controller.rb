@@ -32,7 +32,16 @@ class Admin::EpisodesController < AdminController
     if @episode.update(published_at: published_at)
       redirect_to({ action: :index }, success: "#{@episode.title} published")
     else
-      render :index, warning: @episode.errors.full_messages.join(", ")
+      redirect_to({ action: :index }, warning: @episode.errors.full_messages.join(", "))
+    end
+  end
+
+  def unpublish
+    @episode = Episode.find_by(uid: params[:uid])
+    if @episode.update(published_at: nil)
+      redirect_to({ action: :index }, success: "#{@episode.title} unpublished")
+    else
+      redirect_to({ action: :index }, warning: @episode.errors.full_messages.join(", "))
     end
   end
 

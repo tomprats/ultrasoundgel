@@ -3,4 +3,6 @@ $ ->
   $(document).on "show.bs.modal", (e) ->
     $modal = $(this)
     $invoker = $(e.relatedTarget)
-    $modal.find("form").attr("action", $invoker.data("action"))
+    action = $invoker.data("action")
+    $modal.find("form").attr("action", action)
+    $modal.find(".btn.btn-danger").attr("href", action)

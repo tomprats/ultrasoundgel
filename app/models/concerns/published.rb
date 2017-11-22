@@ -32,7 +32,8 @@ module Published
     end
 
     def published_before?(date)
-      published_at && published_at <= date
+      at = published_at_was || published_at
+      at && at <= date
     end
   end
 end

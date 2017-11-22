@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     post "channels/:uid/publish", to: "channels#publish", as: :channel_publish
     post "episodes/:uid/publish", to: "episodes#publish", as: :episode_publish
     post "posts/:uid/publish", to: "posts#publish", as: :post_publish
+    delete "channels/:uid/publish", to: "channels#unpublish", as: :channel_unpublish
+    delete "episodes/:uid/publish", to: "episodes#unpublish", as: :episode_unpublish
+    delete "posts/:uid/publish", to: "posts#unpublish", as: :post_unpublish
   end
 
   get "channels/:uid", to: "channels#show", as: :channel

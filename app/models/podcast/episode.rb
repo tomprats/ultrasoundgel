@@ -75,6 +75,7 @@ class Episode < ApplicationRecord
   def audio_check
     return if AudioUpload.find_by(id: audio_id_was).blank?
     return errors.add(:audio, "cannot be changed if published") if published?
+    return if AudioUpload.find_by(id: audio_id).present?
     errors.add(:audio, "cannot be removed if publishing") if publishing?
   end
 
