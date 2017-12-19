@@ -6,11 +6,12 @@
           .text-center
             %h1= @post.title
             - if @post.episode
-              %p
-                = link_to episode_audio_url(@post.episode.uid, format: @post.episode.audio.extension) do
-                  = fa_icon("headphones")
-                  Podcast
+              = render partial: "partials/audio_links", locals: {episode: @post.episode}
           .custom-html= @post.text_to_html
+      .row.text-center
+        %button.btn.btn-icon.fa.fa-2x.fa-facebook-square(title="Share on Facebook")
+        %button.btn.btn-icon.fa.fa-2x.fa-twitter-square(title="Share on Twitter")
+        %button.btn.btn-icon.fa.fa-2x.fa-share-alt-square{title: "Share by Link", data: {toggle: "modal", target: "#share-modal"}}
       .row.small
         .col-md-6 Published on #{@post.published_at_date || "Unpublished"}
         .col-md-6.text-right
@@ -23,3 +24,4 @@
             = link_to "subscribe to comments (#{count})", subscribe_post_path(@post), method: :post
       .spacer-10
       = render partial: "partials/comments", locals: { post: @post }
+= render partial: "partials/share_modal"

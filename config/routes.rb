@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :channels, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :episodes, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :posts, only: [:index, :edit, :create, :update, :destroy], param: :uid
+    resources :articles, only: [:index, :edit, :create, :update, :destroy]
+    resources :article_categories, only: [:index, :edit, :create, :update, :destroy]
     post "channels/:uid/publish", to: "channels#publish", as: :channel_publish
     post "episodes/:uid/publish", to: "episodes#publish", as: :episode_publish
     post "posts/:uid/publish", to: "posts#publish", as: :post_publish

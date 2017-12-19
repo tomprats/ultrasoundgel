@@ -10,7 +10,7 @@
           .form-group
             = label_tag :search, "Search", class: "control-label col-sm-3"
             .col-sm-9
-              = text_field_tag :search, "", placeholder: Post.where.not(tags: nil).first.tag_list.first, class: "form-control"
+              = text_field_tag :search, "", class: "form-control"
         .modal-footer
           %button.btn.btn-default(type="button" data-dismiss="modal") Cancel
           = submit_tag "Search", class: "btn btn-primary", name: nil

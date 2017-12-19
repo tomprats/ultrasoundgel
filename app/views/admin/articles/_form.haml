@@ -1,0 +1,37 @@
+= form_for [:admin, @article], html: { class: "form-horizontal" } do |f|
+  - if ArticleCategory.count.zero?
+    .form-group
+      = f.label :category_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        %p.form-control-static
+          There are no categories available. You must
+          = link_to "create one", admin_article_categories_path
+          before creating an article.
+  - else
+    .form-group
+      = f.label :category_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.collection_select :category_id, ArticleCategory.all, :id, :name, { prompt: "None" }, class: "form-control"
+  .form-group
+    = f.label :link, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.url_field :link, placeholder: "https://www.ultrasoundgel.org", class: "form-control"
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :title, placeholder: "How does Tom Prats live with POTS every day?", class: "form-control"
+  .form-group
+    = f.label :journal, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :journal, placeholder: "Ultra Journal", class: "form-control"
+  .form-group
+    = f.label :year, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :year, (2000..DateTime.now.year).to_a.reverse, {}, class: "form-control"
+  .form-group
+    = f.label :month, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :month, Date::MONTHNAMES.compact.each_with_index.collect{|m, i| [m, i+1]}, {}, class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

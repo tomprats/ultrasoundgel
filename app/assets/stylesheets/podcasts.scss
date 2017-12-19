@@ -1,0 +1,25 @@
+audio {
+  max-width: 100%;
+}
+
+.posts-show .store-links { margin: 0 auto; }
+.store-links {
+  max-width: 100%;
+  width: 300px;
+  a {
+    display: inline-block;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.google {
+  width: 55%;
+}
+
+.itunes {
+  padding: 10px 0px;
+  width: 45%;
+}

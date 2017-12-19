@@ -1,0 +1,31 @@
+.container-fluid
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 New/Edit Category
+        .panel-body
+          = render partial: "form"
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 Categories
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th Rank
+                %th Name
+                %th Created At
+                %th
+            %tbody
+              - @categories.each do |category|
+                %tr
+                  %td= category.rank
+                  %td= category.name
+                  %td= category.created_at_date
+                  %td
+                    = link_to "Edit", edit_admin_article_category_path(category)
+                    &vert;
+                    = link_to "Delete", admin_article_category_path(category), method: :delete, data: { confirm: "Are you sure you want to delete #{category.name}?" }

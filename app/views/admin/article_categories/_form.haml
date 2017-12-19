@@ -1,0 +1,12 @@
+= form_for [:admin, @category], html: { class: "form-horizontal" } do |f|
+  .form-group
+    = f.label :rank, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :rank, placeholder: "100", class: "form-control"
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, placeholder: "Cardiac & Thoracic", class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

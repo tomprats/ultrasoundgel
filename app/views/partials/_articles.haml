@@ -1,0 +1,15 @@
+- if articles.present?
+  .panel.panel-default{id: id}
+    .panel-heading
+      .panel-title= heading
+    .table-responsive
+      %table.table.table-hover
+        %tbody
+          - articles.each do |article|
+            %tr
+              %td= link_to article.title, article.link, target: :_blank
+              %td= article.journal
+              %td #{Date::MONTHNAMES[article.month]} #{article.year}
+    .panel-footer
+      %a.pull-right(href="#top") back to top
+      .clearfix

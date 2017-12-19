@@ -28,6 +28,13 @@ h1, h2, h3, h4, h5, h6 {
 .btn-themed {
   @include button-variant(white, $theme, $theme);
 }
+.btn-icon {
+  color: $theme;
+  padding: 0;
+  &:active, &:focus, &:hover {
+    color: $blue;
+  }
+}
 .inline-block {
   display: inline-block;
 }

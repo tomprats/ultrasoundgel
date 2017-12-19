@@ -1,0 +1,17 @@
+- itunes_link = episode.itunes_link
+- itunes_link = episode.channel.itunes_link if itunes_link.blank?
+- google_link = episode.google_link
+- google_link = episode.channel.google_link if google_link.blank?
+- if itunes_link.present? || google_link.present?
+  .store-links
+    - if itunes_link.present?
+      = link_to itunes_link, target: :_blank, class: "itunes" do
+        = image_tag "https://linkmaker.itunes.apple.com/images/badges/en-us/badge_itunes-lrg.svg", alt: "Get it on iTunes"
+    - if google_link.present?
+      = link_to google_link, target: :_blank, class: "google" do
+        = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play"
+- audio_link = episode_audio_url(episode.uid, format: episode.audio.extension)
+%audio{src: audio_link, type: episode.audio.extension, controls: true}
+  = link_to audio_link do
+    = fa_icon("headphones")
+    Listen

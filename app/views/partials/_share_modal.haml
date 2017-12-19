@@ -1,0 +1,13 @@
+.modal.fade#share-modal(tabindex="-1" role="dialog")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal" aria-label="Close")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title Share
+      .modal-body
+        .form-group
+          = url_field_tag "share-link", request.original_url, class: "form-control"
+      .modal-footer
+        %button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+        %button.btn.btn-primary(type="button") Copy

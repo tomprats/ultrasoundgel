@@ -14,5 +14,10 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
+//= require inputmask
+//= require inputmask2.date.extensions
+//= require jquery.inputmask
+//= require jquery.backstretch
 //= require_tree .
 //= require turbolinks
+//= require turbolinks-compatibility

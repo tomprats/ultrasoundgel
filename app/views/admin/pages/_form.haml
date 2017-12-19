@@ -10,6 +10,10 @@
     .col-sm-10
       = f.number_field :rank, placeholder: "100", class: "form-control"
   .form-group
+    = f.label :template, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :template, Page.templates, {}, class: "form-control"
+  .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :name, placeholder: "Contact", class: "form-control"

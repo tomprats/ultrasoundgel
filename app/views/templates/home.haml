@@ -34,8 +34,10 @@
           .panel.panel-success
             .panel-heading Announcements
             .panel-body.custom-html= app.announcements_to_html
+        = render "partials/twitter_widget"
         - if app.resources.present?
           .spacer-10
           .panel.panel-success
             .panel-heading Cool Sites
             .panel-body.custom-html= app.resources_to_html
+

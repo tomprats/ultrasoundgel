@@ -1,0 +1,39 @@
+.container-fluid
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 New/Edit Article
+        .panel-body
+          = render partial: "form"
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          %h4 Articles
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %thead
+              %tr
+                %th Category
+                %th Link
+                %th Title
+                %th Journal
+                %th Year
+                %th Month
+                %th Created At
+                %th
+            %tbody
+              - @articles.each do |article|
+                %tr
+                  %td= article.category.name
+                  %td= link_to "View", article.link
+                  %td= article.title
+                  %td= article.journal
+                  %td= article.year
+                  %td= Date::ABBR_MONTHNAMES[article.month]
+                  %td= article.created_at_date
+                  %td
+                    = link_to "Edit", edit_admin_article_path(article)
+                    &vert;
+                    = link_to "Delete", admin_article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete #{article.title}?" }
