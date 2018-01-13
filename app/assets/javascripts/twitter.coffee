@@ -16,5 +16,4 @@ loadWidgets = ->
     $container = $(this)
     $container.empty()
     $div = $("<div>").appendTo($container)
-    options = $container.data()
-    twttr.widgets.createTimeline options.id, $div[0], options
+    twttr.widgets.createTimeline $container.data(), $div[0], {dnt: true, height: 600}

@@ -32,6 +32,6 @@ class PagesController < ApplicationController
     episode = Episode.reorder(published_at: :asc).offset(episode - 1).first
     return unless episode
 
-    redirect_to episode
+    redirect_to episode.post || episode
   end
 end

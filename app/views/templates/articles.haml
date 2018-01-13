@@ -1,15 +1,15 @@
 .container-fluid#top
   .row
-    .col-sm-8.col-md-9
+    .col-md-8.col-md-offset-2
       - if @html.present?
         .custom-html.text-center= @html
-      = render "partials/articles", articles: @new_articles, heading: "New Articles", id: "new-articles"
+      .form-inline.text-center
+        .form-group.spacer-10
+          - links = [["Newest Articles", "#newest-articles"]]
+          - @categories.each{ |category| links << [category.name, "#articles-#{category.id}"] }
+          - links << ["Archive", "#articles-archive"]
+          = select_tag :article, options_for_select(links), class: "form-control", include_blank: "Skip to Category"
+      = render "partials/articles", articles: @new_articles, heading: "Newest Articles", id: "newest-articles"
       - @categories.each do |category|
         = render "partials/articles", articles: category.articles, heading: category.name, id: "articles-#{category.id}"
       = render "partials/articles", articles: @old_articles, heading: "Archive", id: "articles-archive"
-    .col-sm-4.col-md-3
-      %h4.text-center Categories
-      = link_to "New Articles", "#new-articles", class: "btn btn-primary btn-block"
-      - @categories.each do |category|
-        = link_to category.name, "#articles-#{category.id}", class: "btn btn-primary btn-block"
-      = link_to "Archive", "#articles-archive", class: "btn btn-primary btn-block"
