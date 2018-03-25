@@ -6,7 +6,7 @@
   .store-links
     - if itunes_link.present?
       = link_to itunes_link, target: :_blank, class: "itunes" do
-        = image_tag "https://linkmaker.itunes.apple.com/images/badges/en-us/badge_itunes-lrg.svg", alt: "Get it on iTunes"
+        = image_tag "https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/podcast-lrg.svg", alt: "Listen on Apple Podcasts"
     - if google_link.present?
       = link_to google_link, target: :_blank, class: "google" do
         = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play"
