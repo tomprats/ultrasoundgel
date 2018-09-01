@@ -1,5 +1,7 @@
 $ ->
-  $("#published_at").inputmask("mm/dd/yyyy hh:mm xm")
+  # To polyfill datetime-local for Safari
+  $.webshims.polyfill("forms forms-ext")
+
   $(document).on "show.bs.modal", (e) ->
     $modal = $(this)
     $invoker = $(e.relatedTarget)
