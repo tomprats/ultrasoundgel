@@ -25,8 +25,23 @@ $navbar-brand-padding-height: $navbar-brand-height/2;
 nav.navbar {
   border-color: $theme;
   background-color: $theme;
-  .navbar-nav > li > a {
-    color: $white;
+  .navbar-nav {
+    .nav-icon {
+      display: inline-block;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    > li > a {
+      color: $white;
+    }
+    > .open {
+      > a,
+      > a:hover,
+      > a:focus,
+      .dropdown-menu {
+        background-color: $white;
+      }
+    }
   }
   .navbar-brand {
     height: auto;
@@ -44,7 +59,7 @@ nav.navbar {
 @media screen and (min-width: $screen-sm) {
   nav.navbar {
     .navbar-nav > li > a {
-      font-size: 1.5em;
+      font-size: 1.4em;
       line-height: $navbar-height - 30px;
     }
     .navbar-brand {
