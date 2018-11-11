@@ -1,5 +1,6 @@
-audio {
+audio[controls] {
   max-width: 100%;
+  min-height: 60px;
 }
 
 .posts-show .store-links { margin: 0 auto; }
