@@ -23,10 +23,23 @@
         .row.text-center Nothing found
         %hr
       .row.text-center Page #{current_page} of #{total_pages}
-      - if total_pages >= current_page && total_pages > 1
+      - if total_pages > 1
+        .spacer-10
         .row.text-center
-          - (1..total_pages).each do |page|
-            = link_to page, "?page=#{page}&limit=#{limit}&search=#{@search}"
+          .btn-group
+            - if current_page - 1 >= 1
+              = link_to fa_icon("angle-double-left"), "?page=1&limit=#{limit}&search=#{@search}", class: "btn btn-themed"
+              = link_to fa_icon("angle-left"), "?page=#{current_page - 1}&limit=#{limit}&search=#{@search}", class: "btn btn-themed"
+            - else
+              = button_tag fa_icon("angle-double-left"), class: "btn btn-themed disabled"
+              = button_tag fa_icon("angle-left"), class: "btn btn-themed disabled"
+            = button_tag current_page, class: "btn btn-themed disabled"
+            - if current_page + 1 > total_pages
+              = button_tag fa_icon("angle-right"), class: "btn btn-themed disabled"
+              = button_tag fa_icon("angle-double-right"), class: "btn btn-themed disabled"
+            - else
+              = link_to fa_icon("angle-right"), "?page=#{current_page + 1}&limit=#{limit}&search=#{@search}", class: "btn btn-themed"
+              = link_to fa_icon("angle-double-right"), "?page=#{total_pages}&limit=#{limit}&search=#{@search}", class: "btn btn-themed"
     - if sidebar
       .col-md-4
         - if app.announcements.present?
@@ -40,4 +53,3 @@
           .panel.panel-success
             .panel-heading Cool Sites
             .panel-body.custom-html= app.resources_to_html
-

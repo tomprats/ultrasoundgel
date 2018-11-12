@@ -9,7 +9,7 @@
             = render partial: "form"
   .row
     .col-xs-12
-      .panel.panel-default
+      .panel.panel-default.paginate-panel-table
         .panel-heading
           %h4 Admins
         .table-responsive
@@ -34,7 +34,7 @@
                     = link_to "Delete", admin_user_path(admin), method: :delete, data: { confirm: "Are you sure you want to delete #{admin.name}?" }
   .row
     .col-xs-12
-      .panel.panel-default
+      .panel.panel-default.paginate-panel-table
         .panel-heading
           %h4 Users
         .table-responsive
