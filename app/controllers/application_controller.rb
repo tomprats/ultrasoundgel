@@ -27,4 +27,13 @@ class ApplicationController < ActionController::Base
     options[:fallback_location] ||= home_path
     super(options)
   end
+
+  def require_user!
+    if params[:token]
+      user = Token.find_by(uuid: params[:token])
+      session[:current_user_id] = user.id
+    end
+
+    not_found unless current_user
+  end
 end

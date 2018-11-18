@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :comments
   has_many :comment_notifications
+  has_many :tokens, dependent: :destroy
 
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email
@@ -16,6 +17,10 @@ class User < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def token
+    @token ||= tokens.first || tokens.create
   end
 
   private

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_user!, except: [:create, :forgot_password]
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -20,6 +22,15 @@ class UsersController < ApplicationController
     else
       render "sessions/new", warning: @user.errors.full_messages.join(", ")
     end
+  end
+
+  def forgot_password
+    email = params[:email]&.strip&.downcase
+    return redirect_back warning: "Please enter a valid email address" if email.blank?
+
+    user = User.find_by(email: email)
+    UserMailer.forgot_password(user).deliver_now if user
+    redirect_back success: "Please check #{email} for a link to reset your password"
   end
 
   private

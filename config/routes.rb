@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
   post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post
   resources :comments, only: [:create, :destroy]
-  resource :user, only: [:create, :edit, :update]
+  resource :user, only: [:create, :edit, :update] do
+    post :forgot_password, on: :collection
+  end
 
   namespace :admin do
     root "apps#index"
