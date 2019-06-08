@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get :home, to: "pages#home"
 
   resource :session, only: [:new, :create, :destroy]
+  resources :citations, only: [:index]
   resources :posts, only: [:show], param: :uid
   post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
   post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post

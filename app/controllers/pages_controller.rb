@@ -29,7 +29,7 @@ class PagesController < ApplicationController
     episode = params[:path].to_i
     return unless episode > 0
 
-    episode = Episode.reorder(published_at: :asc).offset(episode - 1).first
+    episode = Episode.ascending.published.offset(episode - 1).first
     return unless episode
 
     redirect_to episode.post || episode
