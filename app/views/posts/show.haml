@@ -16,7 +16,9 @@
       .well.well-sm.text-center
         %h3 Cite this article as
         %small
-          - index = Episode.ascending.published.pluck(:id).index(@post.episode.id) + 1
+          - ids = Episode.ascending.published.pluck(:id)
+          - index = ids.index(@post.episode.id) if @post.episode
+          - index = index ? index + 1 : ids.length
           = render partial: "partials/citation", locals: { index: index, post: @post }
       .spacer-20
       .row.small
