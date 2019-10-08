@@ -27,10 +27,11 @@ class PagesController < ApplicationController
   private
 
   def check_path
-    episode = params[:path].to_i
-    return unless episode > 0
+    number = params[:path].to_i
+    return unless number > 0
 
-    episode = Episode.ascending.published.offset(episode - 1).first
+    episode = Episode.ascending.published.find_by(number: number)
+    episode ||= Episode.ascending.published.offset(number - 1).first
     return unless episode
 
     redirect_to episode.post || episode

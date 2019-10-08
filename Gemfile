@@ -10,6 +10,8 @@ gem "aws-sdk-s3"
 gem "carrierwave"
 gem "fog-aws"
 gem "mini_magick"
+gem "sidekiq"
+gem "sidekiq-cron"
 gem "taglib-ruby"
 
 # Users

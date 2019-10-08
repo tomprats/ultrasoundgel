@@ -16,10 +16,7 @@
       .well.well-sm.text-center
         %h3 Cite this post as
         %small
-          - ids = Episode.ascending.published.pluck(:id)
-          - index = ids.index(@post.episode.id) if @post.episode
-          - index = index ? index + 1 : ids.length
-          = render partial: "partials/citation", locals: { index: index, post: @post }
+          = render partial: "partials/citation", locals: { post: @post }
       .spacer-20
       .row.small
         .col-md-6 Published on #{@post.published_at_date || "Unpublished"}

@@ -6,6 +6,12 @@
           = f.check_box :admin
           Administrator?
   .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :post_notifications
+          Send Post Notifications?
+  .form-group
     = f.label :email, class: "col-sm-2 control-label"
     .col-sm-10
       = f.email_field :email, placeholder: "tom@tomprats.com", class: "form-control"

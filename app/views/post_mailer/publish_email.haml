@@ -1,6 +1,9 @@
 %p Dear #{@user.first_name},
 %p We've published a new post at UltrasoundGEL.org.
-%p= link_to @post_url, @post_url
+%div(style="max-width: 600px; text-align: center;")
+  %h3= @post.title
+  %p= link_to @post_url, @post_url
+  = image_tag @image_url, width: 300
 %p
   Thanks for listening and engaging,
   %br

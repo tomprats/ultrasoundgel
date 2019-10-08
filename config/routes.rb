@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  require "sidekiq/web"
+  require "sidekiq/cron/web"
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
+  end if Rails.env.production?
+  mount Sidekiq::Web, at: "/sidekiq"
+
   root "pages#home", as: :home
   get :home, to: "pages#home"
   get :disclaimer, to: "pages#disclaimer"
@@ -39,6 +46,5 @@ Rails.application.routes.draw do
   get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
   get "episodes/:uid/image", to: "episodes#image", as: :episode_image
   get :feed, to: "channels#index"
-
   get ":path", to: "pages#show", as: :page
 end
