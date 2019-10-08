@@ -12,6 +12,7 @@ class ChannelsController < ApplicationController
   end
 
   private
+
   def set_channel
     @channel = Channel.find_by!(uid: params[:uid])
   end

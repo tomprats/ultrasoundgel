@@ -17,7 +17,7 @@ class Post < ApplicationRecord
   end
 
   before_validation :set_uid, on: :create
-  before_save :publish, if: -> (post) { post.published_at_changed? && post.published_at }
+  before_save :publish, if: -> (post){ post.published_at_changed? && post.published_at }
   before_destroy :unpublished!
 
   to_html :text
@@ -47,9 +47,10 @@ class Post < ApplicationRecord
   end
 
   private
+
   def set_uid
     self.uid = SecureRandom.urlsafe_base64
-    set_uid if self.class.where(uid: self.uid).exists?
+    set_uid if self.class.where(uid: uid).exists?
   end
 
   def unpublished!
@@ -59,7 +60,9 @@ class Post < ApplicationRecord
   end
 
   def unpublishable
-    errors.add(:published_at, "cannot be changed if published or episode is publishing") if published? || episode.try(:publishing?)
+    return if !published? && !episode.try(:publishing?)
+
+    errors.add(:published_at, "cannot be changed if published or episode is publishing")
   end
 
   def episode_check

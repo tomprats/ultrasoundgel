@@ -18,12 +18,14 @@ module Published
       published_at_changed? && published_at.blank?
     end
 
-    default_scope { order(published_at: :desc) }
+    default_scope{ order(published_at: :desc) }
 
-    scope :ascending, -> { reorder("#{table_name}.published_at ASC") }
-    scope :unpublished, -> { where("#{table_name}.published_at IS NULL OR #{table_name}.published_at > ?", DateTime.now) }
-    scope :published, -> { where("#{table_name}.published_at <= ?", DateTime.now) }
-    scope :scheduled, -> { where("#{table_name}.published_at > ?", DateTime.now) }
+    scope :ascending, ->{ reorder("#{table_name}.published_at ASC") }
+    scope :unpublished, ->{
+      where("#{table_name}.published_at IS NULL OR #{table_name}.published_at > ?", DateTime.now)
+    }
+    scope :published, ->{ where("#{table_name}.published_at <= ?", DateTime.now) }
+    scope :scheduled, ->{ where("#{table_name}.published_at > ?", DateTime.now) }
 
     date_from :published_at
 

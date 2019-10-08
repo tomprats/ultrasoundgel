@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     @page ||= Page.find_by(path: params[:path]) || not_found
     @html = @page.text_to_html
 
-    case template = @page.template
+    case @page.template
     when "home"
       @episodes = @episodes.search(@search) if @search = params[:search].presence
     when "articles"
@@ -25,6 +25,7 @@ class PagesController < ApplicationController
   end
 
   private
+
   def check_path
     episode = params[:path].to_i
     return unless episode > 0

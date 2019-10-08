@@ -9,7 +9,7 @@ class CreateUploads < ActiveRecord::Migration
       t.string  :content_type, null: false
       t.integer :duration
 
-      t.timestamps             null: false
+      t.timestamps null: false
     end
 
     add_index :uploads, [:type, :name]

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "pages#home", as: :home
   get :home, to: "pages#home"
+  get :disclaimer, to: "pages#disclaimer"
 
   resource :session, only: [:new, :create, :destroy]
   resources :citations, only: [:index]

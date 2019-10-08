@@ -14,7 +14,7 @@
         %button.btn.btn-icon.fa.fa-2x.fa-share-alt-square{title: "Share by Link", data: {toggle: "modal", target: "#share-modal"}}
       .spacer-20
       .well.well-sm.text-center
-        %h3 Cite this article as
+        %h3 Cite this post as
         %small
           - ids = Episode.ascending.published.pluck(:id)
           - index = ids.index(@post.episode.id) if @post.episode

@@ -12,8 +12,8 @@ class User < ApplicationRecord
 
   before_validation :format_email
 
-  default_scope { order(:created_at) }
-  scope :admin, -> { where(admin: true) }
+  default_scope{ order(:created_at) }
+  scope :admin, ->{ where(admin: true) }
 
   def name
     "#{first_name} #{last_name}"
@@ -24,7 +24,8 @@ class User < ApplicationRecord
   end
 
   private
+
   def format_email
-    self.email = self.email.strip.downcase
+    self.email = email.strip.downcase
   end
 end

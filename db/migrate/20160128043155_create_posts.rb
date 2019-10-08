@@ -7,8 +7,8 @@ class CreatePosts < ActiveRecord::Migration
       t.text    :text
       t.text    :tags
 
-      t.timestamp :published_at,     index: true
-      t.timestamps      null: false
+      t.timestamp :published_at, index: true
+      t.timestamps null: false
     end
   end
 end

@@ -1,0 +1,2 @@
+inherit_gem:
+  rubocop-traitify: .rubocop_traitify.yml

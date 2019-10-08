@@ -10,6 +10,7 @@ class EpisodesController < ApplicationController
   end
 
   private
+
   def set_episode
     @episode = Episode.find_by!(uid: params[:uid])
   end
