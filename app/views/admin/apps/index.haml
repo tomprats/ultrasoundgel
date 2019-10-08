@@ -20,12 +20,12 @@
             %tr
               %td Share Image
               - if app.share_image.present?
-                %td= image_tag app.share_image.square
+                %td= image_tag app.share_image.square.url
               - else
                 %td None
             %tr
               %td Navbar Image
               - if app.navbar_image.present?
-                %td= image_tag app.navbar_image.small
+                %td= image_tag app.navbar_image.small.url
               - else
                 %td None

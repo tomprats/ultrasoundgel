@@ -20,8 +20,6 @@ class Upload < ApplicationRecord
   end
 
   class << self
-    private
-
     def podcast_approved_types
       []
     end

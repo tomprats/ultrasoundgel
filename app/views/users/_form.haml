@@ -18,12 +18,11 @@
     - if @user.image.present?
       = image_tag @user.image, class: "img-responsive"
     = f.file_field :image, class: "form-control"
-  -#
-    .form-group
-      .checkbox
-        %label
-          = f.check_box :post_notifications
-          Be notified when a new post is published?
+  .form-group
+    .checkbox
+      %label
+        = f.check_box :post_notifications
+        Be notified when a new post is published?
   .form-group
     - text = @user.id ? "Save" : "Sign Up"
     = f.submit text, class: "btn btn-primary"

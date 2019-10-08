@@ -5,4 +5,4 @@
 - if post.published_at
   Published on #{post.published_at.to_date.to_s(:long)}.
 Accessed on #{DateTime.now.to_date.to_s(:long)}.
-Available at #{home_url + index.to_s}.
+Available at #{home_url}#{post.episode&.number || Episode.maximum(:number) + 1}.
