@@ -1,9 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.4.2"
+ruby "2.6.2"
 
 gem "rails"
-
 gem "pg"
 
 # Uploads
@@ -32,6 +31,7 @@ gem "uglifier"
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "listen"
   gem "pry"
   gem "spring"
   gem "thin"
@@ -39,7 +39,4 @@ end
 
 group :production do
   gem "unicorn"
-
-  # Heroku compatable assets
-  # gem "rails_12factor"
 end
