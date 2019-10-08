@@ -13,7 +13,7 @@ class Admin::ArticlesController < AdminController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to({ action: :index }, success: "#{@article.title} created")
+      redirect_to({action: :index}, success: "#{@article.title} created")
     else
       @articles = Article.all
       render :index, warning: @article.errors.full_messages.join(", ")
@@ -23,7 +23,7 @@ class Admin::ArticlesController < AdminController
   def update
     @article = Article.find(params[:id])
     if @article.update(article_params)
-      redirect_to({ action: :index }, success: "#{@article.title} updated")
+      redirect_to({action: :index}, success: "#{@article.title} updated")
     else
       @articles = Article.all
       render :index, warning: @article.errors.full_messages.join(", ")
@@ -33,10 +33,11 @@ class Admin::ArticlesController < AdminController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-    redirect_to({ action: :index }, danger: "#{@article.title} deleted")
+    redirect_to({action: :index}, danger: "#{@article.title} deleted")
   end
 
   private
+
   def article_params
     params.require(:article).permit(
       :category_id, :link, :title,

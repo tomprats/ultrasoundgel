@@ -3,5 +3,5 @@ class ArticleCategory < ApplicationRecord
 
   validates_presence_of :rank, :name
 
-  default_scope { order(:rank, :name) }
+  default_scope{ order(:rank, :name) }
 end

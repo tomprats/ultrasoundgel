@@ -12,7 +12,7 @@ class CreatePodcasts < ActiveRecord::Migration
       t.boolean :explicit, default: false
 
       t.timestamp :published_at, index: true
-      t.timestamps      null: false
+      t.timestamps null: false
     end
 
     add_index :episodes, [:published_at, :channel_id]
@@ -31,7 +31,7 @@ class CreatePodcasts < ActiveRecord::Migration
       t.boolean :explicit, default: false
 
       t.timestamp :published_at, index: true
-      t.timestamps      null: false
+      t.timestamps null: false
     end
   end
 end

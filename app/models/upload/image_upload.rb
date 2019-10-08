@@ -9,6 +9,7 @@ class ImageUpload < Upload
   end
 
   private
+
   def check_associations
     errors.add(:channels, "are still associated") if channels.exists?
     errors.add(:episodes, "are still associated") if episodes.exists?

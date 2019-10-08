@@ -11,7 +11,7 @@ class Admin::ChannelsController < AdminController
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
-      redirect_to({ action: :index }, success: "#{@channel.title} created")
+      redirect_to({action: :index}, success: "#{@channel.title} created")
     else
       render :index, warning: @channel.errors.full_messages.join(", ")
     end
@@ -20,7 +20,7 @@ class Admin::ChannelsController < AdminController
   def update
     @channel = Channel.find_by(uid: params[:uid])
     if @channel.update(channel_params)
-      redirect_to({ action: :index }, success: "#{@channel.title} updated")
+      redirect_to({action: :index}, success: "#{@channel.title} updated")
     else
       render :index, warning: @channel.errors.full_messages.join(", ")
     end
@@ -28,33 +28,35 @@ class Admin::ChannelsController < AdminController
 
   def publish
     @channel = Channel.find_by(uid: params[:uid])
-    published_at = params[:published_at].blank? ? Time.zone.now : Time.zone.parse(params[:published_at])
+    published_at = params[:published_at]
+    published_at = published_at.blank? ? Time.zone.now : Time.zone.parse(published_at)
     if @channel.update(published_at: published_at)
-      redirect_to({ action: :index }, success: "#{@channel.title} published")
+      redirect_to({action: :index}, success: "#{@channel.title} published")
     else
-      redirect_to({ action: :index }, warning: @channel.errors.full_messages.join(", "))
+      redirect_to({action: :index}, warning: @channel.errors.full_messages.join(", "))
     end
   end
 
   def unpublish
     @channel = Channel.find_by(uid: params[:uid])
     if @channel.update(published_at: nil)
-      redirect_to({ action: :index }, success: "#{@channel.title} unpublished")
+      redirect_to({action: :index}, success: "#{@channel.title} unpublished")
     else
-      redirect_to({ action: :index }, warning: @channel.errors.full_messages.join(", "))
+      redirect_to({action: :index}, warning: @channel.errors.full_messages.join(", "))
     end
   end
 
   def destroy
     @channel = Channel.find_by(uid: params[:uid])
     if @channel.destroy
-      redirect_to({ action: :index }, danger: "#{@channel.title} deleted")
+      redirect_to({action: :index}, danger: "#{@channel.title} deleted")
     else
-      redirect_to({ action: :index }, warning: @channel.errors.full_messages.join(", "))
+      redirect_to({action: :index}, warning: @channel.errors.full_messages.join(", "))
     end
   end
 
   private
+
   def channel_params
     params.require(:channel).permit(
       :image_id, :title, :subtitle, :author, :link,

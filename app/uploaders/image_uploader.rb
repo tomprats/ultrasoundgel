@@ -18,7 +18,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :thumbnail do
     process resize_to_fill: [400, 400]
 
-    def full_filename(for_file = model.file.file)
+    def full_filename(for_file)
+      for_file ||= model.file.file
+
       "thumbnail.#{for_file.split(".").last}"
     end
   end

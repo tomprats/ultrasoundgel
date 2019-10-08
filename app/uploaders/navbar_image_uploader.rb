@@ -18,7 +18,9 @@ class NavbarImageUploader < CarrierWave::Uploader::Base
   version :small do
     process resize_to_fit: [4000000, 100] # Doesn't care about width
 
-    def full_filename(for_file = model.file.file)
+    def full_filename(for_file)
+      for_file ||= model.file.file
+
       "small.#{for_file.split(".").last}"
     end
   end

@@ -36,9 +36,10 @@ class Channel < ApplicationRecord
   end
 
   private
+
   def set_uid
     self.uid = SecureRandom.urlsafe_base64
-    set_uid if self.class.where(uid: self.uid).exists?
+    set_uid if self.class.where(uid: uid).exists?
   end
 
   def unpublished!
@@ -48,6 +49,8 @@ class Channel < ApplicationRecord
   end
 
   def unpublishable
-    errors.add(:published_at, "cannot be changed if published or episodes are publishing") if published? || episodes_publishing?
+    return if !published? && !episodes_publishing?
+
+    errors.add(:published_at, "cannot be changed if published or episodes are publishing")
   end
 end

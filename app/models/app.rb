@@ -8,7 +8,7 @@ class App < ApplicationRecord
 
   def self.default
     app ||= App.first
-    app ||= App.create(
+    app || App.create(
       share_title: "Ultrasound GEL",
       share_description: "The Ultrasound GEL Podcast",
       contact_email: "michaelpratsmd@gmail.com"
@@ -16,6 +16,7 @@ class App < ApplicationRecord
   end
 
   private
+
   def only_one
     one = id ? App.count == 1 : App.count.zero?
     errors.add(:id, "already exists") unless one

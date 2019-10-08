@@ -12,6 +12,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def set_post
     @post = Post.find_by!(uid: params[:uid])
   end

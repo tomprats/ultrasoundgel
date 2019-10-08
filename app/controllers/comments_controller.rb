@@ -16,7 +16,9 @@ class CommentsController < ApplicationController
 
     if recaptcha && @comment.save
       current_user && current_user.comment_notifications.find_or_create_by(post_id: @post.id)
-      User.joins(:comment_notifications).where(comment_notifications: { post_id: @post.id }).each do |user|
+      User.joins(:comment_notifications).where(
+        comment_notifications: {post_id: @post.id}
+      ).each do |user|
         PostMailer.comment_email(user, post_url(@post)).deliver_now
       end
       redirect_to @post, success: "Comment Saved"
@@ -36,6 +38,7 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def comment_params
     params.require(:comment).permit(
       :post_id, :text, :anonymous

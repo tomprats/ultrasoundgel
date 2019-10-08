@@ -7,7 +7,7 @@ class CreatePages < ActiveRecord::Migration
       t.string  :name,                   null: false
       t.text    :text
 
-      t.timestamps                       null: false
+      t.timestamps null: false
     end
 
     add_index :pages, [:active, :rank]

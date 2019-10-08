@@ -21,7 +21,7 @@ class Episode < ApplicationRecord
   has_one :post
 
   before_validation :set_uid, on: :create
-  before_save :publish, if: -> (episode) { episode.published_at_changed? && episode.published_at }
+  before_save :publish, if: -> (episode){ episode.published_at_changed? && episode.published_at }
   before_destroy :unpublished!
   after_save :update_tags, if: :saved_change_to_audio_id?
   after_destroy :remove_tag
@@ -32,8 +32,7 @@ class Episode < ApplicationRecord
       result = result.where("episodes.title ILIKE :search
         OR posts.tags ILIKE :search
         OR posts.title ILIKE :search",
-        search: "%#{v}%"
-      )
+        search: "%#{v}%")
     end
     result
   end
@@ -58,9 +57,10 @@ class Episode < ApplicationRecord
   end
 
   private
+
   def set_uid
     self.uid = SecureRandom.urlsafe_base64
-    set_uid if self.class.where(uid: self.uid).exists?
+    set_uid if self.class.where(uid: uid).exists?
   end
 
   def unpublished!
@@ -85,7 +85,7 @@ class Episode < ApplicationRecord
 
   def update_tags
     old_id, new_id = saved_change_to_audio_id
-    remove_tag(old_id)
+    remove_tag(upload_id: old_id)
     add_tag(new_id)
   end
 
@@ -95,7 +95,7 @@ class Episode < ApplicationRecord
     upload.add_tag
   end
 
-  def remove_tag(upload_id = audio_id)
+  def remove_tag(upload_id: audio_id)
     return unless upload_id
     return unless upload = AudioUpload.find_by(id: upload_id)
     return unless Episode.where(audio_id: upload_id).count.zero?

@@ -11,6 +11,7 @@ class CreateApps < ActiveRecord::Migration[5.0]
       t.string :instagram
       t.string :google_analytics_code
       t.text   :sidebar
+      t.timestamps
     end
 
     App.default

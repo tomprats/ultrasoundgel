@@ -17,7 +17,9 @@ class FileUploader < CarrierWave::Uploader::Base
   version :large, if: :image? do
     process resize_to_fill: [1400, 1400]
 
-    def full_filename(for_file = model.file.file)
+    def full_filename(for_file)
+      for_file ||= model.file.file
+
       "large.#{for_file.split(".").last}"
     end
   end
@@ -30,7 +32,7 @@ class FileUploader < CarrierWave::Uploader::Base
     model.size = file.size
     model.content_type = file.content_type
 
-    TagLib::FileRef.open(file.path) { |ref| model.duration = ref.audio_properties.length } if audio?
+    TagLib::FileRef.open(file.path){ |ref| model.duration = ref.audio_properties.length } if audio?
   end
 
   def audio?(*args)

@@ -33,6 +33,10 @@ group :development do
   gem "binding_of_caller"
   gem "listen"
   gem "pry"
+  gem "rubocop-airbnb",
+    git: "https://github.com/mcamara/ruby.git",
+    glob: "rubocop-airbnb/*.gemspec" # Until airbnb supports ruby 2.6
+  gem "rubocop-traitify"
   gem "spring"
   gem "thin"
 end

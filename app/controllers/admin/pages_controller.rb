@@ -13,7 +13,7 @@ class Admin::PagesController < AdminController
   def create
     @page = Page.new(page_params)
     if @page.save
-      redirect_to({ action: :index }, success: "#{@page.name} created")
+      redirect_to({action: :index}, success: "#{@page.name} created")
     else
       @pages = Page.all
       render :index, warning: @page.errors.full_messages.join(", ")
@@ -23,7 +23,7 @@ class Admin::PagesController < AdminController
   def update
     @page = Page.find(params[:id])
     if @page.update(page_params)
-      redirect_to({ action: :index }, success: "#{@page.name} updated")
+      redirect_to({action: :index}, success: "#{@page.name} updated")
     else
       @pages = Page.all
       render :index, warning: @page.errors.full_messages.join(", ")
@@ -33,10 +33,11 @@ class Admin::PagesController < AdminController
   def destroy
     @page = Page.find(params[:id])
     @page.destroy
-    redirect_to({ action: :index }, danger: "#{@page.name} deleted")
+    redirect_to({action: :index}, danger: "#{@page.name} deleted")
   end
 
   private
+
   def page_params
     params.require(:page).permit(
       :active, :rank, :template,

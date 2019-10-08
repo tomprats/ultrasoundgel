@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
 
   validates_presence_of :post, :text
 
-  default_scope { where(active: true).order(:created_at) }
+  default_scope{ where(active: true).order(:created_at) }
 
   def image
     i = user.image.thumbnail.url if user && user.image && !anonymous

@@ -3,5 +3,5 @@ class Article < ApplicationRecord
 
   validates_presence_of :link, :title, :journal, :year, :month
 
-  default_scope { order(year: :desc, month: :desc) }
+  default_scope{ order(year: :desc, month: :desc) }
 end
