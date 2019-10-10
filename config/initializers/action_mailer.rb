@@ -3,8 +3,8 @@ if Rails.env.development?
     address: "email-smtp.us-east-1.amazonaws.com",
     port: "587",
     domain: "tomify.me",
-    user_name: Rails.application.credentials.smtp_username,
-    password: Rails.application.credentials.smtp_password,
+    user_name: Rails.application.credentials.smtp[:username],
+    password: Rails.application.credentials.smtp[:password],
     authentication: "plain",
     enable_starttls_auto: true
   }

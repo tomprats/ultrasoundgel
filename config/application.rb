@@ -15,10 +15,6 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Load local ENV vars
-local_env = "config/local_variables.rb"
-load(local_env) if File.exists?(local_env)
-
 module Application
   class Application < Rails::Application
     config.load_defaults "6.0"

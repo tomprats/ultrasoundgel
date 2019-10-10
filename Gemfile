@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.6.2"
+ruby "2.6.0"
 
 gem "rails"
 gem "pg"
@@ -31,6 +31,13 @@ gem "turbolinks"
 gem "uglifier"
 
 group :development do
+  gem "capistrano-postgresql"
+  gem "capistrano-rails"
+  gem "capistrano-rails-collection"
+  gem "capistrano-rvm"
+  gem "capistrano-sidekiq"
+  gem "capistrano-unicorn-nginx", github: "capistrano-plugins/capistrano-unicorn-nginx", branch: "systemd"
+
   gem "better_errors"
   gem "binding_of_caller"
   gem "listen"
