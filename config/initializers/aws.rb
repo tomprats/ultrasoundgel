@@ -1,4 +1,7 @@
-credentials = Aws::Credentials.new(ENV["AWS_ACCESS_KEY"], ENV["AWS_SECRET_KEY"])
+credentials = Aws::Credentials.new(
+  Rails.application.credentials.aws[:access_key],
+  Rails.application.credentials.aws[:secret_key]
+)
 
 Aws.config.update({
   region: "us-east-1",

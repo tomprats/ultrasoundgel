@@ -15,3 +15,7 @@
 /config/local_variables.rb
 /config/local_variables.example.rb
 /public/uploads/*
+
+/config/master.key
+
+/config/credentials/production.key
