@@ -16,7 +16,7 @@
   .form-group
     .text-center Profile Image
     - if @user.image.present?
-      = image_tag @user.image, class: "img-responsive"
+      = image_tag @user.image.url, class: "img-responsive"
     = f.file_field :image, class: "form-control"
   .form-group
     .checkbox
