@@ -21,6 +21,7 @@ append :linked_files, "config/credentials/production.key"
 set :migration_role, :app
 
 # Other plugin options
+set :bundler_path, "/usr/share/rvm/bin/rvm default do bundle"
 set :init_system, :systemd
 set :nginx_server_name, "www.ultrasoundgel.org"
 set :nginx_ssl_cert, "fullchain.pem"
@@ -32,5 +33,6 @@ set :nginx_use_ssl, true
 set :pg_system_user, "deploy"
 set :pg_without_sudo, true
 set :pg_generate_random_password, true
+set :sidekiq_config, "config/sidekiq.yml"
 set :rvm_custom_path, "/usr/share/rvm"
 set :unicorn_logrotate_enabled, true
