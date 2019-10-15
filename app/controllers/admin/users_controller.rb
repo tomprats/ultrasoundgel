@@ -35,7 +35,7 @@ class Admin::UsersController < AdminController
     params.require(:user).permit(
       :admin, :email,
       :first_name, :last_name,
-      :image
+      :image, :post_notifications
     )
   end
 end
