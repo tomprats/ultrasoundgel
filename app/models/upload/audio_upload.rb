@@ -28,7 +28,7 @@ class AudioUpload < Upload
 
   def remove_tag
     s3 = Aws::S3::Client.new
-    tag_set = s3.get_object_tagging(Rails.application.credentials.aws[:bucket], key: file.path).tag_set
+    tag_set = s3.get_object_tagging(bucket: Rails.application.credentials.aws[:bucket], key: file.path).tag_set
     tag_set.delete_if{ |tag| tag[:key] == "episode" }
     s3.put_object_tagging(bucket: Rails.application.credentials.aws[:bucket], key: file.path, tagging: {tag_set: tag_set})
   end
