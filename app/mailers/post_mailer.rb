@@ -10,8 +10,7 @@ class PostMailer < ApplicationMailer
     @user = user
     @post = post
     @post_url = "#{home_url}#{post.episode.number}"
-    @image_url = episode_image_url(@post.episode.uid, format: @post.episode.image.extension)
 
-    mail(to: @user.email, subject: "Ultrasound GEL - Post Notification")
+    mail(to: @user.email, subject: "US GEL - #{@post.episode.title}")
   end
 end

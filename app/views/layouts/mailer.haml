@@ -5,4 +5,9 @@
     %meta(http-equiv="X-UA-Compatible" content="IE=edge")
     %meta(name="viewport" content="width=device-width, initial-scale=1")
     %body
-      = yield
+      %div(style="max-width: 500px; margin: auto; text-align: center;")
+        = yield
+        - if @user
+          %div
+            %br
+            %small= link_to "Unsubscribe", edit_user_url(token: @user.token)

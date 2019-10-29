@@ -1,10 +1,28 @@
+- itunes_link = @post.episode.itunes_link
+- itunes_link = @post.episode.channel.itunes_link if itunes_link.blank?
+- google_link = @post.episode.google_link
+- google_link = @post.episode.channel.google_link if google_link.blank?
+- link = link_to @post.title, @post_url
+- channel_image_url = channel_image_url(@post.episode.channel.uid, format: @post.episode.channel.image.extension)
+- episode_image_url = episode_image_url(@post.episode.uid, format: @post.episode.image.extension)
+
 %p Dear #{@user.first_name},
-%p We've published a new post at UltrasoundGEL.org.
-%div(style="max-width: 600px; text-align: center;")
-  %h3= @post.title
-  %p= link_to @post_url, @post_url
-  = image_tag @image_url, width: 300
-%p
-  Thanks for listening and engaging,
-  %br
-  the Ultrasound GEL podcast team
+%p Thanks for subscribing to the Ultrasound GEL Podcast mailing list.
+%p The latest podcast and post are out - <b>#{link}</b>
+= image_tag episode_image_url, width: 300
+- if itunes_link.present? || google_link.present?
+  - if itunes_link.present?
+    %div
+      = link_to itunes_link do
+        = image_tag "https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/podcast-lrg.svg", alt: "Listen on Apple Podcasts", width: 100
+  - if google_link.present?
+    %div
+      = link_to google_link do
+        = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play", width: 100
+%p Remember to post any comments or questions under the post on the website. Please give us a rating and review on iTunes to help the podcast! Thanks for listening!
+%div Mike & the US GEL Gang
+%div= link_to "@PratsEM", "https://twitter.com/PratsEM"
+%div= link_to "ultrasoundgel.org", "https://www.ultrasoundgel.org"
+%div= link_to "facebook.com/UltrasoundGEL", "https://facebook.com/UltrasoundGEL"
+%br
+= image_tag channel_image_url, width: 300
