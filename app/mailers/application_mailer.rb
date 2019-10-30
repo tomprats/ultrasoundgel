@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "Ultrasound GEL <notify@tomify.me>"
+  default from: "Ultrasound GEL <mike@ultrasoundgel.org>"
   layout "mailer"
 end
