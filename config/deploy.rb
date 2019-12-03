@@ -23,6 +23,8 @@ set :migration_role, :app
 # Other plugin options
 set :bundler_path, "/usr/share/rvm/bin/rvm default do bundle"
 set :init_system, :systemd
+set :logrotate_user, "deploy"
+set :logrotate_group, "deploy"
 set :nginx_server_name, "www.ultrasoundgel.org"
 set :nginx_ssl_cert, "fullchain.pem"
 set :nginx_ssl_cert_path, "/etc/letsencrypt/live/www.ultrasoundgel.org/"

@@ -31,6 +31,7 @@ gem "turbolinks"
 gem "uglifier"
 
 group :development do
+  gem "capistrano-logrotate"
   gem "capistrano-postgresql"
   gem "capistrano-rails"
   gem "capistrano-rails-collection"

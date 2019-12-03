@@ -115,6 +115,8 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-bundler (1.6.0)
       capistrano (~> 3.1)
+    capistrano-logrotate (0.4.0)
+      capistrano (~> 3.0)
     capistrano-postgresql (6.2.0)
       capistrano (>= 3.0)
       sshkit (>= 1.17.0)
@@ -356,6 +358,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  capistrano-logrotate
   capistrano-postgresql
   capistrano-rails
   capistrano-rails-collection

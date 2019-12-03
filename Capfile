@@ -2,6 +2,7 @@ require "capistrano/setup"
 require "capistrano/deploy"
 
 require "capistrano/bundler"
+require "capistrano/logrotate"
 require "capistrano/postgresql"
 require "capistrano/rails/assets"
 require "capistrano/rails/collection"
