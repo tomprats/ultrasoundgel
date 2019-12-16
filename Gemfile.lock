@@ -155,7 +155,7 @@ GEM
     et-orbi (1.2.2)
       tzinfo
     eventmachine (1.2.7)
-    excon (0.67.0)
+    excon (0.71.0)
     execjs (2.7.0)
     ffi (1.11.1)
     fog-aws (3.5.2)
