@@ -6,7 +6,7 @@
 - channel_image_url = channel_image_url(@post.episode.channel.uid, format: @post.episode.channel.image.extension)
 - episode_image_url = episode_image_url(@post.episode.uid, format: @post.episode.image.extension)
 
-%p Dear #{@user.first_name},
+%p Hi #{@user.first_name},
 %p Thanks for subscribing to the Ultrasound GEL Podcast mailing list.
 %p The latest podcast and post are out - <b>#{link}</b>
 = image_tag episode_image_url, width: 300
