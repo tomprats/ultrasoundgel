@@ -9,16 +9,16 @@
 %p Hi #{@user.first_name},
 %p Thanks for subscribing to the Ultrasound GEL Podcast mailing list.
 %p The latest podcast and post are out - <b>#{link}</b>
-= image_tag episode_image_url, width: 300
+= image_tag episode_image_url, width: "100%", style: "width: 100%"
 - if itunes_link.present? || google_link.present?
   - if itunes_link.present?
     %div
       = link_to itunes_link do
-        = image_tag "itunes-badge.png", alt: "Listen on Apple Podcasts", width: 100
+        = image_tag "itunes-badge.png", alt: "Listen on Apple Podcasts", width: 200, style: "margin-top: 20px"
   - if google_link.present?
     %div
       = link_to google_link do
-        = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play", width: 100
+        = image_tag "https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png", alt: "Get it on Google Play", width: 200
 %p Remember to post any comments or questions under the post on the website. Please give us a rating and review on iTunes to help the podcast! Thanks for listening!
 %div Mike & the US GEL Gang
 %div= link_to "@PratsEM", "https://twitter.com/PratsEM"
