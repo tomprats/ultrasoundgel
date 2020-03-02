@@ -37,15 +37,14 @@ group :development do
   gem "capistrano-rails-collection"
   gem "capistrano-rvm"
   gem "capistrano-sidekiq"
-  gem "capistrano-unicorn-nginx", github: "capistrano-plugins/capistrano-unicorn-nginx", branch: "systemd"
+  gem "capistrano-unicorn-nginx",
+    branch: "systemd",
+    github: "capistrano-plugins/capistrano-unicorn-nginx"
 
   gem "better_errors"
   gem "binding_of_caller"
   gem "listen"
   gem "pry"
-  gem "rubocop-airbnb",
-    git: "https://github.com/mcamara/ruby.git",
-    glob: "rubocop-airbnb/*.gemspec" # Until airbnb supports ruby 2.6
   gem "rubocop-traitify"
   gem "spring"
   gem "thin"
