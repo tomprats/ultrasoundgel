@@ -9,6 +9,10 @@ class PostPreview < ActionMailer::Preview
     PostMailer.publish_email(user, post)
   end
 
+  def unpublish_email
+    PostMailer.unpublish_email(user)
+  end
+
   private
 
   def post

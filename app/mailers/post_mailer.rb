@@ -13,4 +13,10 @@ class PostMailer < ApplicationMailer
 
     mail(to: @user.email, subject: "US GEL - #{@post.episode.title}")
   end
+
+  def unpublish_email(user)
+    @user = user
+
+    mail(to: @user.email, subject: "US GEL - Oops")
+  end
 end
