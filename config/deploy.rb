@@ -35,6 +35,7 @@ set :nginx_use_ssl, true
 set :pg_system_user, "deploy"
 set :pg_without_sudo, true
 set :pg_generate_random_password, true
+set :service_unit_name, "sidekiq-#{fetch(:application)}-#{fetch(:stage)}.service"
 set :sidekiq_config, "config/sidekiq.yml"
 set :rvm_custom_path, "/usr/share/rvm"
 set :unicorn_logrotate_enabled, true
