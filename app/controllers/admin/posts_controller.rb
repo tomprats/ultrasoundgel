@@ -59,7 +59,7 @@ class Admin::PostsController < AdminController
 
   def post_params
     params.require(:post).permit(
-      :episode_id, :title, :text, :tags
+      :episode_id, :title, :text, :tags, public_tags: []
     )
   end
 end

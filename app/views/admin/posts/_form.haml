@@ -25,6 +25,14 @@
     .col-sm-10
       = f.text_field :tags, placeholder: "Tomify, Great Jokes", class: "form-control"
   .form-group
+    = f.label :public_tags, class: "col-sm-2 control-label"
+    .col-sm-10
+      - app.public_tags.each do |public_tag|
+        %div
+          %label
+            = f.check_box :public_tags, { multiple: true }, public_tag, false
+            = public_tag
+  .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
       %span.help-text This will not yet publish your post

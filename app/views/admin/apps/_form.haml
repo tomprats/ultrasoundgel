@@ -24,6 +24,10 @@
     .col-sm-10
       = render partial: "partials/markdown_field", locals: { f: f, field: :resources }
   .form-group
+    = f.label :public_tags, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :public_tags, placeholder: "Public Tags", class: "form-control", value: f.object.public_tags.join(", ")
+  .form-group
     = f.label :contact_email, class: "col-sm-2 control-label"
     .col-sm-10
       = f.email_field :contact_email, placeholder: "Contact Email", class: "form-control"

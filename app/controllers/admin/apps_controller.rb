@@ -10,12 +10,17 @@ class Admin::AppsController < AdminController
   private
 
   def app_params
+    if params.dig(:app, :public_tags)&.is_a?(String)
+      params[:app][:public_tags] = params.dig(:app, :public_tags)&.split(",")&.collect(&:strip)
+    end
+
     params.require(:app).permit(
       :share_title, :share_description,
       :share_image, :navbar_image,
       :announcements, :resources,
       :twitter, :facebook, :instagram,
-      :contact_email, :google_analytics_code
+      :contact_email, :google_analytics_code,
+      public_tags: []
     )
   end
 end

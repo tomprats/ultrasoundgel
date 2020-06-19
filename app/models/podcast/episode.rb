@@ -28,11 +28,14 @@ class Episode < ApplicationRecord
 
   def self.search(value)
     result = left_joins(:post)
+    sql = <<-SQL
+      episodes.title ILIKE :search
+      OR array_to_string(posts.public_tags, ',') ILIKE :search
+      OR posts.tags ILIKE :search
+      OR posts.title ILIKE :search
+    SQL
     value.split(",").collect(&:strip).each do |v|
-      result = result.where("episodes.title ILIKE :search
-        OR posts.tags ILIKE :search
-        OR posts.title ILIKE :search",
-        search: "%#{v}%")
+      result = result.where(sql, search: "%#{v}%")
     end
     result
   end
