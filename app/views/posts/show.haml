@@ -6,6 +6,7 @@
           .text-center
             %h1= @post.title
             - if @post.episode
+              %div= @post.episode.author if @post.episode.author
               = render partial: "partials/audio_links", locals: {episode: @post.episode}
           .custom-html= @post.text_to_html
       .row.text-center
