@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
 
   def require_user!
     if params[:token]
-      user = Token.find_by(uuid: params[:token])
-      session[:current_user_id] = user.id
+      token = Token.find_by(uuid: params[:token])
+      session[:current_user_id] = token&.user&.id
     end
 
     not_found unless current_user

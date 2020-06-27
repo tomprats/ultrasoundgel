@@ -16,14 +16,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_001443) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "active_record_internal_metadatas", id: false, force: :cascade do |t|
-    t.string "key", limit: 191, null: false
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "unique_active_record_internal_metadatas", unique: true
-  end
-
   create_table "apps", id: :serial, force: :cascade do |t|
     t.string "share_title"
     t.string "share_description"
@@ -35,9 +27,9 @@ ActiveRecord::Schema.define(version: 2020_06_19_001443) do
     t.string "instagram"
     t.string "google_analytics_code"
     t.text "resources"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "announcements"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "public_tags", default: [], array: true
   end
 

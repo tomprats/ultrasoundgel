@@ -1,4 +1,4 @@
-class CreatePodcasts < ActiveRecord::Migration
+class CreatePodcasts < ActiveRecord::Migration[4.2]
   def change
     create_table :episodes do |t|
       t.integer :channel_id, index: true

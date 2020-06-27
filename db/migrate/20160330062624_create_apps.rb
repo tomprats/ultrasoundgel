@@ -13,7 +13,5 @@ class CreateApps < ActiveRecord::Migration[5.0]
       t.text   :sidebar
       t.timestamps
     end
-
-    App.default
   end
 end

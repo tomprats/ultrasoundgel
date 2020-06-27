@@ -5,8 +5,12 @@
         .col-xs-12
           .text-center
             %h1= @post.title
+            - if @post.public_tags.length > 0
+              .spacer-10
+                - @post.public_tags.each do |public_tag|
+                  = link_to public_tag, home_path(search: public_tag), class: "badge badge-themed"
             - if @post.episode
-              %div= @post.episode.author if @post.episode.author
+              %div= "By #{@post.episode.author}" if @post.episode.author
               = render partial: "partials/audio_links", locals: {episode: @post.episode}
           .custom-html= @post.text_to_html
       .row.text-center
