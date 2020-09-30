@@ -14,6 +14,10 @@ gem "sidekiq", "~> 5.1"
 gem "sidekiq-cron"
 gem "taglib-ruby"
 
+# OpenSSH
+gem "bcrypt_pbkdf"
+gem "ed25519"
+
 # Users
 gem "bcrypt"
 
