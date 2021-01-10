@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-%html
-  %head
+%html>
+  %head>
     %meta(charset="utf-8")
-    %meta(http-equiv="X-UA-Compatible" content="IE=edge")
-    %meta(name="viewport" content="width=device-width, initial-scale=1")
-    = render partial: "layouts/sharing"
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "https://www.google.com/recaptcha/api.js"
-    /[if lt IE 9]
-      = javascript_include_tag "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"
-      = javascript_include_tag "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"
-    = csrf_meta_tags
+    %meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 
-    %body(class="#{action_name} #{controller_name} #{controller_name}-#{action_name}")
-      = render partial: "layouts/navbar"
-      = render partial: "layouts/flash"
-      = yield
-      = render partial: "layouts/footer"
-      = render partial: "layouts/analytics"
-      = render partial: "partials/search_modal"
+    %link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    %link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    %link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+
+    = render "layouts/analytics"
+    = render "layouts/sharing"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = javascript_pack_tag "application"
+    = stylesheet_pack_tag "application"
+  %body(class="#{action_name} #{controller_name} #{controller_name}-#{action_name}")
+    #app
+    #routes(data-direct-upload-url="#{rails_direct_uploads_url}" data-blob-url-template="#{rails_service_blob_url(":signed_id", ":filename")}")
+    = yield

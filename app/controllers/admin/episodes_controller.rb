@@ -1,4 +1,4 @@
-class Admin::EpisodesController < AdminController
+class Admin::EpisodesController < Admin::ApplicationController
   def index
     @episode = Episode.new
   end

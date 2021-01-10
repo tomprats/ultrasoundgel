@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,700|Dosis:400,700);
+
+@import "variables.scss";
+@import "~@tomprats/fontawesome-pro/css/all";
+@import "~bootstrap-scss";
+@import "action-text.scss";
+@import "default.scss";
+@import "footer.scss";
+@import "navbar.scss";
+@import "podcasts.scss";
+@import "posts.scss";
+
+.notifications {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 5px;
+  transform: translate(-50%, 0%);
+  width: 350px;
+  z-index: 15;
+}

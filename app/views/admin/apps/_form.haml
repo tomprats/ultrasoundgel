@@ -1,52 +1,52 @@
 = form_for [:admin, app], html: { class: "form-horizontal" } do |f|
-  .form-group
-    = f.label :share_title, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :share_title, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :share_title, placeholder: "Share Title", class: "form-control"
-  .form-group
-    = f.label :share_description, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :share_description, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_area :share_description, placeholder: "Share Description", class: "form-control"
-  .form-group
-    = f.label :share_image, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :share_image, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.file_field :share_image, class: "form-control"
-  .form-group
-    = f.label :navbar_image, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :navbar_image, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.file_field :navbar_image, class: "form-control"
-  .form-group
-    = f.label :announcements, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :announcements, class: "col-sm-2 col-form-label"
     .col-sm-10
       = render partial: "partials/markdown_field", locals: { f: f, field: :announcements }
-  .form-group
-    = f.label :resources, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :resources, class: "col-sm-2 col-form-label"
     .col-sm-10
       = render partial: "partials/markdown_field", locals: { f: f, field: :resources }
-  .form-group
-    = f.label :public_tags, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :public_tags, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_area :public_tags, placeholder: "Public Tags", class: "form-control", value: f.object.public_tags.join(", ")
-  .form-group
-    = f.label :contact_email, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :contact_email, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.email_field :contact_email, placeholder: "Contact Email", class: "form-control"
-  .form-group
-    = f.label :twitter, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :twitter, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :twitter, placeholder: "Twitter", class: "form-control"
-  .form-group
-    = f.label :facebook, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :facebook, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :facebook, placeholder: "Facebook", class: "form-control"
-  .form-group
-    = f.label :instagram, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :instagram, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :instagram, placeholder: "Instagram", class: "form-control"
-  .form-group
-    = f.label :google_analytics_code, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :google_analytics_code, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :google_analytics_code, placeholder: "Google Analytics Code", class: "form-control"
-  .form-group
+  .form-group.row
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

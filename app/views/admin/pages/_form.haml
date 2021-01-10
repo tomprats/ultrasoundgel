@@ -1,30 +1,29 @@
 = form_for [:admin, @page], html: { class: "form-horizontal" } do |f|
-  .form-group
+  .form-group.form-check.row
     .col-sm-offset-2.col-sm-10
-      .checkbox
-        %label
-          = f.check_box :active
+        %label.form-check-label
+          = f.check_box :active, class: "form-check-input"
           Active?
-  .form-group
-    = f.label :rank, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :rank, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.number_field :rank, placeholder: "100", class: "form-control"
-  .form-group
-    = f.label :template, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :template, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.select :template, Page.templates, {}, class: "form-control"
-  .form-group
-    = f.label :name, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :name, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :name, placeholder: "Contact", class: "form-control"
-  .form-group
-    = f.label :path, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :path, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :path, placeholder: "contact", class: "form-control"
-  .form-group
-    = f.label :text, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :text, class: "col-sm-2 col-form-label"
     .col-sm-10
       = render partial: "partials/markdown_field", locals: { f: f, field: :text }
-  .form-group
+  .form-group.row
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

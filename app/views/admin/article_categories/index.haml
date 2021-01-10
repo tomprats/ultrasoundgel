@@ -1,15 +1,15 @@
 .container-fluid
   .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
+    .col-12
+      .card
+        .card-header
           %h4 New/Edit Category
-        .panel-body
+        .card-body
           = render partial: "form"
   .row
-    .col-xs-12
-      .panel.panel-default.paginate-panel-table
-        .panel-heading
+    .col-12
+      .card
+        .card-header
           %h4 Categories
         .table-responsive
           %table.table.table-bordered.table-hover

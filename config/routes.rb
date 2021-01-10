@@ -41,11 +41,22 @@ Rails.application.routes.draw do
     delete "posts/:uid/publish", to: "posts#unpublish", as: :post_unpublish
   end
 
+  scope :api do
+    get :app, to: "application#environment"
+
+    namespace :admin do
+      resources :sections, only: [:index, :show, :update]
+    end
+  end
+
   get "channels/:uid", to: "channels#show", as: :channel
   get "channels/:uid/image", to: "channels#image", as: :channel_image
   get "episodes/:uid", to: "episodes#show", as: :episode
   get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
   get "episodes/:uid/image", to: "episodes#image", as: :episode_image
   get :feed, to: "channels#index"
-  get ":path", to: "pages#show", as: :page
+
+  get "*path",
+    to: "pages#show",
+    constraints: lambda{ |request| request.path.exclude? "rails/active_storage" }
 end

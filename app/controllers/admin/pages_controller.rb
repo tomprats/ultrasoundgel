@@ -1,4 +1,4 @@
-class Admin::PagesController < AdminController
+class Admin::PagesController < Admin::ApplicationController
   def index
     @page = Page.new
     @pages = Page.all

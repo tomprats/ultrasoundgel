@@ -2,37 +2,28 @@ source "https://rubygems.org"
 
 ruby "2.6.0"
 
-gem "rails"
-gem "pg"
-
-# Uploads
 gem "aws-sdk-s3"
-gem "carrierwave"
-gem "fog-aws"
-gem "mini_magick"
-gem "sidekiq", "~> 5.1"
+gem "bcrypt"
+gem "haml"
+gem "image_processing"
+gem "pg"
+gem "rails", github: "tomprats/rails", branch: "active-storage-byte-range"
+gem "recaptcha", require: "recaptcha/rails"
+gem "sidekiq"
 gem "sidekiq-cron"
 gem "taglib-ruby"
+gem "unicorn"
+gem "webpacker"
 
 # OpenSSH
 gem "bcrypt_pbkdf"
 gem "ed25519"
 
-# Users
-gem "bcrypt"
-
-# Views
-gem "bootstrap-sass"
-gem "coffee-rails"
-gem "font-awesome-rails"
-gem "jquery-rails"
-gem "jquery-turbolinks"
-gem "haml"
-gem "recaptcha", require: "recaptcha/rails"
+# To Replace
+gem "carrierwave"
+gem "fog-aws"
+gem "mini_magick"
 gem "redcarpet"
-gem "sass-rails"
-gem "turbolinks"
-gem "uglifier"
 
 group :development do
   gem "capistrano-logrotate"
@@ -52,8 +43,4 @@ group :development do
   gem "rubocop-traitify"
   gem "spring"
   gem "thin"
-end
-
-group :production do
-  gem "unicorn"
 end

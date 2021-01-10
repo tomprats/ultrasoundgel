@@ -1,73 +1,72 @@
 = form_for [:admin, @channel], html: { class: "form-horizontal" } do |f|
   - if @channel.published?
-    .form-group
-      = f.label :google_link, "Google Link", class: "col-sm-2 control-label"
+    .form-group.row
+      = f.label :google_link, "Google Link", class: "col-sm-2 col-form-label"
       .col-sm-10
         = f.url_field :google_link, placeholder: "https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&link=https://play.google.com/music/m/Izwq4baivr3p5s2ewx2vizrk7sy?t%3DUltrasound_GEL%26pcampaignid%3DMKT-na-all-co-pr-mu-pod-16", class: "form-control"
-    .form-group
-      = f.label :itunes_link, "iTunes Link", class: "col-sm-2 control-label"
+    .form-group.row
+      = f.label :itunes_link, "iTunes Link", class: "col-sm-2 col-form-label"
       .col-sm-10
         = f.url_field :itunes_link, placeholder: "https://itunes.apple.com/us/podcast/ultrasound-gel/id1146063559?mt=2", class: "form-control"
-  .form-group
+  .form-group.row
     .col-sm-offset-2.col-sm-10
-      %p.form-control-static
+      %p.form-col-form-static
         For where these fields are displayed and what they represent, view the guidelines
         = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#rss", target: :_blank
   - if ImageUpload.podcast_approved.count.zero?
-    .form-group
-      = f.label :image_id, class: "col-sm-2 control-label"
+    .form-group.row
+      = f.label :image_id, class: "col-sm-2 col-form-label"
       .col-sm-10
-        %p.form-control-static
+        %p.form-col-form-static
           There are no uploaded images with the right file type available.
           = link_to "Create one", admin_uploads_path
           and attach it here before publishing this channel.
   - else
-    .form-group
-      = f.label :image_id, class: "col-sm-2 control-label"
+    .form-group.row
+      = f.label :image_id, class: "col-sm-2 col-form-label"
       .col-sm-10
         = f.collection_select :image_id, ImageUpload.podcast_approved, :id, :name, { prompt: "None" }, class: "form-control"
-  .form-group
-    = f.label :title, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :title, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :title, placeholder: "Ultra Sound of Music", class: "form-control"
-  .form-group
-    = f.label :subtitle, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :subtitle, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :subtitle, placeholder: "Visualize more than muscles", class: "form-control"
-  .form-group
-    = f.label :author, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :author, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :author, placeholder: "Ultra Sound Gel", class: "form-control"
-  .form-group
-    = f.label :link, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :link, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.url_field :link, placeholder: "https://www.ultrasoundgel.org", class: "form-control"
-  .form-group
-    = f.label :owner_name, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :owner_name, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :owner_name, placeholder: "Mike Prats", class: "form-control"
-  .form-group
-    = f.label :owner_email, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :owner_email, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.email_field :owner_email, placeholder: "mikeprats@gmail.com", class: "form-control"
-  .form-group
-    = f.label :summary, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :summary, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_area :summary, placeholder: "Long-winded description of the channel", class: "form-control"
-  .form-group
-    = f.label :categories, class: "col-sm-2 control-label"
+  .form-group.row
+    = f.label :categories, class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :categories, placeholder: "Tomify, Great Jokes", class: "form-control"
-      %p.help-block
+      %p.form-text
         For a list of categories, read the examples
         = link_to "here", "http://www.apple.com/itunes/podcasts/specs.html#category", target: :_blank
-  .form-group
+  .form-group.form-check.row
     .col-sm-offset-2.col-sm-10
-      .checkbox
-        %label
-          = f.check_box :explicit
+        %label.form-check-label
+          = f.check_box :explicit, class: "form-check-input"
           Explicit?
-  .form-group
+  .form-group.row
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
-      %span.help-text This will not yet publish your channel
+      %span.text-muted This will not yet publish your channel

@@ -1,0 +1,115 @@
+.navbar.center {
+  text-align: center;
+}
+
+.navbar.center .nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.admin-navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+$navbar-height: 110px;
+$navbar-toggler-height: 16px;
+$navbar-toggler-padding-height: 14px;
+$navbar-toggler-margin-height: ($navbar-height - $navbar-toggler-height - $navbar-toggler-padding-height*2)/2;
+$navbar-brand-height: $navbar-height/2;
+$navbar-brand-padding-height: $navbar-brand-height/2;
+
+nav {
+  button {
+    background: none;
+    border: none;
+  }
+  .dropdown-item {
+    a:hover, button:hover {
+      text-decoration: none
+    }
+  }
+}
+
+nav.bg-theme {
+  border-color: $theme;
+  background-color: $theme;
+  .navbar-nav {
+    .nav-icon {
+      display: inline-block;
+      margin-top: 8px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .nav-icon, .nav-link {
+      color: $white;
+    }
+  }
+  .navbar-brand {
+    height: auto;
+  }
+  .navbar-toggler {
+    border-color: $white;
+    margin-left: auto;
+
+    &:hover, &:focus {
+      background-color: darken($theme, 10%);
+    }
+    .fa-bars {
+      color: $white;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  nav.bg-theme {
+    .navbar-nav > li > a,
+    .navbar-nav > li > button {
+      font-size: 1.4em;
+      line-height: $navbar-height - 30px;
+    }
+    .navbar-brand {
+      padding: $navbar-brand-padding-height 10px;
+      img {
+        height: $navbar-brand-height;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  nav.bg-theme {
+    min-height: $navbar-height;
+    .navbar-toggler {
+      padding: $navbar-toggler-padding-height 10px;
+      margin-top: $navbar-toggler-margin-height;
+      margin-bottom: $navbar-toggler-margin-height;
+    }
+  }
+}
+
+@include media-breakpoint-between(sm, md) {
+  nav.bg-theme .navbar-brand {
+    padding-top: ($navbar-height - 40)/2;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  nav.bg-theme .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .dropdown {
+    margin: auto;
+  }
+
+  .dropdown-toggle.nav-link {
+    margin: auto;
+  }
+
+  .navbar-collapse {
+    text-align: center;
+  }
+}

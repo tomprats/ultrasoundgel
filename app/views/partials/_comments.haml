@@ -6,15 +6,15 @@
       - if current_user
         .row
           .col-sm-8
-            .checkbox
-              %label
-                = f.check_box :anonymous
+            .form-check
+              %label.form-check-label
+                = f.check_box :anonymous, class: "form-check-input"
                 Post Anonymously?
           .col-sm-4
-            = f.submit "Comment", class: "btn btn-themed pull-right"
+            = f.submit "Comment", class: "btn btn-themed float-right"
       - else
         = hidden_field_tag :recaptcha
-        %button.btn.btn-themed.pull-right.open-comment-modal(type="button") Comment
+        %button.btn.btn-themed.float-right.open-comment-modal(type="button") Comment
 .comments(id="post-#{post.id}-comments")
   - post.comments.each do |comment|
     .comment.media
@@ -24,7 +24,7 @@
         .small
           By #{comment.name} on #{comment.created_at_date}
           - if current_user && (current_user == comment.user || current_user.admin)
-            = link_to "x", comment, method: :delete, class: "pull-right", data: { confirm: "Are you sure you want to hide this comment?" }
+            = link_to "x", comment, method: :delete, class: "float-right", data: { confirm: "Are you sure you want to hide this comment?" }
         = comment.text
 - unless current_user
   .modal.fade#comment-modal(tabindex="-1" role="dialog")
@@ -47,5 +47,5 @@
                 %li Manage Comments
                 %li Recieve Notifications
         .modal-footer
-          %button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+          %button.btn.btn-secondary(type="button" data-dismiss="modal") Cancel
           %button.btn.btn-primary.save-comment(type="button") Comment

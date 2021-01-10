@@ -1,0 +1,47 @@
+@import "~trix/dist/trix";
+
+.trix-content {
+  :not(.attachment-gallery) > action-text-attachment {
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+    .attachment {
+      max-width: 50%;
+    }
+  }
+
+  .attachment__caption {
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .attachment-gallery {
+    margin: 20px 0;
+
+    .attachment {
+      max-width: 100% !important;
+      padding: 0 0.5em;
+    }
+
+    &.attachment-gallery--2 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 50%;
+      }
+    }
+
+    &.attachment-gallery--3 {
+      > action-text-attachment,
+      > .attachment {
+        flex: 1 0 33%;
+      }
+    }
+
+    &.attachment-gallery--4 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 25%;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+$black: #000000;
+$blue: #4D90FE;
+$green: #00CC99;
+
+$body-color: $black;
+$theme: $green;
+$brand-primary: $blue;
+$brand-success: $green;
+$state-success-text: darken($brand-success, 15%);
+$state-success-bg: lighten($brand-success, 36%);
+
+$font-family-sans-serif: "Raleway";

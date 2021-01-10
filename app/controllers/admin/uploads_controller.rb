@@ -1,4 +1,4 @@
-class Admin::UploadsController < AdminController
+class Admin::UploadsController < Admin::ApplicationController
   def index
     @upload = Upload.new
   end

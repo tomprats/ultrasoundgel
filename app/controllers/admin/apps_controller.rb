@@ -1,4 +1,4 @@
-class Admin::AppsController < AdminController
+class Admin::AppsController < Admin::ApplicationController
   def update
     if app.update(app_params)
       redirect_to({action: :index}, success: "App updated")

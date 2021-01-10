@@ -1,4 +1,4 @@
-class Admin::PostsController < AdminController
+class Admin::PostsController < Admin::ApplicationController
   def index
     @post = Post.new
   end

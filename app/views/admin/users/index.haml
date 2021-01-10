@@ -1,16 +1,16 @@
 .container-fluid
   - if @user
     .row
-      .col-xs-12
-        .panel.panel-default
-          .panel-heading
+      .col-12
+        .card
+          .card-header
             %h4 Edit User
-          .panel-body
+          .card-body
             = render partial: "form"
   .row
-    .col-xs-12
-      .panel.panel-default.paginate-panel-table
-        .panel-heading
+    .col-12
+      .card
+        .card-header
           %h4 Admins
         .table-responsive
           %table.table.table-bordered.table-hover
@@ -33,9 +33,9 @@
                     &vert;
                     = link_to "Delete", admin_user_path(admin), method: :delete, data: { confirm: "Are you sure you want to delete #{admin.name}?" }
   .row
-    .col-xs-12
-      .panel.panel-default.paginate-panel-table
-        .panel-heading
+    .col-12
+      .card
+        .card-header
           %h4 Users
         .table-responsive
           %table.table.table-bordered.table-hover

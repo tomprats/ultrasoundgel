@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+a, button {
+  color: $theme;
+  &:active, &:focus, &:hover {
+    color: $blue;
+  }
+}
+button {
+  padding: 0;
+}
+em {
+  font-size: 24px;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+.badge-themed {
+  @include button-variant(white, $theme, $theme);
+}
+.btn-themed {
+  @include button-variant(white, $theme, $theme);
+}
+.btn-icon {
+  color: $theme;
+  padding: 0;
+  &:active, &:focus, &:hover {
+    color: $blue;
+  }
+}
+.inline-block {
+  display: inline-block;
+}
+
+.no-space {
+  margin: 0;
+  padding: 0;
+}
+
+@for $i from 1 through 8 {
+  .spacer-#{$i*10} {
+    padding-bottom: $i*10px;
+  }
+  .spacer-top-#{$i*10} {
+    margin-top: $i*10px;
+  }
+}

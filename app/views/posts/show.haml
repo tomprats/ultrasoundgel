@@ -18,10 +18,11 @@
         %button.btn.btn-icon.fa.fa-2x.fa-twitter-square(title="Share on Twitter")
         %button.btn.btn-icon.fa.fa-2x.fa-share-alt-square{title: "Share by Link", data: {toggle: "modal", target: "#share-modal"}}
       .spacer-20
-      .well.well-sm.text-center
-        %h3 Cite this post as
-        %small
-          = render partial: "partials/citation", locals: { post: @post }
+      .card.bg-light.text-center
+        .card-body
+          %h3 Cite this post as
+          %small
+            = render partial: "partials/citation", locals: { post: @post }
       .spacer-20
       .row.small
         .col-md-6 Published on #{@post.published_at_date || "Unpublished"}

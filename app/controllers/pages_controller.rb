@@ -1,20 +1,24 @@
 class PagesController < ApplicationController
   before_action :check_path, only: :show
 
+  # TODO: instance variables
   def show
-    @page ||= Page.find_by(path: params[:path]) || not_found
-    @html = @page.text_to_html
+    @page ||= Page.find_by(path: params[:path])
 
-    case @page.template
-    when "home"
-      @episodes = @episodes.search(@search) if @search = params[:search].presence
-    when "articles"
-      @new_articles = Article.where("make_date(year, month, 1) > now() - '2 months'::interval")
-      @old_articles = Article.where("make_date(year, month, 1) < now() - '1 year'::interval")
-      @categories = ArticleCategory.all.includes(:articles)
+    if @page
+      @html = @page.text_to_html
+
+      case @page.template
+      when "home"
+        @episodes = @episodes.search(@search) if @search = params[:search].presence
+      when "articles"
+        @new_articles = Article.where("make_date(year, month, 1) > now() - '2 months'::interval")
+        @old_articles = Article.where("make_date(year, month, 1) < now() - '1 year'::interval")
+        @categories = ArticleCategory.all.includes(:articles)
+      end
     end
 
-    render "templates/#{@page.template}", layout: true
+    render html: "", layout: true
   end
 
   def home

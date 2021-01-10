@@ -9,11 +9,11 @@
         .modal-body
           - if controller_name == "posts"
             %p Publishing this post will also publish the connected episode.
-          .form-group
-            = label_tag :published_at, "Publish At", class: "control-label col-sm-3"
+          .form-group.row
+            = label_tag :published_at, "Publish At", class: "col-form-label col-sm-3"
             .col-sm-9
               = datetime_field_tag :published_at, "", placeholder: DateTime.now.strftime("%m/%d/%Y %I:%M %P"), class: "form-control"
         .modal-footer
-          %button.btn.btn-default(data-dismiss="modal") Cancel
+          %button.btn.btn-secondary(data-dismiss="modal") Cancel
           = link_to "Unpublish", "#", class: "btn btn-danger", data: {method: :delete}
           = submit_tag "Publish", class: "btn btn-primary"

@@ -2,10 +2,10 @@
   .col-sm-6
     - if episode.post && episode.post.published_at_date
       = link_to episode.post do
-        = image_tag episode_image_url(episode.uid, format: episode.image.extension), class: "img-responsive"
+        = image_tag episode_image_url(episode.uid, format: episode.image.extension), class: "img-fluid"
     - else
-      = image_tag episode_image_url(episode.uid, format: episode.image.extension), class: "img-responsive"
-    .hidden-lg.hidden-md.hidden-sm
+      = image_tag episode_image_url(episode.uid, format: episode.image.extension), class: "img-fluid"
+    .d-sm-none
       .spacer-5
       %hr
       .spacer-5

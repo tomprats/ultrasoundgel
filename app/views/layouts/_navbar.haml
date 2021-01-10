@@ -20,9 +20,9 @@
             = link_to "#", class: "dropdown-toggle" , data: {toggle: "dropdown"}do
               Articles
               = fa_icon "caret-down"
-            %ul.dropdown-menu
-              %li= link_to "Articles", admin_articles_path
-              %li= link_to "Categories", admin_article_categories_path
+            .dropdown-menu
+              .dropdown-item= link_to "Articles", admin_articles_path
+              .dropdown-item= link_to "Categories", admin_article_categories_path
 %nav.navbar.navbar-default.center
   .container-fluid
     - if app.navbar_image.present?
@@ -42,9 +42,9 @@
             = link_to "#", class: "dropdown-toggle" , data: {toggle: "dropdown"}do
               Profile
               = fa_icon "caret-down"
-            %ul.dropdown-menu
-              %li= link_to "Profile", edit_user_path
-              %li= link_to "Sign Out", session_path, method: :delete
+            .dropdown-menu
+              .dropdown-item= link_to "Profile", edit_user_path
+              .dropdown-item= link_to "Sign Out", session_path, method: :delete
         - else
           %li= link_to "Sign In/Up", new_session_path
         %li

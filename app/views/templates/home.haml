@@ -8,7 +8,7 @@
 .container-fluid
   .row
     - sidebar = app.announcements.present? || app.resources.present?
-    .col-md-6(class="col-md-offset-#{sidebar ? 1 : 3}")
+    .col-md-6(class="offset-md-#{sidebar ? 1 : 3}")
       - if @html.present?
         .custom-html.text-center= @html
         %hr
@@ -44,12 +44,12 @@
       .col-md-4
         - if app.announcements.present?
           .spacer-10
-          .panel.panel-success
-            .panel-heading Announcements
-            .panel-body.custom-html= app.announcements_to_html
+          .card.card-success
+            .card-header Announcements
+            .card-body.custom-html= app.announcements_to_html
         = render "partials/twitter_widget"
         - if app.resources.present?
           .spacer-10
-          .panel.panel-success
-            .panel-heading Cool Sites
-            .panel-body.custom-html= app.resources_to_html
+          .card.card-success
+            .card-header Cool Sites
+            .card-body.custom-html= app.resources_to_html

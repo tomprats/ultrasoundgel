@@ -1,4 +1,4 @@
-class Admin::ArticlesController < AdminController
+class Admin::ArticlesController < Admin::ApplicationController
   def index
     @article = Article.new
     @articles = Article.all

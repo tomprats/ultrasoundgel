@@ -1,4 +1,4 @@
-class Admin::ChannelsController < AdminController
+class Admin::ChannelsController < Admin::ApplicationController
   def index
     @channel = Channel.new
   end
