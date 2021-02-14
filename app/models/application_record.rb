@@ -1,6 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  # TODO: Remove
   def self.to_html(*attrs)
     attrs.each do |attr|
       define_method("#{attr}_to_html") do
@@ -20,6 +21,7 @@ class ApplicationRecord < ActiveRecord::Base
     after_save :bust_html_cache
   end
 
+  # TODO: Remove
   def self.date_from(*attrs)
     attrs.each do |attr|
       define_method("#{attr}_date") do

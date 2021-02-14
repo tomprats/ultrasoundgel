@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  mount_uploader :image, ImageUploader
+  has_one_attached :image
+  mount_uploader :legacy_image, ImageUploader
 
   has_many :comments
   has_many :comment_notifications
@@ -14,6 +15,14 @@ class User < ApplicationRecord
 
   default_scope{ order(:created_at) }
   scope :admin, ->{ where(admin: true) }
+
+  def current_image
+    image.attached? ? image.url : legacy_image&.file&.url
+  end
+
+  def current_image_thumbnail
+    image.attached? ? image.variant(resize_to_limit: [400, 400]).url : legacy_image&.thumbnail&.file&.url
+  end
 
   def name
     "#{first_name} #{last_name}"

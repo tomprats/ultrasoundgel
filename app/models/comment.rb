@@ -7,12 +7,12 @@ class Comment < ApplicationRecord
   default_scope{ where(active: true).order(:created_at) }
 
   def image
-    i = user.image.thumbnail.url if user && user.image && !anonymous
+    i = user&.current_image_thumbnail unless anonymous
     i || "/logo.jpg"
   end
 
   def name
-    n = user.name if user && !anonymous
+    n = user&.name unless anonymous
     n || "Anonymous"
   end
 end

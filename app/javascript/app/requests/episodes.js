@@ -1,4 +1,5 @@
 import headers from "app/requests/headers";
+import {queryString} from "lib/object";
 
 export const get = (uid) => (
   fetch(`/api/episodes/${uid}`, {
@@ -7,8 +8,8 @@ export const get = (uid) => (
   }).then((response) => response.json())
 );
 
-export const getAll = () => (
-  fetch("/api/episodes", {
+export const getAll = (params) => (
+  fetch(`/api/episodes?${queryString(params || {})}`, {
     headers: headers(),
     method: "GET"
   }).then((response) => response.json())

@@ -37,7 +37,7 @@
         .modal-body
           .row.text-center
             .col-md-6
-              .g-recaptcha.inline-block(data-sitekey="#{Rails.application.credentials.recaptcha[:public_key]}")
+              .g-recaptcha.d-inline-block(data-sitekey="#{Rails.application.credentials.recaptcha[:public_key]}")
             .col-md-6
               or
               = link_to "Sign In or Up", new_session_path, target: :_blank

@@ -1,8 +1,9 @@
-import {useContext, useRef} from "react";
+import {useContext, useRef, useState} from "react";
 import {NavLink} from "react-router-dom";
 import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {destroy as destroySession} from "app/requests/session";
+import {Search as SearchModal} from "components/helpers/modal";
 import {useContent, useNavbar} from "lib/hooks";
 
 export default function Navbar() {
@@ -12,6 +13,7 @@ export default function Navbar() {
   const instagram = useContent("Social", "Instagram");
   const twitter = useContent("Social", "Twitter");
   const [{pages, user}, dispatch] = useContext(Context);
+  const [showSearch, setShowSearch] = useState(false);
   const ref = useRef(null);
   const {toggleMenu} = useNavbar({ref});
   const signOut = () => {
@@ -39,7 +41,7 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ml-auto">
-            {pages.map((page) => (
+            {pages.filter((page) => page.active).map((page) => (
               <li key={page.path}>
                 <NavLink className="nav-link" to={`/${page.path}`}>{page.name}</NavLink>
               </li>
@@ -58,7 +60,7 @@ export default function Navbar() {
               </li>
             )}
             <li className="ml-lg-3">
-              <button className="nav-icon" type="button">
+              <button className="nav-icon" onClick={() => setShowSearch(true)} type="button">
                 <i className="fas fa-search" />
               </button>
               {email && (
@@ -87,6 +89,7 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
+        <SearchModal show={showSearch} onClose={() => setShowSearch(false)} />
       </div>
     </nav>
   );

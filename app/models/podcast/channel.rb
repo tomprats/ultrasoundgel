@@ -1,20 +1,29 @@
 class Channel < ApplicationRecord
   include Published
+  has_rich_text :description
+  has_one_attached :image
 
+  # TODO: Add validations from image upload
   validates_presence_of :title
 
   on_publish do |record|
-    record.validates_presence_of :image, :subtitle,
-      :author, :link, :owner_name, :owner_email, :summary
+    record.validates_presence_of(
+      :subtitle,
+      :author,
+      :link,
+      :owner_name,
+      :owner_email
+    )
+    record.validate :description_ready!
+    record.validate :image_ready!
   end
 
   on_unpublish do |record|
     record.validate :unpublishable
   end
 
-  belongs_to :image, class_name: "ImageUpload"
+  belongs_to :legacy_image, class_name: "ImageUpload", optional: true
   has_many :episodes
-  has_many :posts, through: :episodes
 
   before_validation :set_uid, on: :create
   before_destroy :unpublished!
@@ -23,8 +32,30 @@ class Channel < ApplicationRecord
     categories ? categories.split(",").collect(&:strip) : []
   end
 
+  def current_description
+    current_description_html
+  end
+
+  def current_description_html
+    description.present? ? description.body.to_html : summary
+  end
+
+  def current_description_text
+    description.present? ? description.body.to_plain_text : summary
+  end
+
+  # TODO: This
+  def current_image
+    image.attached? ? image.url : legacy_image&.file&.url
+  end
+
   def episodes_publishing?
     episodes.where.not(published_at: nil).exists?
+  end
+
+  def image_extension
+    return image.blob.filename.extension if image.attached?
+    legacy_image.extension if legacy_image.present?
   end
 
   def publishing?
@@ -36,6 +67,14 @@ class Channel < ApplicationRecord
   end
 
   private
+
+  def description_ready!
+    errors.add(:description, :blank) if current_description.blank?
+  end
+
+  def image_ready!
+    errors.add(:image, :blank) if current_image.blank?
+  end
 
   def set_uid
     self.uid = SecureRandom.urlsafe_base64

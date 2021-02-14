@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_030339) do
+ActiveRecord::Schema.define(version: 2021_01_17_031109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_030339) do
   end
 
   create_table "channels", id: :serial, force: :cascade do |t|
-    t.integer "image_id"
+    t.integer "legacy_image_id"
     t.string "uid", null: false
     t.string "title", null: false
     t.string "subtitle"
@@ -155,8 +155,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_030339) do
 
   create_table "episodes", id: :serial, force: :cascade do |t|
     t.integer "channel_id"
-    t.integer "audio_id"
-    t.integer "image_id"
+    t.integer "legacy_audio_id"
+    t.integer "legacy_image_id"
     t.string "uid", null: false
     t.string "title", null: false
     t.string "subtitle"
@@ -240,7 +240,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_030339) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image"
+    t.string "legacy_image"
     t.boolean "post_notifications", default: false
     t.index ["admin"], name: "index_users_on_admin"
     t.index ["email"], name: "index_users_on_email"

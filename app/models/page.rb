@@ -1,4 +1,6 @@
 class Page < ApplicationRecord
+  has_rich_text :content
+
   validates_presence_of :rank, :path, :name, :template
   validates_uniqueness_of :path
 
@@ -8,6 +10,10 @@ class Page < ApplicationRecord
   before_validation :format_path
 
   to_html :text
+
+  def current_content
+    content.present? ? content.body.to_html : text_to_html
+  end
 
   def self.home
     @home = Page.find_by(path: :home)
@@ -20,11 +26,12 @@ class Page < ApplicationRecord
   end
 
   def self.templates
-    return @files if @files
-    @files = Dir.glob("#{Rails.root}/app/views/templates/*")
-    @files.compact!
-    @files.collect!{ |file| file.split("/").last.split(".").first }
-    @files.sort_by!{ |f| f == "default" ? "" : f } # Default First
+    [
+      "default",
+      "articles",
+      "contact",
+      "home"
+    ]
   end
 
   private

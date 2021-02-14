@@ -1,8 +1,10 @@
 export * as ActionText from "./action-text";
 export Alert from "./alert";
+export AudioLinks from "./audio-links";
 export Check from "./check";
 export DangerousHTML from "./dangerous-html";
 export FormWithFiles from "./form-with-files";
 export FileInput from "./file-input";
 export Loading from "./loading";
+export * as Modal from "./modal";
 export Twitter from "./twitter";

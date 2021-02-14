@@ -32,3 +32,14 @@ export const displayTime = (string) => {
 
   return [hours, minutes, seconds].filter(Boolean).join(":");
 };
+
+export const isBlankHTML = (string) => {
+  if(string == null || string === "") { return true; }
+
+  const updatedString = string
+    .replaceAll("<div class=\"trix-content\">", "")
+    .replaceAll("</div>", "")
+    .trim();
+
+  return updatedString === "";
+};

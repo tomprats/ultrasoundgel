@@ -21,13 +21,12 @@ module Published
     default_scope{ order(published_at: :desc) }
 
     scope :ascending, ->{ reorder("#{table_name}.published_at ASC") }
+    scope :descending, ->{ reorder("#{table_name}.published_at DESC") }
     scope :unpublished, ->{
       where("#{table_name}.published_at IS NULL OR #{table_name}.published_at > ?", DateTime.now)
     }
     scope :published, ->{ where("#{table_name}.published_at <= ?", DateTime.now) }
     scope :scheduled, ->{ where("#{table_name}.published_at > ?", DateTime.now) }
-
-    date_from :published_at
 
     def published?
       published_before?(DateTime.now)

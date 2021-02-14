@@ -1,13 +1,24 @@
 class Episode < ApplicationRecord
   include Published
+  has_one_attached :audio
+  has_rich_text :description
+  has_one_attached :image
+  has_one :action_text_rich_text, as: :record, class_name: "ActionText::RichText"
 
+  # TODO: Add validations from audio upload
+  # TODO: Add validations from image upload
   validates_presence_of :title, :uid
   validate :channel_check, if: :channel_id_changed?
-  validate :audio_check, if: :audio_id_changed?
 
   on_publish do |record|
-    record.validates_presence_of :channel, :audio, :image,
-      :subtitle, :author, :summary
+    record.validates_presence_of(
+      :author,
+      :channel,
+      :subtitle
+    )
+    record.validate :audio_ready!
+    record.validate :description_ready!
+    record.validate :image_ready!
     record.validate :publishable
   end
 
@@ -16,15 +27,13 @@ class Episode < ApplicationRecord
   end
 
   belongs_to :channel
-  belongs_to :audio, class_name: "AudioUpload"
-  belongs_to :image, class_name: "ImageUpload"
+  belongs_to :legacy_audio, class_name: "AudioUpload", optional: true
+  belongs_to :legacy_image, class_name: "ImageUpload", optional: true
   has_one :post
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (episode){ episode.published_at_changed? && episode.published_at }
   before_destroy :unpublished!
-  after_save :update_tags, if: :saved_change_to_audio_id?
-  after_destroy :remove_tag
 
   def self.search(value)
     result = left_joins(:post)
@@ -38,6 +47,53 @@ class Episode < ApplicationRecord
       result = result.where(sql, search: "%#{v}%")
     end
     result
+  end
+
+  def audio_duration
+    return audio.blob.metadata[:duration]&.to_i if audio.attached?
+    legacy_audio.duration_time if legacy_audio.present?
+  end
+
+  def audio_extension
+    return audio.blob.filename.extension if audio.attached?
+    legacy_audio.extension if legacy_audio.present?
+  end
+
+  def audio_size
+    return audio.blob.byte_size if audio.attached?
+    legacy_audio.size if legacy_audio.present?
+  end
+
+  def audio_type
+    return audio.blob.content_type if audio.attached?
+    legacy_audio.content_type if legacy_audio.present?
+  end
+
+  # TODO: This
+  def current_audio
+    audio.attached? ? audio.url : legacy_audio&.file&.url
+  end
+
+  def current_description
+    current_description_html
+  end
+
+  def current_description_html
+    description.present? ? description.body.to_html : summary
+  end
+
+  def current_description_text
+    description.present? ? description.body.to_plain_text : summary
+  end
+
+  # TODO: This
+  def current_image
+    image.attached? ? image.url : legacy_image&.file&.url
+  end
+
+  def image_extension
+    return image.blob.filename.extension if image.attached?
+    legacy_image.extension if legacy_image.present?
   end
 
   def publishable
@@ -61,6 +117,18 @@ class Episode < ApplicationRecord
 
   private
 
+  def audio_ready!
+    errors.add(:audio, :blank) if current_audio.blank?
+  end
+
+  def description_ready!
+    errors.add(:description, :blank) if current_description.blank?
+  end
+
+  def image_ready!
+    errors.add(:image, :blank) if current_image.blank?
+  end
+
   def set_uid
     self.uid = SecureRandom.urlsafe_base64
     set_uid if self.class.where(uid: uid).exists?
@@ -73,34 +141,5 @@ class Episode < ApplicationRecord
 
   def unpublishable
     errors.add(:published_at, "cannot be changed if published") if published?
-  end
-
-  def audio_check
-    return if AudioUpload.find_by(id: audio_id_was).blank?
-    return if AudioUpload.find_by(id: audio_id).present?
-    errors.add(:audio, "cannot be removed if publishing") if publishing?
-  end
-
-  def channel_check
-    errors.add(:channel, "cannot be changed if publishing") if publishing?
-  end
-
-  def update_tags
-    old_id, new_id = saved_change_to_audio_id
-    remove_tag(upload_id: old_id)
-    add_tag(new_id)
-  end
-
-  def add_tag(upload_id)
-    return unless upload_id
-    return unless upload = AudioUpload.find_by(id: upload_id)
-    upload.add_tag
-  end
-
-  def remove_tag(upload_id: audio_id)
-    return unless upload_id
-    return unless upload = AudioUpload.find_by(id: upload_id)
-    return unless Episode.where(audio_id: upload_id).count.zero?
-    upload.remove_tag
   end
 end

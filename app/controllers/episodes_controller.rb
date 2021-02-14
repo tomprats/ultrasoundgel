@@ -2,11 +2,11 @@ class EpisodesController < ApplicationController
   before_action :set_episode
 
   def audio
-    redirect_to @episode.audio.file.url
+    redirect_to @episode.current_audio
   end
 
   def image
-    redirect_to @episode.image.file.large.url
+    redirect_to @episode.current_image
   end
 
   private

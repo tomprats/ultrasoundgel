@@ -1,5 +1,5 @@
 import headers from "app/requests/headers";
-import queryString from "app/requests/query-string";
+import {queryString} from "lib/object";
 
 export const get = (uid) => (
   fetch(`/api/posts/${uid}`, {

@@ -41,8 +41,11 @@ Rails.application.routes.draw do
     delete "posts/:uid/publish", to: "posts#unpublish", as: :post_unpublish
   end
 
-  scope :api do
+  namespace :api do
     get :app, to: "application#environment"
+
+    resources :articles, only: [:index]
+    resources :episodes, only: [:index, :show]
 
     namespace :admin do
       resources :sections, only: [:index, :show, :update]

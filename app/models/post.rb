@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   include Published
 
   has_many :comments
+  has_rich_text :content
   belongs_to :episode
 
   validates_presence_of :title
@@ -21,6 +22,10 @@ class Post < ApplicationRecord
   before_destroy :unpublished!
 
   to_html :text
+
+  def current_content
+    content.present? ? content.body.to_html : text_to_html
+  end
 
   def tag_list
     tags && tags.split(",").collect(&:strip)

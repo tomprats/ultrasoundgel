@@ -33,7 +33,7 @@ export default function Router() {
                 <Route path="/profile" component={Pages.Profile} />
                 <Route path="/subscribe" component={Pages.Subscribe} />
                 {pages.map((page) => (
-                  <Route key={page.path} exact={true} path={`/${page.path}`} render={(props) => <Pages.Template page={page} {...props} />} />
+                  <Route key={page.path} component={Pages.Template} exact={true} path={`/${page.path}`} />
                 ))}
                 {(user && user.admin) ? (
                   <Redirect exact={true} from="/admin" to="/admin/messages" />
