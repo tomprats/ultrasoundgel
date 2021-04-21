@@ -9,7 +9,7 @@ class PostMailer < ApplicationMailer
   def publish_email(user, post)
     @user = user
     @post = post
-    @post_url = "#{home_url}#{post.episode.number}"
+    @post_url = "#{root_url}#{post.episode.number}"
 
     mail(to: @user.email, subject: "US GEL - #{@post.episode.title}")
   end

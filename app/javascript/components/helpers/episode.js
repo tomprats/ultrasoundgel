@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import {ActionText, AudioLinks} from "components/helpers";
 import {displayDateTime} from "lib/string";
+import Content from "./action-text/content";
+import AudioLinks from "./audio-links";
 
 function Episode({episode}) {
   return (
@@ -29,7 +30,7 @@ function Episode({episode}) {
         <AudioLinks episode={episode} />
         <h4 className="mt-2">{episode.subtitle}</h4>
         <p>By {episode.author} on {episode.published_at ? displayDateTime(episode.published_at) : "Unpublished"}</p>
-        <ActionText.Content html={episode.description} />
+        <Content html={episode.description} />
       </div>
     </div>
   );

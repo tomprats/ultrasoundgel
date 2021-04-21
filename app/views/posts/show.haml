@@ -8,7 +8,7 @@
             - if @post.public_tags.length > 0
               .spacer-10
                 - @post.public_tags.each do |public_tag|
-                  = link_to public_tag, home_path(search: public_tag), class: "badge badge-themed"
+                  = link_to public_tag, root_path(search: public_tag), class: "badge badge-themed"
             - if @post.episode
               %div= "By #{@post.episode.author}" if @post.episode.author
               = render partial: "partials/audio_links", locals: {episode: @post.episode}

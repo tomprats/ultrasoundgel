@@ -27,7 +27,7 @@
   .container-fluid
     - if app.navbar_image.present?
       .navbar-header
-        = link_to home_path, class: "navbar-brand" do
+        = link_to root_path, class: "navbar-brand" do
           = image_tag app.navbar_image.small&.url, alt: "Logo"
         %button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#navbar")
           %span.icon-bar

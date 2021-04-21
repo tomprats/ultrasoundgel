@@ -3,7 +3,6 @@ import {Redirect} from "react-router-dom";
 import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {forgotPassword} from "app/requests/session";
-import {usePage} from "lib/hooks";
 
 export default function ForgotPassword() {
   const [{user}, dispatch] = useContext(Context);
@@ -18,8 +17,6 @@ export default function ForgotPassword() {
       }));
     });
   };
-
-  usePage({heading: "Forgot Password"});
 
   if(user) { return <Redirect to="/profile" />; }
 

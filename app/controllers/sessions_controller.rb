@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: email)
     if user && user.authenticate(params[:user][:password])
       session[:current_user_id] = user.id
-      redirect_to home_path, success: "Signed In!"
+      redirect_to root_path, success: "Signed In!"
     else
       @user = User.new(email: email)
       render :new, warning: "Invalid email/password combination"
@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:current_user_id] = nil
-    redirect_to home_path
+    redirect_to root_path
   end
 end

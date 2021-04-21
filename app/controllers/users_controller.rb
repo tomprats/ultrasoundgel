@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:current_user_id] = @user.id
-      redirect_to home_path, success: "Signed Up!"
+      redirect_to root_path, success: "Signed Up!"
     else
       render "sessions/new", warning: @user.errors.full_messages.join(", ")
     end

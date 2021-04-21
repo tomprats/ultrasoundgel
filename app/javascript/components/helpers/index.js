@@ -3,6 +3,7 @@ export Alert from "./alert";
 export AudioLinks from "./audio-links";
 export Check from "./check";
 export DangerousHTML from "./dangerous-html";
+export Episode from "./episode";
 export FormWithFiles from "./form-with-files";
 export FileInput from "./file-input";
 export Loading from "./loading";

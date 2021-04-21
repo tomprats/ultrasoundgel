@@ -30,7 +30,7 @@ class Api::EpisodesController < Api::ApplicationController
 
   def episode_as_json(episode)
     episode.as_json(
-      methods: [:audio_type],
+      methods: [:audio_duration, :audio_extension, :audio_type, :image_extension],
       only: episode_fields
     ).merge(
       audio: episode.current_audio,
@@ -43,7 +43,7 @@ class Api::EpisodesController < Api::ApplicationController
   def episodes_as_json(episodes)
     episodes.map do |episode|
       episode.as_json(
-        methods: [:audio_duration, :audio_type, :image_extension],
+        methods: [:audio_duration, :audio_extension, :audio_type, :image_extension],
         only: episode_fields
       ).merge(
         audio: episode.current_audio,

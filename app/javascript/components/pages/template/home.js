@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import {Fragment, useEffect, useState} from "react";
 import {getAll as getEpisodes} from "app/requests/episodes";
-import {ActionText, Twitter} from "components/helpers";
+import {ActionText, Episode, Twitter} from "components/helpers";
 import {Loading} from "components/pages";
 import {useContent, useQueryParams} from "lib/hooks";
 import {queryString} from "lib/object";
 import {isBlankHTML} from "lib/string";
-import Episode from "./episode";
 
 function Home({page}) {
   const announcements = useContent("General", "Announcements");

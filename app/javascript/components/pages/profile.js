@@ -5,7 +5,6 @@ import {createNotification} from "app/actions/notifications";
 import {setUser} from "app/actions/user";
 import {update as updateUser} from "app/requests/user";
 import {FileInput, FormWithFiles} from "components/helpers";
-import {usePage} from "lib/hooks";
 
 export default function Profile() {
   const [{user}, dispatch] = useContext(Context);
@@ -43,8 +42,6 @@ export default function Profile() {
   const value = (name) => (
     changes[name] === undefined ? user[name] : changes[name]
   );
-
-  usePage({heading: "Profile"});
 
   if(!user) { return <Redirect to="/subscribe" />; }
 

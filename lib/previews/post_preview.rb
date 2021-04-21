@@ -2,7 +2,7 @@ class PostPreview < ActionMailer::Preview
   include Rails.application.routes.url_helpers
 
   def comment_email
-    PostMailer.comment_email(user, home_url + post.episode.number.to_s)
+    PostMailer.comment_email(user, root_url + post.episode.number.to_s)
   end
 
   def publish_email

@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_back(options = {})
-    options[:fallback_location] ||= home_path
+    options[:fallback_location] ||= root_path
     super(options)
   end
 

@@ -7,13 +7,13 @@ Rails.application.routes.draw do
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
 
-  root "pages#home", as: :home
-  get :home, to: "pages#home"
-  get :disclaimer, to: "pages#disclaimer"
+  # Named Page Routes
+  root "pages#show"
+  get "episodes/:uid", to: "pages#show", as: :episode
+  get "posts/:uid", to: "pages#show", as: :post
 
   resource :session, only: [:new, :create, :destroy]
   resources :citations, only: [:index]
-  resources :posts, only: [:show], param: :uid
   post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
   post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post
   resources :comments, only: [:create, :destroy]
@@ -45,16 +45,14 @@ Rails.application.routes.draw do
     get :app, to: "application#environment"
 
     resources :articles, only: [:index]
-    resources :episodes, only: [:index, :show]
+    resources :episodes, only: [:index, :show], param: :uid
 
     namespace :admin do
       resources :sections, only: [:index, :show, :update]
     end
   end
 
-  get "channels/:uid", to: "channels#show", as: :channel
   get "channels/:uid/image", to: "channels#image", as: :channel_image
-  get "episodes/:uid", to: "episodes#show", as: :episode
   get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
   get "episodes/:uid/image", to: "episodes#image", as: :episode_image
   get :feed, to: "channels#index"

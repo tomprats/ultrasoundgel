@@ -24,7 +24,7 @@ function AudioLinks({episode}) {
           )}
         </div>
       )}
-      <audio controls={true} src={audioLink} type={episode.audio_extension}>
+      <audio controls={true} src={audioLink} type={episode.audio_type}>
         <a href={audioLink}>
           <i className="fas fa-headphones" /> Listen
         </a>
@@ -35,7 +35,8 @@ function AudioLinks({episode}) {
 
 AudioLinks.propTypes = {
   episode: PropTypes.shape({
-    audio_extension: PropTypes.string,
+    audio_extension: PropTypes.string.isRequired,
+    audio_type: PropTypes.string.isRequired,
     google_link: PropTypes.string,
     itunes_link: PropTypes.string,
     uid: PropTypes.string.isRequired
