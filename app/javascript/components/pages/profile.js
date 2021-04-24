@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {setUser} from "app/actions/user";
-import {update as updateUser} from "app/requests/user";
+import {update as updateProfile} from "app/requests/profile";
 import {FileInput, FormWithFiles} from "components/helpers";
 
 export default function Profile() {
@@ -27,7 +27,7 @@ export default function Profile() {
       }));
     }
 
-    updateUser({user: updates}).then((data) => {
+    updateProfile({user: updates}).then((data) => {
       dispatch(createNotification({
         content: data.message,
         type: data.success ? "success" : "danger"
@@ -43,100 +43,98 @@ export default function Profile() {
     changes[name] === undefined ? user[name] : changes[name]
   );
 
-  if(!user) { return <Redirect to="/subscribe" />; }
+  if(!user) { return <Redirect to="/session" />; }
 
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-lg-9">
-          <div className="row mt-3">
-            <div className="col-lg-6">
-              <FormWithFiles onSubmit={onSubmit}>
-                <div className="input-group mb-4">
-                  <input
-                    className="form-control py-4"
-                    id="user-first-name"
-                    name="first_name"
-                    onChange={onChange}
-                    placeholder="first name"
-                    required={true}
-                    type="text"
-                    value={value("first_name") || ""}
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <input
-                    className="form-control py-4"
-                    id="user-last-name"
-                    name="last_name"
-                    onChange={onChange}
-                    placeholder="last name"
-                    required={true}
-                    type="text"
-                    value={value("last_name") || ""}
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <input
-                    className="form-control py-4"
-                    id="user-email"
-                    name="email"
-                    onChange={onChange}
-                    placeholder="email"
-                    required={true}
-                    type="email"
-                    value={value("email") || ""}
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <input
-                    className="form-control py-4"
-                    id="user-password"
-                    name="password"
-                    onChange={onChange}
-                    placeholder="password"
-                    type="password"
-                    value={changes.password || ""}
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <input
-                    className="form-control py-4"
-                    id="user-password-confirmation"
-                    name="password_confirmation"
-                    onChange={onChange}
-                    placeholder="password confirmation"
-                    type="password"
-                    value={changes.password_confirmation || ""}
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <FileInput id="user-image" name="image" onChange={onImageChange} />
-                </div>
-                {!changes.image && user.image && (
-                  <div className="row">
-                    <div className="col-xl-3 col-lg-6">
-                      <img alt="Profile" className="img-fluid mb-4" src={user.image} />
-                    </div>
-                  </div>
-                )}
-                <div className="custom-control custom-switch mb-4">
-                  <input
-                    checked={"post_notifications" in changes ? changes.post_notifications : user.post_notifications}
-                    className="custom-control-input"
-                    id="user-post-notifications"
-                    name="post_notifications"
-                    onChange={onChange}
-                    type="checkbox"
-                  />
-                  <label className="custom-control-label" htmlFor="user-post-notifications">Post Notifications</label>
-                </div>
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary px-5">Save Profile</button>
-                </div>
-              </FormWithFiles>
+      <div className="row text-center">
+        <div className="col-md-4 offset-md-4">
+          <h3>Edit Profile</h3>
+          <FormWithFiles onSubmit={onSubmit}>
+            <div className="form-group">
+              <input
+                className="form-control"
+                id="profile-first-name"
+                name="first_name"
+                onChange={onChange}
+                placeholder="First Name"
+                required={true}
+                type="text"
+                value={value("first_name") || ""}
+              />
             </div>
-          </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                id="profile-last-name"
+                name="last_name"
+                onChange={onChange}
+                placeholder="Last Name"
+                required={true}
+                type="text"
+                value={value("last_name") || ""}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                id="profile-email"
+                name="email"
+                onChange={onChange}
+                placeholder="Email"
+                required={true}
+                type="email"
+                value={value("email") || ""}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                id="profile-password"
+                name="password"
+                onChange={onChange}
+                placeholder="Password"
+                type="password"
+                value={changes.password || ""}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                id="profile-password-confirmation"
+                name="password_confirmation"
+                onChange={onChange}
+                placeholder="Password Confirmation"
+                type="password"
+                value={changes.password_confirmation || ""}
+              />
+            </div>
+            <div className="form-group">
+              <div className="text-center">Profile Image</div>
+              {!changes.image && user.image && (
+                <img alt="Profile" className="img-fluid" src={user.image} />
+              )}
+              <FileInput id="profile-image" name="image" onChange={onImageChange} />
+            </div>
+            <div className="form-group">
+              <div className="form-check">
+                <input
+                  checked={"post_notifications" in changes ? changes.post_notifications : user.post_notifications}
+                  className="form-check-input"
+                  id="profile-post-notifications"
+                  name="post_notifications"
+                  onChange={onChange}
+                  type="checkbox"
+                />
+                <label className="form-check-label" htmlFor="profile-post-notifications">
+                  Be notified when a new post is published?
+                </label>
+              </div>
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary px-5">Save Profile</button>
+            </div>
+          </FormWithFiles>
         </div>
       </div>
     </div>

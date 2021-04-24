@@ -69,9 +69,11 @@ class Episode < ApplicationRecord
     legacy_audio.content_type if legacy_audio.present?
   end
 
-  # TODO: This
-  def current_audio
-    audio.attached? ? audio.url : legacy_audio&.file&.url
+  def current_audio(disposition: nil, proxy: false)
+    return legacy_audio&.file&.url unless audio.attached?
+    return audio.url(disposition: disposition) unless proxy
+
+    Rails.application.routes.url_helpers.rails_storage_proxy_path(audio, disposition: disposition)
   end
 
   def current_description
@@ -86,9 +88,11 @@ class Episode < ApplicationRecord
     description.present? ? description.body.to_plain_text : summary
   end
 
-  # TODO: This
-  def current_image
-    image.attached? ? image.url : legacy_image&.file&.url
+  def current_image(proxy: false)
+    return legacy_image&.file&.url unless image.attached?
+    return image.url unless proxy
+
+    Rails.application.routes.url_helpers.rails_storage_proxy_path(image)
   end
 
   def image_extension

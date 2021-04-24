@@ -2,7 +2,7 @@ class ChannelsController < ApplicationController
   before_action :set_channel, except: :index
 
   def image
-    redirect_to @channel.image.file.large.url
+    redirect_to @channel.current_image(proxy: true)
   end
 
   def index

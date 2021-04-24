@@ -56,7 +56,7 @@ export default function Navbar() {
               </li>
             ) : (
               <li>
-                <a href="/session">Sign In/Up</a>
+                <NavLink className="nav-link" to="/session/new">Sign In/Up</NavLink>
               </li>
             )}
             <li className="ml-lg-3">

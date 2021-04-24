@@ -10,4 +10,4 @@
         - if @user
           %div
             %br
-            %small= link_to "Unsubscribe", edit_user_url(token: @user.token)
+            %small= link_to "Unsubscribe", profile_url(token: @user.token)

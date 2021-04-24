@@ -27,9 +27,8 @@ export default function Router() {
               <Switch>
                 <Route exact={true} path="/" component={Pages.Template} />
                 <Route path="/episodes/:uid" component={Pages.Episodes.Show} />
-                <Route path="/forgot-password" component={Pages.ForgotPassword} />
                 <Route path="/profile" component={Pages.Profile} />
-                <Route path="/subscribe" component={Pages.Subscribe} />
+                <Route path="/session" component={Pages.Session} />
                 {pages.map((page) => (
                   <Route key={page.path} component={Pages.Template} exact={true} path={`/${page.path}`} />
                 ))}
@@ -37,7 +36,7 @@ export default function Router() {
                 {(user && user.admin) ? (
                   <Redirect exact={true} from="/admin" to="/admin/messages" />
                 ) : (
-                  <Redirect from="/admin" to="/subscribe" />
+                  <Redirect from="/admin" to="/session" />
                 )}
                 <Route path="/admin/channels/new" component={Pages.Admin.Channels.New} />
                 <Route path="/admin/channels/:id/edit" component={Pages.Admin.Channels.Edit} />

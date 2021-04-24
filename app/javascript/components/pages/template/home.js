@@ -15,16 +15,22 @@ function Home({page}) {
   const sidebar = !!(announcements || resources);
   const twitter = useContent("Social", "Twitter");
   const params = useQueryParams();
+  const [pageNumber, setPageNumber] = useState(+(params.get("page") || 1));
   const limit = +(params.get("limit") || 3);
-  const pageNumber = +(params.get("page") || 1);
   const search = params.get("search");
+  const updatePage = (e) => {
+    e.preventDefault();
+
+    setPageNumber(+new URL(e.currentTarget.href).searchParams.get("page"));
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
     getEpisodes({limit, page: pageNumber, search}).then((data) => {
       setEpisodes(data.episodes);
       setPages(data.pages);
     });
-  }, []);
+  }, [pageNumber]);
 
   if(!episodes) { return <Loading />; }
 
@@ -59,10 +65,10 @@ function Home({page}) {
               <div className="btn-group">
                 {pageNumber > 1 ? (
                   <>
-                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: 1, search})}`}>
+                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: 1, search})}`} onClick={updatePage}>
                       <i className="fas fa-angle-double-left" />
                     </a>
-                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pageNumber - 1, search})}`}>
+                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pageNumber - 1, search})}`} onClick={updatePage}>
                       <i className="fas fa-angle-left" />
                     </a>
                   </>
@@ -88,10 +94,10 @@ function Home({page}) {
                   </>
                 ) : (
                   <>
-                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pageNumber + 1, search})}`}>
+                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pageNumber + 1, search})}`} onClick={updatePage}>
                       <i className="fas fa-angle-right" />
                     </a>
-                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pages, search})}`}>
+                    <a className="btn btn-themed" href={`${window.location.pathname}?${queryString({limit, page: pages, search})}`} onClick={updatePage}>
                       <i className="fas fa-angle-double-right" />
                     </a>
                   </>

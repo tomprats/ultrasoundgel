@@ -16,7 +16,7 @@ export const destroy = () => (
 );
 
 export const forgotPassword = (params) => (
-  fetch("/api/forgot_password", {
+  fetch("/api/session/forgot_password", {
     body: JSON.stringify(params),
     headers: headers(),
     method: "POST"

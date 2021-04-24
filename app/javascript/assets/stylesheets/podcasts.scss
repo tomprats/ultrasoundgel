@@ -9,18 +9,16 @@ audio[controls] {
   width: 300px;
   a {
     display: inline-block;
+    width: 50%;
+    &.apple {
+      padding-right: 5px;
+    }
+    &.google {
+      padding-left: 5px;
+    }
   }
   img {
     max-height: 100%;
     max-width: 100%;
   }
-}
-
-.google {
-  width: 45%;
-}
-
-.itunes {
-  padding: 10px 0px;
-  width: 55%;
 }

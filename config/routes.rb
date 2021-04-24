@@ -11,16 +11,12 @@ Rails.application.routes.draw do
   root "pages#show"
   get "episodes/:uid", to: "pages#show", as: :episode
   get "posts/:uid", to: "pages#show", as: :post
+  get "profile", to: "pages#show", as: :profile
 
-  resource :session, only: [:new, :create, :destroy]
   resources :citations, only: [:index]
   post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
   post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post
   resources :comments, only: [:create, :destroy]
-  resource :user, only: [:create, :edit, :update] do
-    post :forgot_password, on: :collection
-  end
-
   namespace :admin do
     root "apps#index"
 
@@ -46,6 +42,10 @@ Rails.application.routes.draw do
 
     resources :articles, only: [:index]
     resources :episodes, only: [:index, :show], param: :uid
+    resource :profile, only: [:create, :update]
+    resource :session, only: [:create, :destroy] do
+      post :forgot_password, on: :collection
+    end
 
     namespace :admin do
       resources :sections, only: [:index, :show, :update]

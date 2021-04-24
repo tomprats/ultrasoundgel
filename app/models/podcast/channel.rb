@@ -44,9 +44,11 @@ class Channel < ApplicationRecord
     description.present? ? description.body.to_plain_text : summary
   end
 
-  # TODO: This
-  def current_image
-    image.attached? ? image.url : legacy_image&.file&.url
+  def current_image(proxy: false)
+    return legacy_image&.file&.url unless image.attached?
+    return image.url unless proxy
+
+    Rails.application.routes.url_helpers.rails_storage_proxy_path(image)
   end
 
   def episodes_publishing?

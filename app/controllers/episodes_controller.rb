@@ -2,11 +2,11 @@ class EpisodesController < ApplicationController
   before_action :set_episode
 
   def audio
-    redirect_to @episode.current_audio
+    redirect_to @episode.current_audio(disposition: :inline, proxy: true)
   end
 
   def image
-    redirect_to @episode.current_image
+    redirect_to @episode.current_image(proxy: true)
   end
 
   private

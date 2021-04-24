@@ -1,7 +1,7 @@
 import headers from "app/requests/headers";
 
 export const create = (params) => (
-  fetch("/api/user", {
+  fetch("/api/profile", {
     body: JSON.stringify(params),
     headers: headers(),
     method: "POST"
@@ -9,7 +9,7 @@ export const create = (params) => (
 );
 
 export const update = (params) => (
-  fetch("/api/user", {
+  fetch("/api/profile", {
     body: JSON.stringify(params),
     headers: headers(),
     method: "PUT"
@@ -17,7 +17,7 @@ export const update = (params) => (
 );
 
 export const destroy = () => (
-  fetch("/api/user", {
+  fetch("/api/profile", {
     headers: headers(),
     method: "DELETE"
   }).then((response) => response.json())

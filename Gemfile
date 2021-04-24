@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.6.0"
+ruby "2.7.1"
 
 gem "aws-sdk-s3"
 gem "bcrypt"
@@ -42,5 +42,4 @@ group :development do
   gem "pry"
   gem "rubocop-traitify"
   gem "spring"
-  gem "thin"
 end

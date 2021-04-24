@@ -43,7 +43,7 @@
               Profile
               = fa_icon "caret-down"
             .dropdown-menu
-              .dropdown-item= link_to "Profile", edit_user_path
+              .dropdown-item= link_to "Profile", profile_path
               .dropdown-item= link_to "Sign Out", session_path, method: :delete
         - else
           %li= link_to "Sign In/Up", new_session_path

@@ -15,15 +15,6 @@ class Page < ApplicationRecord
     content.present? ? content.body.to_html : text_to_html
   end
 
-  def self.find_or_create_home
-    Page.create_with(
-      active: true,
-      path: :home,
-      name: "Home",
-      rank: 0
-    ).find_or_create_by(path: :home)
-  end
-
   def self.templates
     [
       "default",

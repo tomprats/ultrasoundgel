@@ -2,8 +2,6 @@ class PagesController < ApplicationController
   before_action :check_path, only: :show
 
   def show
-    Page.find_or_create_home
-
     render html: "", layout: true
   end
 

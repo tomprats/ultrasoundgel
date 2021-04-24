@@ -7,7 +7,14 @@ import Default from "./default";
 import Home from "./home";
 
 const getPage = ({match, pages}) => {
-  if(match.path === "/") { return pages.find(({path}) => path === "home"); }
+  if(match.path === "/") {
+    return pages.find(({path}) => path === "home") || {
+      content: "",
+      name: "Home",
+      path: "home",
+      template: "home"
+    };
+  }
 
   return pages.find(({path}) => `/${path}` === match.path);
 };
