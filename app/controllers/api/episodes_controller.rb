@@ -2,6 +2,8 @@ class Api::EpisodesController < Api::ApplicationController
   before_action :verify_published, only: :index
 
   def index
+    return all if params[:limit] == "none"
+
     episodes = Episode.published.descending.with_attached_image
     episodes = episodes.search(params[:search]) if params[:search]
     total = episodes.length
@@ -27,6 +29,28 @@ class Api::EpisodesController < Api::ApplicationController
   end
 
   private
+
+  def all
+    render json: {
+      episodes: Episode.published.ascending.map do |episode|
+        post = episode.post.published? && episode.post.as_json(only: [:published_at, :title])
+
+        episode.as_json(
+          only: [
+            :author,
+            :google_link,
+            :itunes_link,
+            :number,
+            :published_at,
+            :subtitle,
+            :title,
+            :uid,
+            :updated_at
+          ]
+        ).merge(post: post)
+      end
+    }
+  end
 
   def episode_as_json(episode)
     episode.as_json(

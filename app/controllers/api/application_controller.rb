@@ -15,6 +15,7 @@ class Api::ApplicationController < ApplicationController
       channel = Channel.published.last
       channel.as_json(only: [:google_link, :itunes_link]).merge(
         description: channel.current_description,
+        episodeNumber: Episode.maximum(:number),
         image: channel.current_image
       )
     end

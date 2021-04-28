@@ -50,7 +50,7 @@ export default function Navbar() {
               <li className="dropdown">
                 <button className="nav-link dropdown-toggle" type="button">Profile</button>
                 <div className="dropdown-menu">
-                  <div className="dropdown-item"><a href="/user/edit">Profile</a></div>
+                  <div className="dropdown-item"><a href="/profile">Profile</a></div>
                   <div className="dropdown-item"><button onClick={signOut} type="button">Sign Out</button></div>
                 </div>
               </li>

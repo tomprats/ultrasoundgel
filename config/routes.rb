@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get "posts/:uid", to: "pages#show", as: :post
   get "profile", to: "pages#show", as: :profile
 
-  resources :citations, only: [:index]
   post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
   post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post
   resources :comments, only: [:create, :destroy]

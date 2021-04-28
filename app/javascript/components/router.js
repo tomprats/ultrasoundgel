@@ -32,6 +32,7 @@ export default function Router() {
                 {pages.map((page) => (
                   <Route key={page.path} component={Pages.Template} exact={true} path={`/${page.path}`} />
                 ))}
+                <Route path="/citations" component={Pages.Citations} />
                 <Route path="/disclaimer" component={Pages.Disclaimer} />
                 {(user && user.admin) ? (
                   <Redirect exact={true} from="/admin" to="/admin/messages" />
