@@ -3,7 +3,7 @@ class Post < ApplicationRecord
 
   has_many :comments
   has_rich_text :content
-  belongs_to :episode
+  belongs_to :episode, optional: true
 
   validates_presence_of :title
   validate :episode_check, if: :episode_id_changed?

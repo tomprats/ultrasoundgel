@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   get "posts/:uid", to: "pages#show", as: :post
   get "profile", to: "pages#show", as: :profile
 
-  post "posts/:uid/subscribe", to: "posts#subscribe", as: :subscribe_post
-  post "posts/:uid/unsubscribe", to: "posts#unsubscribe", as: :unsubscribe_post
-  resources :comments, only: [:create, :destroy]
+  # Required Routes
+  get "channels/:uid/image", to: "channels#image", as: :channel_image
+  get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
+  get "episodes/:uid/image", to: "episodes#image", as: :episode_image
+  get :feed, to: "channels#index"
+
   namespace :admin do
     root "apps#index"
 
@@ -40,7 +43,11 @@ Rails.application.routes.draw do
     get :app, to: "application#environment"
 
     resources :articles, only: [:index]
+    resources :comments, only: [:create, :destroy]
     resources :episodes, only: [:index, :show], param: :uid
+    resources :posts, only: :show, param: :uid
+    post "posts/:uid/subscribe", to: "posts#subscribe"
+    post "posts/:uid/unsubscribe", to: "posts#unsubscribe"
     resource :profile, only: [:create, :update]
     resource :session, only: [:create, :destroy] do
       post :forgot_password, on: :collection
@@ -50,11 +57,6 @@ Rails.application.routes.draw do
       resources :sections, only: [:index, :show, :update]
     end
   end
-
-  get "channels/:uid/image", to: "channels#image", as: :channel_image
-  get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
-  get "episodes/:uid/image", to: "episodes#image", as: :episode_image
-  get :feed, to: "channels#index"
 
   get "*path",
     to: "pages#show",

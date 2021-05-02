@@ -1,14 +1,17 @@
 class User < ApplicationRecord
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [400, 400]
+  end
+
   mount_uploader :legacy_image, ImageUploader
 
-  has_many :comments
-  has_many :comment_notifications
+  has_many :comments, dependent: :destroy
+  has_many :comment_notifications, dependent: :destroy
   has_many :tokens, dependent: :destroy
 
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email
-  validates :email, format: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
   has_secure_password
 
   before_validation :format_email
@@ -21,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def current_image_thumbnail
-    image.attached? ? image.variant(resize_to_limit: [400, 400]).url : legacy_image&.thumbnail&.file&.url
+    image.attached? ? image.variant(:thumb).processed.url : legacy_image&.thumbnail&.file&.url
   end
 
   def name

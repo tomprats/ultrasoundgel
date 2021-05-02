@@ -13,7 +13,7 @@ function AudioLinks({episode}) {
   return (
     <>
       {(itunesLink || googleLink) && (
-        <div className="store-links">
+        <div className="my-1 store-links">
           {itunesLink && (
             <a className="apple" href={itunesLink} rel="noreferrer" target="_blank">
               <img alt="Listen on Apple Podcasts" width="200" src={appleImage} />

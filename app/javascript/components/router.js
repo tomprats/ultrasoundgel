@@ -27,6 +27,7 @@ export default function Router() {
               <Switch>
                 <Route exact={true} path="/" component={Pages.Template} />
                 <Route path="/episodes/:uid" component={Pages.Episodes.Show} />
+                <Route path="/posts/:uid" component={Pages.Posts.Show} />
                 <Route path="/profile" component={Pages.Profile} />
                 <Route path="/session" component={Pages.Session} />
                 {pages.map((page) => (

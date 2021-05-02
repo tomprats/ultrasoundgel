@@ -9,4 +9,5 @@ export FormWithFiles from "./form-with-files";
 export FileInput from "./file-input";
 export Loading from "./loading";
 export * as Modal from "./modal";
+export Notification from "./notification";
 export Twitter from "./twitter";

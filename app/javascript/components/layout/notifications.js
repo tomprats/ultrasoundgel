@@ -2,7 +2,7 @@ import {useContext, useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {Context} from "app";
 import {createNotification, deleteNotification} from "app/actions/notifications";
-import {Alert} from "components/helpers";
+import {Notification} from "components/helpers";
 import {useQueryParams} from "lib/hooks";
 
 export default function Notifications() {
@@ -26,7 +26,7 @@ export default function Notifications() {
   return (
     <div className="notifications">
       {notifications.map(({content, id, type}) => (
-        <Alert
+        <Notification
           key={id}
           content={content}
           onClose={() => dispatch(deleteNotification({id}))}

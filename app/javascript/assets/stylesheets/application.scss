@@ -5,17 +5,5 @@
 @import "~bootstrap-scss";
 @import "action-text.scss";
 @import "default.scss";
-@import "footer.scss";
 @import "navbar.scss";
 @import "podcasts.scss";
-@import "posts.scss";
-
-.notifications {
-  left: 50%;
-  position: fixed;
-  text-align: center;
-  top: 5px;
-  transform: translate(-50%, 0%);
-  width: 350px;
-  z-index: 15;
-}

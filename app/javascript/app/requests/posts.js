@@ -1,5 +1,4 @@
 import headers from "app/requests/headers";
-import {queryString} from "lib/object";
 
 export const get = (uid) => (
   fetch(`/api/posts/${uid}`, {
@@ -8,9 +7,16 @@ export const get = (uid) => (
   }).then((response) => response.json())
 );
 
-export const getAll = (params) => (
-  fetch(`/api/posts?${queryString(params || {})}`, {
+export const subscribe = (uid) => (
+  fetch(`/api/posts/${uid}/subscribe`, {
     headers: headers(),
-    method: "GET"
+    method: "POST"
+  }).then((response) => response.json())
+);
+
+export const unsubscribe = (uid) => (
+  fetch(`/api/posts/${uid}/unsubscribe`, {
+    headers: headers(),
+    method: "POST"
   }).then((response) => response.json())
 );

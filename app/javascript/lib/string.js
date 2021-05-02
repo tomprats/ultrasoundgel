@@ -3,18 +3,24 @@ export const capitalize = (string) => (
 );
 
 export const displayDate = (string) => {
+  if(!string) { return; }
+
   const date = new Date(string);
 
   return date.toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"});
 };
 
 export const displayDateTime = (string) => {
+  if(!string) { return; }
+
   const date = new Date(string);
 
   return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}`;
 };
 
 export const displayShortDate = (string) => {
+  if(!string) { return; }
+
   const date = new Date(string);
 
   return date.toLocaleDateString("en-US");

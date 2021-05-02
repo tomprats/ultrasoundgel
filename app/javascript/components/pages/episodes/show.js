@@ -15,9 +15,11 @@ export default function EpisodesShow() {
   if(!episode) { return <Loading />; }
 
   return (
-    <div className="row">
-      <div className="col-md-6 offset-3">
-        <Episode episode={episode} />
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-6 offset-3">
+          <Episode episode={episode} />
+        </div>
       </div>
     </div>
   );

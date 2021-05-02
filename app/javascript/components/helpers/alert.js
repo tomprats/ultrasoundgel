@@ -13,14 +13,11 @@ function Alert({content, onClose, type, ...props}) {
   };
 
   return (
-    <div className="toast show mx-auto" role="alert" aria-live="assertive" aria-atomic="true" {...props}>
-      <div className="toast-header">
-        <strong className={`mr-auto text-${type}`}>Notification</strong>
-        <button aria-label="Close" className="close ml-2" onClick={onClick} type="button">
-          <i className="far fa-times" />
-        </button>
-      </div>
-      <div className="toast-body">{content}</div>
+    <div className={`alert alert-${type} alert-dismissible`} role="alert" {...props}>
+      {content}
+      <button aria-label="Close" className="close" onClick={onClick} type="button">
+        <i className="fas fa-times" />
+      </button>
     </div>
   );
 }

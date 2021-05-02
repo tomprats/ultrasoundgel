@@ -1,6 +1,7 @@
 class Api::ApplicationController < ApplicationController
   def environment
     render json: {
+      app: {recaptcha: Rails.application.credentials.recaptcha[:public_key]},
       channel: channel_as_json,
       pages: pages_as_json,
       sections: sections_as_json,
@@ -17,6 +18,17 @@ class Api::ApplicationController < ApplicationController
         description: channel.current_description,
         episodeNumber: Episode.maximum(:number),
         image: channel.current_image
+      )
+    end
+  end
+
+  def comments_as_json(comments)
+    comments.map do |comment|
+      comment.as_json(
+        methods: [:image, :name],
+        only: [:created_at, :id, :text]
+      ).merge(
+        user_id: (comment.user_id == current_user&.id && comment.user_id) ? comment.user_id : nil
       )
     end
   end
@@ -54,6 +66,7 @@ class Api::ApplicationController < ApplicationController
     return if user.blank?
 
     user.as_json(
+      include: {comment_notifications: {only: [:post_id, :user_id]}},
       only: [
         :admin,
         :email,

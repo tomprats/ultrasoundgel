@@ -30,6 +30,7 @@ nav {
       text-decoration: none
     }
   }
+  &.navbar > .container-fluid { flex-wrap: wrap; }
 }
 
 nav.bg-theme {

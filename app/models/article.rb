@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  belongs_to :category, class_name: :ArticleCategory, optional: false
+  belongs_to :category, class_name: :ArticleCategory
 
   validates_presence_of :link, :title, :journal, :year, :month
 

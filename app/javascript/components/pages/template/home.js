@@ -37,7 +37,7 @@ function Home({page}) {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className={`col-md-6 offset-md-${sidebar ? 1 : 3}`}>
+        <div className={`col-lg-8 col-xl-6 offset-xl-${sidebar ? 1 : 3}`}>
           {!isBlankHTML(page.content) && (
             <>
               <div className="custom-html text-center">
@@ -107,7 +107,7 @@ function Home({page}) {
           )}
         </div>
         {sidebar && (
-          <div className="col-md-4">
+          <div className="col-lg-4">
             {!isBlankHTML(announcements) && (
               <div className="card border-success my-2">
                 <div className="card-header bg-success text-white">Announcements</div>

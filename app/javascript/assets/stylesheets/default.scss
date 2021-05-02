@@ -3,14 +3,16 @@ html, body {
   padding: 0;
   height: 100%;
 }
-a, button {
-  color: $theme;
-  &:active, &:focus, &:hover {
-    color: $blue;
-  }
-}
 button {
+  background: none;
+  border: none;
+  color: $link-color;
   padding: 0;
+
+  @include hover-focus-active() {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
 }
 em {
   font-size: 24px;
@@ -26,9 +28,36 @@ h1, h2, h3, h4, h5, h6 {
   @include button-variant($theme, $theme, $theme);
 }
 .btn-icon {
-  color: $theme;
+  color: $link-color;
   padding: 0;
-  &:active, &:focus, &:hover {
-    color: $blue;
+  @include hover-focus-active() {
+    color: $link-hover-color;
   }
+}
+
+.custom-html {
+  h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+  }
+
+  img {
+    text-align: center;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+  }
+}
+
+.notifications {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 5px;
+  transform: translate(-50%, 0%);
+  width: 350px;
+  z-index: 15;
+}
+
+.preserve-whitespace {
+  white-space: pre-wrap;
 }
