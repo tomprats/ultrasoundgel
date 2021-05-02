@@ -1,4 +1,4 @@
-class Admin::SectionsController < Admin::ApplicationController
+class Api::Admin::SectionsController < Api::Admin::ApplicationController
   def index
     sections = Section.order(name: :desc).all
 

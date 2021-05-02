@@ -1,8 +1,9 @@
-- title = content_for(:meta_title) ? yield(:meta_title) : app.share_title
-- description = content_for(:meta_description) ? yield(:meta_description) : app.share_description
+- code = get_content("Sharing", "Title")
+- title = content_for(:meta_title) ? yield(:meta_title) : get_content("Sharing", "Title")
+- description = content_for(:meta_description) ? yield(:meta_description) : get_content("Sharing", "Description")
 - image = yield(:meta_image) if content_for(:meta_image)
-- image ||= app.share_image.url if app.share_image.present?
-- image ||= image_pack_tag("media/assets/images/logo.jpg")
+- image ||= get_content("Sharing", "Image")
+- image ||= asset_pack_url("media/assets/images/logo.jpg")
 - url = request.original_url
 
 %title= title
@@ -15,8 +16,8 @@
 %meta(property="og:image" content="#{image}")
 %meta(property="og:url" content="#{url}")
 %meta(name="twitter:card" content="summary")
-- if app.twitter.present?
-  %meta(name="twitter:site" content="@#{app.twitter}")
+- if twitter = get_content("Social", "Twitter")
+  %meta(name="twitter:site" content="@#{twitter}")
 %meta(name="twitter:title" content="#{title}")
 %meta(name="twitter:description" content="#{description}")
 %meta(name="twitter:image" content="#{image}")

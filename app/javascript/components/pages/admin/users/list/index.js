@@ -17,18 +17,14 @@ export default function AdminUsersList() {
       <div className="row">
         <div className="col-md-8 offset-md-2">
           <h1 className="text-center">Users</h1>
-          <div className="text-right mb-1">
-            <a className="btn btn-outline-secondary btn-sm" href="/admin/users/new">Invite</a>
-          </div>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">
               <thead className="thead-dark">
                 <tr>
                   <th>Admin</th>
-                  <th>Subscribed</th>
-                  <th>Name</th>
                   <th>Email</th>
-                  <th>Date Created</th>
+                  <th>Name</th>
+                  <th>Created At</th>
                   <th>Actions</th>
                 </tr>
               </thead>

@@ -1,8 +1,9 @@
-- if app.google_analytics_code.present?
-  %script(async src="https://www.googletagmanager.com/gtag/js?id=#{app.google_analytics_code}")
+- code = get_content("General", "Google Analytics Code")
+- if code.present?
+  %script(async src="https://www.googletagmanager.com/gtag/js?id=#{code}")
 
   :javascript
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag("js", new Date());
-    gtag("config", "#{app.google_analytics_code}");
+    gtag("config", "#{code}");

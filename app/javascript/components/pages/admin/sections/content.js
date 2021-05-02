@@ -83,16 +83,14 @@ function AdminSectionsContent({content, onChange: setChanges}) {
           <div className="input-group-append">
             <button className="btn btn-secondary" onClick={() => setEditText(!editText)} type="button">{editText ? "Hide" : "Edit"}</button>
           </div>
-          {editText && (
-            <ActionText.Editor
-              className="mt-3 w-100"
-              id={id}
-              name="value"
-              onChange={onChange}
-              onTextChange={setText}
-              value={content.value || ""}
-            />
-          )}
+          <ActionText.Editor
+            className={`mt-3 w-100 ${editText ? "" : "d-none"}`}
+            id={id}
+            name="value"
+            onChange={onChange}
+            onTextChange={setText}
+            value={content.value || ""}
+          />
         </div>
       );
     default:

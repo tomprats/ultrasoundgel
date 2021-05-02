@@ -1,11 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :auth_with_token
 
-  def app
-    @app ||= App.default
-  end
-  helper_method :app
-
   def authenticate
     return if current_user
 
@@ -30,6 +25,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:current_user_id])
   end
   helper_method :current_user
+
+  def get_content(section_name, content_name)
+    Content.joins(:section).find_by(name: content_name, sections: {name: section_name})&.value
+  end
+  helper_method :get_content
 
   def not_found
     raise ActionController::RoutingError.new("Not Found")

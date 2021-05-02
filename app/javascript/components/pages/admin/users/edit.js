@@ -5,7 +5,7 @@ import {createNotification} from "app/actions/notifications";
 import {get as getUser, update as updateUser} from "app/requests/admin/users";
 import {Loading} from "components/pages";
 import {FileInput, FormWithFiles} from "components/helpers";
-import {withoutBlankValues} from "lib/object";
+import {valueFrom, withoutBlankValues} from "lib/object";
 
 export default function AdminUsersEdit() {
   const dispatch = useContext(Context)[1];
@@ -39,6 +39,7 @@ export default function AdminUsersEdit() {
       }
     });
   };
+  const value = (name, defaultValue) => valueFrom({defaultValue, name, objects: [changes, user]});
 
   useEffect(() => {
     getUser(id).then((data) => setUser(data.user));
@@ -64,7 +65,7 @@ export default function AdminUsersEdit() {
                 placeholder="Mindy"
                 required={true}
                 type="text"
-                value={changes.first_name || user.first_name || ""}
+                value={value("first_name")}
               />
             </div>
             <div className="input-group mb-3">
@@ -79,7 +80,7 @@ export default function AdminUsersEdit() {
                 placeholder="Kaling"
                 required={true}
                 type="text"
-                value={changes.last_name || user.last_name || ""}
+                value={value("last_name")}
               />
             </div>
             <div className="input-group mb-3">
@@ -94,7 +95,7 @@ export default function AdminUsersEdit() {
                 placeholder="mindy@kaling.com"
                 required={true}
                 type="email"
-                value={changes.email || user.email || ""}
+                value={value("email")}
               />
             </div>
             <div className="input-group mb-3">
@@ -108,7 +109,7 @@ export default function AdminUsersEdit() {
             )}
             <div className="custom-control custom-switch text-center mb-3">
               <input
-                checked={"admin" in changes ? changes.admin : user.admin}
+                checked={value("admin", false)}
                 className="custom-control-input"
                 id="user-admin"
                 name="admin"
@@ -119,7 +120,7 @@ export default function AdminUsersEdit() {
             </div>
             <div className="custom-control custom-switch text-center mb-3">
               <input
-                checked={"post_notifications" in changes ? changes.post_notifications : user.post_notifications}
+                checked={value("post_notifications", false)}
                 className="custom-control-input"
                 id="user-post-notifications"
                 name="post_notifications"

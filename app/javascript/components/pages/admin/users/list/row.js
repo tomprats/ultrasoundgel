@@ -9,28 +9,24 @@ import {displayDate} from "lib/string";
 function AdminUsersListRow({onDestroy, user}) {
   const dispatch = useContext(Context)[1];
   const onDelete = () => {
-    if(window.confirm("Are you sure you want to delete this user?")) {
-      destroyUser(user.id).then((data) => {
-        dispatch(createNotification({
-          content: data.message,
-          type: data.success ? "success" : "danger"
-        }));
+    if(!window.confirm("Are you sure you want to delete this user?")) { return; }
 
-        if(data.success) { onDestroy(user.id); }
-      });
-    }
+    destroyUser(user.id).then(({message, success}) => {
+      dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
+
+      if(success) { onDestroy(user.id); }
+    });
   };
 
   return (
     <tr>
       <td><Check checked={user.admin} /></td>
-      <td><Check checked={user.post_notifications} /></td>
-      <td>{user.first_name} {user.last_name}</td>
       <td>{user.email}</td>
+      <td>{user.first_name} {user.last_name}</td>
       <td>{displayDate(user.created_at)}</td>
       <td>
         <div className="btn-group" role="group" aria-label="Actions">
-          <a className="btn btn-sm btn-primary" href={`/admin/users/${user.id}`}>Edit</a>
+          <a className="btn btn-sm btn-primary" href={`/admin/users/${user.id}/edit`}>Edit</a>
           <button type="button" className="btn btn-sm btn-danger" onClick={onDelete}>Destroy</button>
         </div>
       </td>
@@ -46,8 +42,7 @@ AdminUsersListRow.propTypes = {
     email: PropTypes.string.isRequired,
     first_name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    last_name: PropTypes.string.isRequired,
-    post_notifications: PropTypes.bool.isRequired
+    last_name: PropTypes.string.isRequired
   }).isRequired
 };
 

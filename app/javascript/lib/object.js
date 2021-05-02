@@ -1,3 +1,12 @@
+export function valueFrom({defaultValue, name, objects}) {
+  const source = objects.find((object) => object[name] != null);
+
+  if(source) { return source[name]; }
+  if(defaultValue != null) { return defaultValue; }
+
+  return "";
+}
+
 export function withoutBlankValues(_object) {
   const object = {..._object};
 

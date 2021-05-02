@@ -35,6 +35,10 @@ class User < ApplicationRecord
     @token ||= tokens.first || tokens.create
   end
 
+  def tom?
+    email == "tprats108@gmail.com"
+  end
+
   private
 
   def format_email
