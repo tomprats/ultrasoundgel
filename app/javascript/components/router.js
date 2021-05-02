@@ -40,12 +40,18 @@ export default function Router() {
                 ) : (
                   <Redirect from="/admin" to="/session" />
                 )}
+                <Route path="/admin/article-categories/new" component={Pages.Admin.ArticleCategories.New} />
+                <Route path="/admin/article-categories/:id" component={Pages.Admin.ArticleCategories.Edit} />
+                <Route path="/admin/article-categories" component={Pages.Admin.ArticleCategories.List} />
+                <Route path="/admin/articles/new" component={Pages.Admin.Articles.New} />
+                <Route path="/admin/articles/:id" component={Pages.Admin.Articles.Edit} />
+                <Route path="/admin/articles" component={Pages.Admin.Articles.List} />
                 <Route path="/admin/channels/new" component={Pages.Admin.Channels.New} />
-                <Route path="/admin/channels/:id/edit" component={Pages.Admin.Channels.Edit} />
+                <Route path="/admin/channels/:id" component={Pages.Admin.Channels.Edit} />
                 <Route path="/admin/channels" component={Pages.Admin.Channels.List} />
-                <Route path="/admin/sections/:id/edit" component={Pages.Admin.Sections.Edit} />
+                <Route path="/admin/sections/:id" component={Pages.Admin.Sections.Edit} />
                 <Route path="/admin/sections" component={Pages.Admin.Sections.List} />
-                <Route path="/admin/users/:id/edit" component={Pages.Admin.Users.Edit} />
+                <Route path="/admin/users/:id" component={Pages.Admin.Users.Edit} />
                 <Route path="/admin/users" component={Pages.Admin.Users.List} />
                 <Route component={Pages.NotFound} />
               </Switch>

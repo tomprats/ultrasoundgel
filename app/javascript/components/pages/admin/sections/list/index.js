@@ -1,13 +1,16 @@
 import {useEffect, useState} from "react";
 import {getAll as getSections} from "app/requests/admin/sections";
+import {Loading} from "components/pages";
 import Row from "./row";
 
 export default function AdminSectionsList() {
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState(null);
 
   useEffect(() => {
     getSections().then((data) => setSections(data.sections));
   }, []);
+
+  if(!sections) { return <Loading />; }
 
   return (
     <div className="container-fluid">

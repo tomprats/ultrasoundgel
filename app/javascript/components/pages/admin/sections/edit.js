@@ -34,12 +34,10 @@ export default function AdminSectionsEdit() {
       }));
     }
 
-    updateSection(section.id, {section: updates}).then((data) => {
-      if(data.success) {
-        history.push("/admin/sections", {message: data.message, type: "success"});
-      } else {
-        dispatch(createNotification({content: data.message, type: "danger"}));
-      }
+    updateSection(section.id, {section: updates}).then(({message, success}) => {
+      dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
+
+      if(success) { history.push("/admin/sections"); }
     });
   };
 

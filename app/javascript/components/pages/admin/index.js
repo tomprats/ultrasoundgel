@@ -1,4 +1,5 @@
-/* eslint-disable import/export */
+export * as ArticleCategories from "./article-categories";
+export * as Articles from "./articles";
 export * as Channels from "./channels";
 export * as Episodes from "./episodes";
 export * as Posts from "./posts";

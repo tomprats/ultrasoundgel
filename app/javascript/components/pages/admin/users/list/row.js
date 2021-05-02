@@ -26,7 +26,7 @@ function AdminUsersListRow({onDestroy, user}) {
       <td>{displayDate(user.created_at)}</td>
       <td>
         <div className="btn-group" role="group" aria-label="Actions">
-          <a className="btn btn-sm btn-primary" href={`/admin/users/${user.id}/edit`}>Edit</a>
+          <a className="btn btn-sm btn-primary" href={`/admin/users/${user.id}`}>Edit</a>
           <button type="button" className="btn btn-sm btn-danger" onClick={onDelete}>Destroy</button>
         </div>
       </td>

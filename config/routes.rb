@@ -25,8 +25,6 @@ Rails.application.routes.draw do
     resources :channels, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :episodes, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :posts, only: [:index, :edit, :create, :update, :destroy], param: :uid
-    resources :articles, only: [:index, :edit, :create, :update, :destroy]
-    resources :article_categories, only: [:index, :edit, :create, :update, :destroy]
     post "channels/:uid/publish", to: "channels#publish", as: :channel_publish
     post "episodes/:uid/publish", to: "episodes#publish", as: :episode_publish
     post "posts/:uid/publish", to: "posts#publish", as: :post_publish
@@ -41,7 +39,7 @@ Rails.application.routes.draw do
     resources :articles, only: [:index]
     resources :comments, only: [:create, :destroy]
     resources :episodes, only: [:index, :show], param: :uid
-    resources :posts, only: :show, param: :uid
+    resources :posts, only: [:show], param: :uid
     post "posts/:uid/subscribe", to: "posts#subscribe"
     post "posts/:uid/unsubscribe", to: "posts#unsubscribe"
     resource :profile, only: [:create, :update]
@@ -50,8 +48,10 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
+      resources :article_categories, only: [:index, :create, :show, :update, :destroy]
+      resources :articles, only: [:index, :create, :show, :update, :destroy]
       resources :sections, only: [:index, :show, :update]
-      resources :users, only: [:index, :create, :show, :update, :destroy]
+      resources :users, only: [:index, :show, :update, :destroy]
     end
   end
 

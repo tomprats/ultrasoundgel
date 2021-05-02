@@ -31,12 +31,10 @@ export default function AdminUsersEdit() {
       }));
     }
 
-    updateUser(user.id, {user: updates}).then((data) => {
-      if(data.success) {
-        history.push("/admin/users", {message: data.message, type: "success"});
-      } else {
-        dispatch(createNotification({content: data.message, type: "danger"}));
-      }
+    updateUser(user.id, {user: updates}).then(({message, success}) => {
+      dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
+
+      if(success) { history.push("/admin/users"); }
     });
   };
   const value = (name, defaultValue) => valueFrom({defaultValue, name, objects: [changes, user]});

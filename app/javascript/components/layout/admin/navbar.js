@@ -18,7 +18,7 @@ export default function Navbar() {
             <button className="nav-link dropdown-toggle" type="button">Articles</button>
             <div className="dropdown-menu">
               <div className="dropdown-item"><a href="/admin/articles">Articles</a></div>
-              <div className="dropdown-item"><a href="/admin/categories">Categories</a></div>
+              <div className="dropdown-item"><a href="/admin/article-categories">Categories</a></div>
             </div>
           </li>
           <li>

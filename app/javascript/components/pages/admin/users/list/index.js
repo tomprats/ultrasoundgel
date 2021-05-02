@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {getAll as getUsers} from "app/requests/admin/users";
+import {Loading} from "components/pages";
 import Row from "./row";
 
 export default function AdminUsersList() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(null);
   const onDestroy = (id) => {
     setUsers(users.filter((user) => user.id !== id));
   };
@@ -11,6 +12,8 @@ export default function AdminUsersList() {
   useEffect(() => {
     getUsers().then((data) => setUsers(data.users));
   }, []);
+
+  if(!users) { return <Loading />; }
 
   return (
     <div className="container-fluid">
