@@ -15,7 +15,7 @@ export default function AdminSectionsList() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-8 offset-md-2">
+        <div className="col-md-10 offset-md-1">
           <h1 className="text-center">Sections</h1>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">

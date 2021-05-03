@@ -37,7 +37,7 @@ class Channel < ApplicationRecord
   end
 
   def current_description_html
-    description.present? ? description.body.to_html : summary
+    description.present? ? description.body.to_s : summary
   end
 
   def current_description_text

@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   get :feed, to: "channels#index"
 
   namespace :admin do
-    resources :pages, only: [:index, :edit, :create, :update, :destroy]
     resources :uploads, only: [:index, :create, :destroy], param: :uid
     resources :channels, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :episodes, only: [:index, :edit, :create, :update, :destroy], param: :uid
@@ -50,6 +49,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :article_categories, only: [:index, :create, :show, :update, :destroy]
       resources :articles, only: [:index, :create, :show, :update, :destroy]
+      resources :pages, only: [:index, :create, :show, :update, :destroy]
       resources :sections, only: [:index, :show, :update]
       resources :users, only: [:index, :show, :update, :destroy]
     end

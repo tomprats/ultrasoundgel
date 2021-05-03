@@ -1,6 +1,6 @@
 class Api::Admin::ArticleCategoriesController < Api::Admin::ApplicationController
   def index
-    categories = ArticleCategory.order(:name).all
+    categories = ArticleCategory.by_rank.all
 
     render json: {categories: categories_as_json(categories)}
   end

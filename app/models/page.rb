@@ -6,15 +6,21 @@ class Page < ApplicationRecord
 
   default_scope{ order(:rank) }
   scope :active, ->{ where(active: true) }
+  scope :by_rank, ->{ order(:rank, :name) }
 
   before_validation :format_path
 
   to_html :text
 
-  def current_content
-    content.present? ? content.body.to_html : text_to_html
+  def content_edit_value
+    content.present? ? content.body.to_trix_html : text_to_html
   end
 
+  def current_content
+    content.present? ? content.body.to_s : text_to_html
+  end
+
+  # TODO: Remove?
   def self.templates
     [
       "default",

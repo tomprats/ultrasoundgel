@@ -24,7 +24,7 @@ class Post < ApplicationRecord
   to_html :text
 
   def current_content
-    content.present? ? content.body.to_html : text_to_html
+    content.present? ? content.body.to_s : text_to_html
   end
 
   def tag_list

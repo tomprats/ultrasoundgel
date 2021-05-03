@@ -1,39 +1,44 @@
 import {useEffect, useState} from "react";
-import {getAll as getUsers} from "app/requests/admin/users";
+import {getAll as getPages} from "app/requests/admin/pages";
 import {Loading} from "components/pages";
 import Row from "./row";
 
-export default function AdminUsersList() {
-  const [users, setUsers] = useState(null);
+export default function AdminPagesList() {
+  const [pages, setPages] = useState(null);
   const onDestroy = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+    setPages(pages.filter((page) => page.id !== id));
   };
 
   useEffect(() => {
-    getUsers().then((data) => setUsers(data.users));
+    getPages().then((data) => setPages(data.pages));
   }, []);
 
-  if(!users) { return <Loading />; }
+  if(!pages) { return <Loading />; }
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-10 offset-md-1">
-          <h1 className="text-center">Users</h1>
+          <h1 className="text-center">Pages</h1>
+          <div className="text-right mb-1">
+            <a className="btn btn-outline-secondary btn-sm" href="/admin/pages/new">New Page</a>
+          </div>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">
               <thead className="thead-dark">
                 <tr>
-                  <th>Admin</th>
-                  <th>Email</th>
+                  <th>Active</th>
+                  <th>Rank</th>
+                  <th>Template</th>
                   <th>Name</th>
+                  <th>Path</th>
                   <th>Created At</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
-                  <Row key={user.id} onDestroy={onDestroy} user={user} />
+                {pages.map((page) => (
+                  <Row key={page.id} onDestroy={onDestroy} page={page} />
                 ))}
               </tbody>
             </table>
