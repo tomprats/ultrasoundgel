@@ -20,15 +20,11 @@ Rails.application.routes.draw do
   get :feed, to: "channels#index"
 
   namespace :admin do
-    resources :uploads, only: [:index, :create, :destroy], param: :uid
-    resources :channels, only: [:index, :edit, :create, :update, :destroy], param: :uid
     resources :episodes, only: [:index, :edit, :create, :update, :destroy], param: :uid
-    resources :posts, only: [:index, :edit, :create, :update, :destroy], param: :uid
-    post "channels/:uid/publish", to: "channels#publish", as: :channel_publish
     post "episodes/:uid/publish", to: "episodes#publish", as: :episode_publish
-    post "posts/:uid/publish", to: "posts#publish", as: :post_publish
-    delete "channels/:uid/publish", to: "channels#unpublish", as: :channel_unpublish
     delete "episodes/:uid/publish", to: "episodes#unpublish", as: :episode_unpublish
+    resources :posts, only: [:index, :edit, :create, :update, :destroy], param: :uid
+    post "posts/:uid/publish", to: "posts#publish", as: :post_publish
     delete "posts/:uid/publish", to: "posts#unpublish", as: :post_unpublish
   end
 
@@ -49,6 +45,9 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :article_categories, only: [:index, :create, :show, :update, :destroy]
       resources :articles, only: [:index, :create, :show, :update, :destroy]
+      resources :channels, only: [:index, :create, :show, :update, :destroy], param: :uid
+      post "channels/:uid/publish", to: "channels#publish"
+      delete "channels/:uid/publish", to: "channels#unpublish"
       resources :pages, only: [:index, :create, :show, :update, :destroy]
       resources :sections, only: [:index, :show, :update]
       resources :users, only: [:index, :show, :update, :destroy]

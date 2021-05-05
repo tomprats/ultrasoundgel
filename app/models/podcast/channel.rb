@@ -51,6 +51,10 @@ class Channel < ApplicationRecord
     Rails.application.routes.url_helpers.rails_storage_proxy_path(image)
   end
 
+  def description_edit_value
+    description.present? ? description.body.to_trix_html : summary
+  end
+
   def episodes_publishing?
     episodes.where.not(published_at: nil).exists?
   end

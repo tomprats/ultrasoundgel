@@ -25,22 +25,19 @@ export default function Navbar() {
             <NavLink className="nav-link" to="/admin/sections">Content</NavLink>
           </li>
           <li>
-            <NavLink className="nav-link" to="/admin/users">Users</NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" to="/admin/pages">Pages</NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" to="/admin/uploads">Uploads</NavLink>
-          </li>
-          <li>
             <NavLink className="nav-link" to="/admin/channels">Channels</NavLink>
           </li>
           <li>
             <NavLink className="nav-link" to="/admin/episodes">Episodes</NavLink>
           </li>
           <li>
+            <NavLink className="nav-link" to="/admin/pages">Pages</NavLink>
+          </li>
+          <li>
             <NavLink className="nav-link" to="/admin/posts">Posts</NavLink>
+          </li>
+          <li>
+            <NavLink className="nav-link" to="/admin/users">Users</NavLink>
           </li>
         </ul>
       </div>

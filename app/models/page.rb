@@ -20,16 +20,6 @@ class Page < ApplicationRecord
     content.present? ? content.body.to_s : text_to_html
   end
 
-  # TODO: Remove?
-  def self.templates
-    [
-      "default",
-      "articles",
-      "contact",
-      "home"
-    ]
-  end
-
   private
 
   def format_path
