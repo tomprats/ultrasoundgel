@@ -14,6 +14,8 @@ export default function AdminChannelsNew() {
     categories: "",
     description: "",
     explicit: false,
+    google_link: "",
+    itunes_link: "",
     link: "",
     owner_email: "",
     owner_name: "",

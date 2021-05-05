@@ -7,15 +7,16 @@ const guidelines = [
   "what they represent, view the guidelines"
 ].join(" ");
 
-function AdminChannelsForm({onChange, onSubmit, value}) {
+function AdminEpisodesForm({channels, onChange, onSubmit, value}) {
+  const [audio, setAudio] = useState(value("audio"));
   const [description, setDescription] = useState(value("description"));
   const [editDescription, setEditDescription] = useState(false);
   const [image, setImage] = useState(value("image"));
-  const onImageChange = (e) => {
+  const onFileChange = (e) => {
     const file = e.target.files[0];
 
     onChange({target: {name: e.target.name, value: file && file.name}});
-    setImage(false);
+    e.target.name === "audio" ? setAudio(false) : setImage(false);
   };
 
   return (
@@ -28,11 +29,18 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
           </small>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-author">Author</label>
+              <label className="input-group-text" htmlFor="episode-audio">Audio</label>
+            </div>
+            <FileInput accept=".mp3,.mpeg" id="episode-audio" name="audio" onChange={onFileChange} />
+          </div>
+          {audio && <audio className="mb-3 text-center" controls={true} src={audio} />}
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <label className="input-group-text" htmlFor="episode-author">Author</label>
             </div>
             <input
               className="form-control"
-              id="channel-author"
+              id="episode-author"
               name="author"
               onChange={onChange}
               placeholder="Kevin Bacon"
@@ -41,33 +49,34 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
               value={value("author")}
             />
           </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-categories">Categories</label>
+          {!value("uid") && (
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text" htmlFor="episode-channel-id">Channel</label>
+              </div>
+              <select
+                className="form-control"
+                id="episode-channel-id"
+                name="channel_id"
+                onChange={onChange}
+                required={true}
+                value={value("channel_id")}
+              >
+                <option value="">Select Channel</option>
+                {channels.map(({id, title}) => (
+                  <option key={id} value={id}>{title}</option>
+                ))}
+              </select>
             </div>
-            <input
-              className="form-control"
-              id="channel-categories"
-              name="categories"
-              onChange={onChange}
-              placeholder="Tomify, Best Developer, Tired"
-              required={true}
-              type="text"
-              value={value("categories")}
-            />
-          </div>
-          <small className="form-text text-muted mb-3">
-            <span>For a list of categories, read the examples </span>
-            <a href="http://www.apple.com/itunes/podcasts/specs.html#category" rel="noreferrer" target="_blank">here</a>
-          </small>
+          )}
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-description-disabled">Description</label>
+              <label className="input-group-text" htmlFor="episode-description-disabled">Description</label>
             </div>
             <textarea
               className="form-control"
               disabled={true}
-              id="channel-description-disabled"
+              id="episode-description-disabled"
               name="description-disabled"
               placeholder="This description can include formatting and links"
               rows={4}
@@ -82,7 +91,7 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
             </small>
             <ActionText.Editor
               className={`mt-3 w-100 ${editDescription ? "" : "d-none"}`}
-              id="channel-description"
+              id="episode-description"
               name="description"
               onChange={onChange}
               onTextChange={setDescription}
@@ -93,29 +102,29 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
             <input
               checked={value("explicit", false)}
               className="custom-control-input"
-              id="channel-explicit"
+              id="episode-explicit"
               name="explicit"
               onChange={onChange}
               type="checkbox"
             />
-            <label className="custom-control-label" htmlFor="channel-explicit">Explicit</label>
+            <label className="custom-control-label" htmlFor="episode-explicit">Explicit</label>
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-image">Image</label>
+              <label className="input-group-text" htmlFor="episode-image">Image</label>
             </div>
-            <FileInput accept=".jpg,.jpeg,.png" id="channel-image" name="image" onChange={onImageChange} />
+            <FileInput accept=".jpg,.jpeg,.png" id="episode-image" name="image" onChange={onFileChange} />
           </div>
-          {image && <img alt="Channel" className="img-fluid mb-3" src={image} />}
+          {image && <img alt="Episode" className="img-fluid mb-3" src={image} />}
           {value("published_at") && (
             <>
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <label className="input-group-text" htmlFor="channel-itunes-link">iTunes Link</label>
+                  <label className="input-group-text" htmlFor="episode-itunes-link">iTunes Link</label>
                 </div>
                 <input
                   className="form-control"
-                  id="channel-itunes-link"
+                  id="episode-itunes-link"
                   name="itunes_link"
                   onChange={onChange}
                   placeholder="https://podcasts.apple.com/ultrasoundgel"
@@ -126,11 +135,11 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
               </div>
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <label className="input-group-text" htmlFor="channel-google-link">Google Link</label>
+                  <label className="input-group-text" htmlFor="episode-google-link">Google Link</label>
                 </div>
                 <input
                   className="form-control"
-                  id="channel-google-link"
+                  id="episode-google-link"
                   name="goole_link"
                   onChange={onChange}
                   placeholder="https://podcasts.google.com/ultrasoundgel"
@@ -143,56 +152,11 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
           )}
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-link">Link</label>
+              <label className="input-group-text" htmlFor="episode-subtitle">Subtitle</label>
             </div>
             <input
               className="form-control"
-              id="channel-link"
-              name="link"
-              onChange={onChange}
-              placeholder={window.location.origin}
-              required={true}
-              type="url"
-              value={value("link")}
-            />
-          </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-owern-email">Owner Email</label>
-            </div>
-            <input
-              className="form-control"
-              id="channel-owner-email"
-              name="owner_email"
-              onChange={onChange}
-              placeholder="chris@farley.com"
-              required={true}
-              type="text"
-              value={value("owner_email")}
-            />
-          </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-owern-name">Owner Name</label>
-            </div>
-            <input
-              className="form-control"
-              id="channel-owner-name"
-              name="owner_name"
-              onChange={onChange}
-              placeholder="Chris Farley"
-              required={true}
-              type="text"
-              value={value("owner_name")}
-            />
-          </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-subtitle">Subtitle</label>
-            </div>
-            <input
-              className="form-control"
-              id="channel-subtitle"
+              id="episode-subtitle"
               name="subtitle"
               onChange={onChange}
               placeholder="Visualize more than muscles"
@@ -203,11 +167,11 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-title">Title</label>
+              <label className="input-group-text" htmlFor="episode-title">Title</label>
             </div>
             <input
               className="form-control"
-              id="channel-title"
+              id="episode-title"
               name="title"
               onChange={onChange}
               placeholder="Ultra Sound of Music"
@@ -216,7 +180,7 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
               value={value("title")}
             />
           </div>
-          <small className="form-text text-muted mb-3">This will not yet publish your channel</small>
+          <small className="form-text text-muted mb-3">This will not yet publish your episode</small>
           <div className="form-group text-center">
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
@@ -226,10 +190,17 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
   );
 }
 
-AdminChannelsForm.propTypes = {
+AdminEpisodesForm.defaultProps = {channels: null};
+AdminEpisodesForm.propTypes = {
+  channels: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired
+    }).isRequired
+  ),
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   value: PropTypes.func.isRequired
 };
 
-export default AdminChannelsForm;
+export default AdminEpisodesForm;

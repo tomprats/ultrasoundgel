@@ -71,7 +71,6 @@ function AdminChannelsListRow({channel: originalChannel, onDestroy}) {
 }
 
 AdminChannelsListRow.propTypes = {
-  onDestroy: PropTypes.func.isRequired,
   channel: PropTypes.shape({
     author: PropTypes.string,
     created_at: PropTypes.string.isRequired,
@@ -81,7 +80,8 @@ AdminChannelsListRow.propTypes = {
     published_at: PropTypes.string,
     title: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  onDestroy: PropTypes.func.isRequired
 };
 
 export default AdminChannelsListRow;

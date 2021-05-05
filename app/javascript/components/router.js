@@ -49,6 +49,9 @@ export default function Router() {
                 <Route path="/admin/channels/new" component={Pages.Admin.Channels.New} />
                 <Route path="/admin/channels/:uid" component={Pages.Admin.Channels.Edit} />
                 <Route path="/admin/channels" component={Pages.Admin.Channels.List} />
+                <Route path="/admin/episodes/new" component={Pages.Admin.Episodes.New} />
+                <Route path="/admin/episodes/:uid" component={Pages.Admin.Episodes.Edit} />
+                <Route path="/admin/episodes" component={Pages.Admin.Episodes.List} />
                 <Route path="/admin/pages/new" component={Pages.Admin.Pages.New} />
                 <Route path="/admin/pages/:id" component={Pages.Admin.Pages.Edit} />
                 <Route path="/admin/pages" component={Pages.Admin.Pages.List} />

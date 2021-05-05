@@ -1,44 +1,45 @@
 import {useEffect, useState} from "react";
-import {getAll as getChannels} from "app/requests/admin/channels";
+import {getAll as getEpisodes} from "app/requests/admin/episodes";
 import {Loading} from "components/helpers";
 import Row from "./row";
 
-export default function AdminChannelsList() {
-  const [channels, setChannels] = useState(null);
+export default function AdminEpisodesList() {
+  const [episodes, setEpisodes] = useState(null);
   const onDestroy = (uid) => {
-    setChannels(channels.filter((channel) => channel.uid !== uid));
+    setEpisodes(episodes.filter((episode) => episode.uid !== uid));
   };
 
   useEffect(() => {
-    getChannels().then((data) => setChannels(data.channels));
+    getEpisodes().then((data) => setEpisodes(data.episodes));
   }, []);
 
-  if(!channels) { return <Loading />; }
+  if(!episodes) { return <Loading />; }
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-10 offset-md-1">
-          <h1 className="text-center">Channels</h1>
+          <h1 className="text-center">Episodes</h1>
           <div className="text-right mb-1">
-            <a className="btn btn-outline-secondary btn-sm" href="/admin/channels/new">New Channel</a>
+            <a className="btn btn-outline-secondary btn-sm" href="/admin/episodes/new">New Episode</a>
           </div>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">
               <thead className="thead-dark">
                 <tr>
                   <th>Published</th>
+                  <th>Audio</th>
                   <th>Author</th>
+                  <th>Channel</th>
                   <th>Image</th>
-                  <th>Owner</th>
                   <th>Title</th>
                   <th>Created At</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {channels.map((channel) => (
-                  <Row key={channel.uid} channel={channel} onDestroy={onDestroy} />
+                {episodes.map((episode) => (
+                  <Row key={episode.uid} episode={episode} onDestroy={onDestroy} />
                 ))}
               </tbody>
             </table>

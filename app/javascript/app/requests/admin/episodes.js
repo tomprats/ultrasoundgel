@@ -29,6 +29,21 @@ export const getAll = () => (
   }).then((response) => response.json())
 );
 
+export const publish = (id, params) => (
+  fetch(`/api/admin/episodes/${id}/publish`, {
+    body: JSON.stringify(params),
+    headers: headers(),
+    method: "POST"
+  }).then((response) => response.json())
+);
+
+export const unpublish = (id) => (
+  fetch(`/api/admin/episodes/${id}/publish`, {
+    headers: headers(),
+    method: "DELETE"
+  }).then((response) => response.json())
+);
+
 export const update = (id, params) => (
   fetch(`/api/admin/episodes/${id}`, {
     body: JSON.stringify(params),

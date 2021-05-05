@@ -95,6 +95,10 @@ class Episode < ApplicationRecord
     Rails.application.routes.url_helpers.rails_storage_proxy_path(image)
   end
 
+  def description_edit_value
+    description.present? ? description.body.to_trix_html : summary
+  end
+
   def image_extension
     return image.blob.filename.extension if image.attached?
     legacy_image.extension if legacy_image.present?
@@ -123,6 +127,10 @@ class Episode < ApplicationRecord
 
   def audio_ready!
     errors.add(:audio, :blank) if current_audio.blank?
+  end
+
+  def channel_check
+    errors.add(:channel, "cannot be changed if publishing") if publishing?
   end
 
   def description_ready!
