@@ -55,6 +55,9 @@ export default function Router() {
                 <Route path="/admin/pages/new" component={Pages.Admin.Pages.New} />
                 <Route path="/admin/pages/:id" component={Pages.Admin.Pages.Edit} />
                 <Route path="/admin/pages" component={Pages.Admin.Pages.List} />
+                <Route path="/admin/posts/new" component={Pages.Admin.Posts.New} />
+                <Route path="/admin/posts/:uid" component={Pages.Admin.Posts.Edit} />
+                <Route path="/admin/posts" component={Pages.Admin.Posts.List} />
                 <Route path="/admin/sections/:id" component={Pages.Admin.Sections.Edit} />
                 <Route path="/admin/sections" component={Pages.Admin.Sections.List} />
                 <Route path="/admin/users/:id" component={Pages.Admin.Users.Edit} />

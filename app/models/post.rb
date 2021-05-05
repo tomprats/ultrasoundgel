@@ -23,12 +23,12 @@ class Post < ApplicationRecord
 
   to_html :text
 
-  def current_content
-    content.present? ? content.body.to_s : text_to_html
+  def content_edit_value
+    content.present? ? content.body.to_trix_html : text_to_html
   end
 
-  def tag_list
-    tags && tags.split(",").collect(&:strip)
+  def current_content
+    content.present? ? content.body.to_s : text_to_html
   end
 
   def publishable

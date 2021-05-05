@@ -25,7 +25,7 @@ function AdminEpisodesForm({channels, onChange, onSubmit, value}) {
         <div className="col-md-4 offset-md-4">
           <small className="form-text text-muted mb-3">
             <span>{guidelines} </span>
-            <a href="http://www.apple.com/itunes/podcasts/specs.html#rss" rel="noreferrer" target="_blank">here</a>
+            <a href="https://help.apple.com/itc/podcasts_connect/#/itcb54353390" rel="noreferrer" target="_blank">here</a>
           </small>
           <div className="input-group mb-3">
             <div className="input-group-prepend">

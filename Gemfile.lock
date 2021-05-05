@@ -96,6 +96,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    activestorage-audio (0.1.0)
+      activestorage (>= 5)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
@@ -326,6 +328,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activestorage-audio
   aws-sdk-s3
   bcrypt
   bcrypt_pbkdf

@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.7.1"
 
+gem "activestorage-audio"
 gem "aws-sdk-s3"
 gem "bcrypt"
 gem "haml"
