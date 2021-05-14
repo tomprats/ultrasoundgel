@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       post "posts/:uid/publish", to: "posts#publish"
       delete "posts/:uid/publish", to: "posts#unpublish"
       resources :sections, only: [:index, :show, :update]
+      resources :stats, only: [:index]
       resources :users, only: [:index, :show, :update, :destroy]
     end
   end

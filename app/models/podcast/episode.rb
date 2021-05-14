@@ -1,9 +1,12 @@
 class Episode < ApplicationRecord
+  include EpisodeStats
   include Published
+
   has_one_attached :audio
   has_rich_text :description
   has_one_attached :image
   has_one :action_text_rich_text, as: :record, class_name: "ActionText::RichText"
+  has_many :audio_stats, class_name: "EpisodeAudioStat"
 
   # TODO: Add validations from audio upload
   # TODO: Add validations from image upload
