@@ -22,8 +22,12 @@ append(
 append :linked_files, "config/credentials/production.key"
 set :migration_role, :app
 
+# Used in config
+set :rvm_custom_path, "/usr/share/rvm"
+set :rvm_ruby_version, "2.7.1"
+
 # Other plugin options
-set :bundler_path, "/usr/share/rvm/bin/rvm default do bundle"
+set :bundler_path, "#{fetch(:rvm_custom_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do bundle"
 set :init_system, :systemd
 set :logrotate_user, "deploy"
 set :logrotate_group, "deploy"
@@ -39,8 +43,6 @@ set :pg_without_sudo, true
 set :pg_generate_random_password, true
 set :service_unit_name, "sidekiq-#{fetch(:application)}-#{fetch(:stage)}.service"
 set :sidekiq_config, "config/sidekiq.yml"
-set :rvm_custom_path, "/usr/share/rvm"
-set :rvm_ruby_version, "2.7.1"
 set :unicorn_logrotate_enabled, true
 
 before "deploy:assets:precompile", "deploy:yarn_install"
