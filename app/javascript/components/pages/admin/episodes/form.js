@@ -32,8 +32,12 @@ function AdminEpisodesForm({channels, onChange, onSubmit, value}) {
               <label className="input-group-text" htmlFor="episode-audio">Audio</label>
             </div>
             <FileInput accept=".mp3,.mpeg" id="episode-audio" name="audio" onChange={onFileChange} />
+            {audio && (
+              <div className="input-group-append">
+                <a className="btn btn-secondary" href={audio} rel="noreferrer" target="_blank">Play</a>
+              </div>
+            )}
           </div>
-          {audio && <audio className="mb-3 text-center" controls={true} src={audio} />}
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <label className="input-group-text" htmlFor="episode-author">Author</label>

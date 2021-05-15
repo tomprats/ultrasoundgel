@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {Context} from "app";
 import appleImage from "assets/images/apple.svg";
 import googleImage from "assets/images/google.svg";
 
 function AudioLinks({episode}) {
   const [{channel}] = useContext(Context);
+  const [showAudio, setShowAudio] = useState(false);
   const audioLink = `/episodes/${episode.uid}/audio.${episode.audio_extension}`;
   const googleLink = episode.google_link || channel.google_link;
   const itunesLink = episode.itunes_link || channel.itunes_link;
@@ -26,11 +27,17 @@ function AudioLinks({episode}) {
           )}
         </div>
       )}
-      <audio controls={true} src={audioLink} type={episode.audio_type}>
-        <a href={audioLink}>
-          <i className="fas fa-headphones" /> Listen
-        </a>
-      </audio>
+      {showAudio ? (
+        <audio controls={true} src={audioLink} type={episode.audio_type}>
+          <a href={audioLink}>
+            <i className="fas fa-headphones" /> Listen
+          </a>
+        </audio>
+      ) : (
+        <button onClick={() => setShowAudio(true)} type="button">
+          <i className="fas fa-play" /> Play
+        </button>
+      )}
     </>
   );
 }
