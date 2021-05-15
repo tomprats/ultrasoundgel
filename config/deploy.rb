@@ -38,4 +38,5 @@ set :pg_generate_random_password, true
 set :service_unit_name, "sidekiq-#{fetch(:application)}-#{fetch(:stage)}.service"
 set :sidekiq_config, "config/sidekiq.yml"
 set :rvm_custom_path, "/usr/share/rvm"
+set :rvm_ruby_version, "2.7.1"
 set :unicorn_logrotate_enabled, true
