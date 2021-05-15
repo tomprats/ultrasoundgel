@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.12.0"
+lock "~> 3.14.1"
 
 set :application, "ultrasoundgel"
 set :keep_releases, 3
@@ -14,6 +14,8 @@ append(
   "tmp/cache",
   "tmp/sockets",
   "vendor/bundle",
+  "node_modules",
+  "public/packs",
   "public/system",
   "public/uploads"
 )
@@ -40,3 +42,15 @@ set :sidekiq_config, "config/sidekiq.yml"
 set :rvm_custom_path, "/usr/share/rvm"
 set :rvm_ruby_version, "2.7.1"
 set :unicorn_logrotate_enabled, true
+
+before "deploy:assets:precompile", "deploy:yarn_install"
+namespace :deploy do
+  desc "Run rake yarn install"
+  task :yarn_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+      end
+    end
+  end
+end
