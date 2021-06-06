@@ -8,7 +8,7 @@ import Section from "./section";
 
 const oldDate = new Date().setFullYear(new Date().getFullYear() - 1);
 const isOld = ({month, year}) => (oldDate > new Date(year, month - 1));
-const newDate = new Date().setMonth(new Date().getMonth() - 1);
+const newDate = new Date().setMonth(new Date().getMonth() - 2);
 const isNew = ({month, year}) => (newDate < new Date(year, month - 1));
 
 function Articles({page}) {
