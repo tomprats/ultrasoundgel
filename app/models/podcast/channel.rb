@@ -3,7 +3,6 @@ class Channel < ApplicationRecord
   has_rich_text :description
   has_one_attached :image
 
-  # TODO: Add validations from image upload
   validates_presence_of :title
 
   on_publish do |record|

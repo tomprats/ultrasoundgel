@@ -8,7 +8,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", version:
     xml.itunes :subtitle, @channel.subtitle
     xml.itunes :author, @channel.author
     xml.itunes :summary, @channel.summary
-    xml.description @channel.summary
+    xml.description @channel.current_description_text
     xml.itunes :owner do
       xml.itunes :name, @channel.owner_name
       xml.itunes :email, @channel.owner_email
@@ -23,9 +23,12 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", version:
     @channel.episodes.ascending.published.each do |episode|
       xml.item do
         xml.title episode.title
+        xml.description episode.current_description_text
+        xml.content :encoded do
+          xml.cdata!(episode.current_description_html)
+        end
         xml.itunes :author, episode.author
         xml.itunes :subtitle, episode.subtitle
-        xml.itunes :summary, episode.summary
         xml.itunes :image, href: episode_image_url(episode.uid, format: episode.image_extension)
         xml.enclosure(
           url: episode_audio_url(episode.uid, format: episode.audio_extension),
