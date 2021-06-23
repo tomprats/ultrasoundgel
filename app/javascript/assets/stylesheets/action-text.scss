@@ -45,3 +45,18 @@
     }
   }
 }
+
+trix-editor {
+  margin-top: 10px;
+}
+
+trix-toolbar {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  .trix-button-group {
+    margin-bottom: 0;
+  }
+}
