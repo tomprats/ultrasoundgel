@@ -5,6 +5,7 @@ import {createNotification} from "app/actions/notifications";
 import {get as getSection, update as updateSection} from "app/requests/admin/sections";
 import {FormWithFiles} from "components/helpers";
 import {Loading} from "components/pages";
+import {usePrompt} from "lib/hooks";
 import Content from "./content";
 
 export default function AdminSectionsEdit() {
@@ -12,12 +13,14 @@ export default function AdminSectionsEdit() {
   const dispatch = useContext(Context)[1];
   const history = useHistory();
   const {id} = useParams();
+  const [block, setBlock] = useState(false);
   const [section, setSection] = useState(null);
   const onChange = (updatedContent) => {
     const contents = (changes.contents || section.contents).map((content) => (
       content.id === updatedContent.id ? updatedContent : content
     ));
 
+    setBlock(true);
     setChanges({...changes, contents});
   };
   const onSubmit = (files) => {
@@ -34,6 +37,7 @@ export default function AdminSectionsEdit() {
       }));
     }
 
+    setBlock(false);
     updateSection(section.id, {section: updates}).then(({message, success}) => {
       dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
 
@@ -41,6 +45,7 @@ export default function AdminSectionsEdit() {
     });
   };
 
+  usePrompt({when: block});
   useEffect(() => {
     getSection(id).then((data) => setSection(data.section));
   }, []);

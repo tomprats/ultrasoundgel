@@ -3,12 +3,14 @@ import {useHistory} from "react-router-dom";
 import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {create as createChannel} from "app/requests/admin/channels";
+import {usePrompt} from "lib/hooks";
 import {valueFrom, withoutBlankValues} from "lib/object";
 import Form from "./form";
 
 export default function AdminChannelsNew() {
   const dispatch = useContext(Context)[1];
   const history = useHistory();
+  const [block, setBlock] = useState(false);
   const [channel, setChannel] = useState({
     author: "",
     categories: "",
@@ -22,12 +24,14 @@ export default function AdminChannelsNew() {
     subtitle: "",
     title: ""
   });
-  const onChange = ({target: {checked, name, type, value}}) => (
-    setChannel({...channel, [name]: type === "checkbox" ? checked : value})
-  );
+  const onChange = ({target: {checked, name, type, value}}) => {
+    setBlock(true);
+    setChannel({...channel, [name]: type === "checkbox" ? checked : value});
+  };
   const onSubmit = (files) => {
     const updates = {...channel, ...files};
 
+    setBlock(false);
     createChannel({channel: withoutBlankValues(updates)}).then(({message, success}) => {
       dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
 
@@ -35,6 +39,8 @@ export default function AdminChannelsNew() {
     });
   };
   const value = (name, defaultValue) => valueFrom({defaultValue, name, objects: [channel]});
+
+  usePrompt({when: block});
 
   return (
     <div className="container-fluid">

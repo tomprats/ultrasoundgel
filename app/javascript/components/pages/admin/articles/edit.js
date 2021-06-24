@@ -4,6 +4,7 @@ import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {get as getArticle, update as updateArticle} from "app/requests/admin/articles";
 import {Loading} from "components/pages";
+import {usePrompt} from "lib/hooks";
 import {valueFrom} from "lib/object";
 import Form from "./form";
 
@@ -12,10 +13,12 @@ export default function AdminArticlesEdit() {
   const history = useHistory();
   const {id} = useParams();
   const [article, setArticle] = useState(null);
+  const [block, setBlock] = useState(false);
   const [changes, setChanges] = useState({});
-  const onChange = ({target: {checked, name, type, value}}) => (
-    setChanges({...changes, [name]: type === "checkbox" ? checked : value})
-  );
+  const onChange = ({target: {checked, name, type, value}}) => {
+    setBlock(true);
+    setChanges({...changes, [name]: type === "checkbox" ? checked : value});
+  };
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -26,6 +29,7 @@ export default function AdminArticlesEdit() {
       }));
     }
 
+    setBlock(false);
     updateArticle(article.id, {article: changes}).then(({message, success}) => {
       dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
 
@@ -38,6 +42,7 @@ export default function AdminArticlesEdit() {
     objects: [changes, article]
   });
 
+  usePrompt({when: block});
   useEffect(() => {
     getArticle(id).then((data) => setArticle(data.article));
   }, []);

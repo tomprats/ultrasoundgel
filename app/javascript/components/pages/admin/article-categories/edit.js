@@ -4,6 +4,7 @@ import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {get as getCategory, update as updateCategory} from "app/requests/admin/article-categories";
 import {Loading} from "components/pages";
+import {usePrompt} from "lib/hooks";
 import {valueFrom} from "lib/object";
 import Form from "./form";
 
@@ -11,11 +12,13 @@ export default function AdminArticleCategoriesEdit() {
   const dispatch = useContext(Context)[1];
   const history = useHistory();
   const {id} = useParams();
+  const [block, setBlock] = useState(false);
   const [category, setCategory] = useState(null);
   const [changes, setChanges] = useState({});
-  const onChange = ({target: {checked, name, type, value}}) => (
-    setChanges({...changes, [name]: type === "checkbox" ? checked : value})
-  );
+  const onChange = ({target: {checked, name, type, value}}) => {
+    setBlock(true);
+    setChanges({...changes, [name]: type === "checkbox" ? checked : value});
+  };
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -26,6 +29,7 @@ export default function AdminArticleCategoriesEdit() {
       }));
     }
 
+    setBlock(false);
     updateCategory(category.id, {category: changes}).then(({message, success}) => {
       dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
 
@@ -38,6 +42,7 @@ export default function AdminArticleCategoriesEdit() {
     objects: [changes, category]
   });
 
+  usePrompt({when: block});
   useEffect(() => {
     getCategory(id).then((data) => setCategory(data.category));
   }, []);

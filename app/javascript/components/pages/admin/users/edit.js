@@ -5,20 +5,24 @@ import {createNotification} from "app/actions/notifications";
 import {get as getUser, update as updateUser} from "app/requests/admin/users";
 import {Loading} from "components/pages";
 import {FileInput, FormWithFiles} from "components/helpers";
+import {usePrompt} from "lib/hooks";
 import {valueFrom, withoutBlankValues} from "lib/object";
 
 export default function AdminUsersEdit() {
   const dispatch = useContext(Context)[1];
   const history = useHistory();
   const {id} = useParams();
+  const [block, setBlock] = useState(false);
   const [changes, setChanges] = useState({});
   const [user, setUser] = useState(null);
-  const onChange = ({target: {checked, name, type, value}}) => (
-    setChanges({...changes, [name]: type === "checkbox" ? checked : value})
-  );
+  const onChange = ({target: {checked, name, type, value}}) => {
+    setBlock(true);
+    setChanges({...changes, [name]: type === "checkbox" ? checked : value});
+  };
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
+    setBlock(true);
     setChanges({...changes, image: file && file.name});
   };
   const onSubmit = (files) => {
@@ -31,6 +35,7 @@ export default function AdminUsersEdit() {
       }));
     }
 
+    setBlock(false);
     updateUser(user.id, {user: updates}).then(({message, success}) => {
       dispatch(createNotification({content: message, type: success ? "success" : "danger"}));
 
@@ -39,6 +44,7 @@ export default function AdminUsersEdit() {
   };
   const value = (name, defaultValue) => valueFrom({defaultValue, name, objects: [changes, user]});
 
+  usePrompt({when: block});
   useEffect(() => {
     getUser(id).then((data) => setUser(data.user));
   }, []);
