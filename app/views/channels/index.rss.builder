@@ -1,5 +1,10 @@
 xml.instruct! :xml, version: "1.0"
-xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", version: "2.0" do
+xml.rss(
+  "xmlns:content" => "http://purl.org/rss/1.0/modules/content/",
+  "xmlns:googleplay" => "http://www.google.com/schemas/play-podcasts/1.0",
+  "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd",
+  version: "2.0"
+) do
   xml.channel do
     xml.title @channel.title
     xml.link @channel.link
@@ -14,9 +19,15 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", version:
       xml.itunes :email, @channel.owner_email
     end
     xml.itunes :image, href: channel_image_url(@channel.uid, format: @channel.image_extension)
-    xml.itunes :category, text: "Science & Medicine" do
-      @channel.category_list.each do |category|
-        xml.itunes :category, text: category
+    @channel.category_list.each do |category|
+      if category.include?(":")
+        main_category, sub_category = category.split(":")
+
+        xml.itunes :category, text: main_category.strip do
+          xml.itunes :category, text: sub_category.strip
+        end
+      else
+        xml.itunes :category, text: category.strip
       end
     end
     xml.itunes :explicit, @channel.explicit ? "yes" : "no"
