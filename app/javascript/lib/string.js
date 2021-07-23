@@ -43,8 +43,8 @@ export const isBlankHTML = (string) => {
   if(string == null || string === "") { return true; }
 
   const updatedString = string
-    .replaceAll("<div class=\"trix-content\">", "")
-    .replaceAll("</div>", "")
+    .replace(/<div class="trix-content">/g, "")
+    .replace(/<\/div>/g, "")
     .trim();
 
   return updatedString === "";
