@@ -9,7 +9,12 @@ export default function notifications(state, action) {
     case CREATE_NOTIFICATION:
       return [
         ...state,
-        {id: createUUID(), ...action.payload, type: action.payload.type || "success"}
+        {
+          createdAt: Date.now(),
+          id: createUUID(),
+          ...action.payload,
+          type: action.payload.type || "success"
+        }
       ];
     case DELETE_NOTIFICATION:
       return state.filter(({id}) => id !== action.payload.id);

@@ -23,6 +23,18 @@ export default function Notifications() {
     if(content) { dispatch(createNotification({content, type})); }
   }, [location.state && location.state.message]);
 
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      const now = Date.now();
+
+      notifications
+        .filter(({createdAt}) => now - createdAt >= 5000)
+        .map(({id}) => dispatch(deleteNotification({id})));
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+  }, [notifications]);
+
   return (
     <div className="notifications">
       {notifications.map(({content, id, type}) => (

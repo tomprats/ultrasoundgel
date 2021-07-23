@@ -1,6 +1,15 @@
 import PropTypes from "prop-types";
+import {useEffect, useRef} from "react";
 
 function SearchModal({onClose, show}) {
+  const input = useRef(null);
+
+  useEffect(() => {
+    if(!show) { return; }
+
+    input.current.focus();
+  }, [show]);
+
   return (
     <div className={`modal fade ${show ? "d-block show" : ""}`} role="dialog">
       <div className="modal-dialog">
@@ -16,7 +25,7 @@ function SearchModal({onClose, show}) {
               <div className="form-group row">
                 <label className="col-form-label col-sm-3 text-right" htmlFor="search">Text</label>
                 <div className="col-sm-9">
-                  <input className="form-control" id="search" name="search" type="text" />
+                  <input className="form-control" id="search" name="search" ref={input} type="text" />
                 </div>
               </div>
             </div>
