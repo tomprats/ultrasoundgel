@@ -25,27 +25,23 @@ export default function AdminStatsList() {
             <table className="table table-hover text-center">
               <thead className="thead-dark">
                 <tr>
+                  <th>Time</th>
                   <th>Average Downloads</th>
-                  <th>Average Recent Downloads</th>
                   <th>Total Downloads</th>
-                  <th>Recent Downloads</th>
                   <th>Average Unique Downloads</th>
-                  <th>Average Recent Unique Downloads</th>
                   <th>Unique Downloads</th>
-                  <th>Recent Unique Downloads</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{stats.channel.average_downloads} per month</td>
-                  <td>{stats.channel.average_recent_downloads} per month</td>
-                  <td>{stats.channel.downloads}</td>
-                  <td>{stats.channel.recent_downloads}</td>
-                  <td>{stats.channel.average_unique_downloads} per month</td>
-                  <td>{stats.channel.average_recent_unique_downloads} per month</td>
-                  <td>{stats.channel.unique_downloads}</td>
-                  <td>{stats.channel.recent_unique_downloads}</td>
-                </tr>
+                {stats.channel.downloads.map((downloads) => (
+                  <tr>
+                    <td>{downloads.name}</td>
+                    <td>{downloads.average_downloads} per month</td>
+                    <td>{downloads.average_unique_downloads} per month</td>
+                    <td>{downloads.total_downloads}</td>
+                    <td>{downloads.unique_downloads}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

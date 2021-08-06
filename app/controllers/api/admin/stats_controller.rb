@@ -4,21 +4,47 @@ class Api::Admin::StatsController < Api::Admin::ApplicationController
 
     render json: {
       channel: {
-        average_downloads: round(EpisodeAudioStat.downloads / total_months.to_f),
-        average_recent_downloads: round(EpisodeAudioStat.recent(6.months).downloads / 6.0),
-        average_recent_unique_downloads: round(EpisodeAudioStat.recent(6.months).unique_downloads / 6.0),
-        average_unique_downloads: round(EpisodeAudioStat.unique_downloads / total_months.to_f),
-        downloads: EpisodeAudioStat.downloads,
-        monthly_downloads: EpisodeAudioStat.monthly_downloads,
-        recent_downloads: EpisodeAudioStat.recent.downloads,
-        recent_unique_downloads: EpisodeAudioStat.recent.unique_downloads,
-        unique_downloads: EpisodeAudioStat.unique_downloads
+        downloads: downloads_over_time,
+        monthly_downloads: EpisodeAudioStat.monthly_downloads
       },
       episodes: episodes_as_json(episodes)
     }
   end
 
   private
+
+  def downloads_over_time
+    ytd = (DateTime.current.to_i - DateTime.current.beginning_of_year.to_i).seconds.in_months.ceil
+    downloads = [
+      ["YTD", ytd, ytd.month],
+      ["1 month", 1, 1.month],
+      ["6 months", 6, 6.months],
+      ["1 year", 12, 12.months]
+    ].map do |(name, months, since)|
+      total_downloads = EpisodeAudioStat.recent(since).downloads
+      unique_downloads = EpisodeAudioStat.recent(since).unique_downloads
+
+      {
+        average_downloads: round(total_downloads / months.to_f),
+        average_unique_downloads: round(unique_downloads / months.to_f),
+        name: name,
+        total_downloads: total_downloads,
+        unique_downloads: unique_downloads
+      }
+    end
+
+    total_downloads = EpisodeAudioStat.downloads
+    unique_downloads = EpisodeAudioStat.unique_downloads
+    downloads.prepend({
+      average_downloads: round(total_downloads / total_months.to_f),
+      average_unique_downloads: round(unique_downloads / total_months.to_f),
+      name: "Overall",
+      total_downloads: total_downloads,
+      unique_downloads: unique_downloads
+    })
+
+    downloads
+  end
 
   def episode_as_json_for_index(episode)
     episode.as_json(
