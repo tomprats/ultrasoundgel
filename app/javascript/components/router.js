@@ -1,16 +1,15 @@
-import {useContext} from "react";
 import {
   BrowserRouter,
   Redirect,
   Route,
   Switch
 } from "react-router-dom";
-import {Context} from "app";
 import * as Layout from "components/layout";
 import * as Pages from "components/pages";
+import useAppContext from "lib/hooks/use-app-context";
 
 export default function Router() {
-  const [{app, pages, user}] = useContext(Context);
+  const [{app, pages, user}] = useAppContext();
 
   return (
     <BrowserRouter>

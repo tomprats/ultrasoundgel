@@ -1,6 +1,6 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouteMatch} from "react-router-dom";
-import {Context} from "app";
+import useAppContext from "lib/hooks/use-app-context";
 import Articles from "./articles";
 import Contact from "./contact";
 import Default from "./default";
@@ -21,7 +21,7 @@ const getPage = ({match, pages}) => {
 
 export default function Template() {
   const match = useRouteMatch();
-  const [{pages}] = useContext(Context);
+  const [{pages}] = useAppContext();
   const [page, setPage] = useState(() => getPage({match, pages}));
 
   useEffect(() => { setPage(getPage({match, pages})); }, [match]);

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {create as createComment} from "app/requests/comments";
+import useAppContext from "lib/hooks/use-app-context";
 import Modal from "./modal";
 
 function New({post, setComments}) {
-  const [{user}, dispatch] = useContext(Context);
+  const [{user}, dispatch] = useAppContext();
   const [comment, setComment] = useState({post_id: post.id});
   const [showModal, setShowModal] = useState(false);
   const submit = (params) => {

@@ -1,14 +1,15 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {useHistory} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {create as createChannel} from "app/requests/admin/channels";
-import {usePrompt} from "lib/hooks";
-import {valueFrom, withoutBlankValues} from "lib/object";
+import {valueFrom, valueFromTarget} from "lib/form";
+import useAppContext from "lib/hooks/use-app-context";
+import usePrompt from "lib/hooks/use-prompt";
+import {withoutBlankValues} from "lib/object";
 import Form from "./form";
 
 export default function AdminChannelsNew() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const history = useHistory();
   const [block, setBlock] = useState(false);
   const [channel, setChannel] = useState({
@@ -24,9 +25,9 @@ export default function AdminChannelsNew() {
     subtitle: "",
     title: ""
   });
-  const onChange = ({target: {checked, name, type, value}}) => {
+  const onChange = ({target}) => {
     setBlock(true);
-    setChannel({...channel, [name]: type === "checkbox" ? checked : value});
+    setChannel({...channel, [target.name]: valueFromTarget(target)});
   };
   const onSubmit = (files) => {
     const updates = {...channel, ...files};

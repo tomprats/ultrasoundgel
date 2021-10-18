@@ -1,10 +1,10 @@
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {forgotPassword} from "app/requests/session";
+import useAppContext from "lib/hooks/use-app-context";
 
 export default function ForgotPassword() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const [user, setUser] = useState({email: ""});
   const onChange = ({target: {name, value}}) => setUser({...user, [name]: value});
   const onSubmit = (e) => {

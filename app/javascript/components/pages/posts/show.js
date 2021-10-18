@@ -1,16 +1,16 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {get as getPost, subscribe, unsubscribe} from "app/requests/posts";
 import {ActionText, AudioLinks, Citation} from "components/helpers";
 import {Share as ShareModal} from "components/helpers/modal";
 import {Loading} from "components/pages";
+import useAppContext from "lib/hooks/use-app-context";
 import {displayDateTime} from "lib/string";
 import Comments from "./comments";
 
 export default function PostsShow() {
-  const [{user}, dispatch] = useContext(Context);
+  const [{user}, dispatch] = useAppContext();
   const {uid} = useParams();
   const [post, setPost] = useState(null);
   const [showShare, setShowShare] = useState(false);

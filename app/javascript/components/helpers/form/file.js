@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {getDirectUploadUrl} from "lib/active-storage";
 
-function FileInput({onChange, ...props}) {
+function File({id, onChange, ...props}) {
   const [directUploadUrl, setDirectUploadUrl] = useState(null);
   const [fileName, setFileName] = useState(null);
   const onFileChange = (e) => {
@@ -19,16 +19,17 @@ function FileInput({onChange, ...props}) {
       <input
         className="custom-file-input"
         data-direct-upload-url={directUploadUrl}
+        id={id}
         type="file"
         {...props}
         onChange={onFileChange}
       />
-      <label className="custom-file-label" htmlFor="file">{fileName || "Choose file"}</label>
+      <label className="custom-file-label" htmlFor={id}>{fileName || "Choose file"}</label>
     </div>
   );
 }
 
-FileInput.defaultProps = {onChange: null};
-FileInput.propTypes = {onChange: PropTypes.func};
+File.defaultProps = {onChange: null};
+File.propTypes = {id: PropTypes.string.isRequired, onChange: PropTypes.func};
 
-export default FileInput;
+export default File;

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 
 const inputSelector = "input[type=file][data-direct-upload-url]";
 
-function FormWithFiles({children, onSubmit: submit}) {
+function FormWithFiles({children, onSubmit: submit, ...props}) {
   const form = useRef(null);
   const [files, setFiles] = useState(null);
   const onSubmit = (e) => {
@@ -17,7 +17,7 @@ function FormWithFiles({children, onSubmit: submit}) {
   };
 
   useEffect(() => { files && submit(files); }, [files]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const uploadEnd = () => {
       const data = {};
 
@@ -37,7 +37,7 @@ function FormWithFiles({children, onSubmit: submit}) {
   }, []);
 
   return (
-    <form onSubmit={onSubmit} ref={form}>
+    <form onSubmit={onSubmit} ref={form} {...props}>
       {children}
     </form>
   );

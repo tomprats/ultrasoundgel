@@ -1,7 +1,10 @@
 class Api::ApplicationController < ApplicationController
   def environment
     render json: {
-      app: {recaptcha: Rails.application.credentials.recaptcha[:public_key]},
+      app: {
+        environment: Rails.env,
+        recaptcha: Rails.application.credentials.recaptcha[:public_key]
+      },
       channel: channel_as_json,
       pages: pages_as_json,
       sections: sections_as_json,

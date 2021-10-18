@@ -5,8 +5,6 @@ export Check from "./check";
 export Citation from "./citation";
 export DangerousHTML from "./dangerous-html";
 export Episode from "./episode";
-export FormWithFiles from "./form-with-files";
-export FileInput from "./file-input";
 export Loading from "./loading";
 export * as Modal from "./modal";
 export Notification from "./notification";

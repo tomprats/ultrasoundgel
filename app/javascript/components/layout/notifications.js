@@ -1,12 +1,12 @@
-import {useContext, useEffect} from "react";
+import {useEffect} from "react";
 import {useLocation} from "react-router-dom";
-import {Context} from "app";
 import {createNotification, deleteNotification} from "app/actions/notifications";
 import {Notification} from "components/helpers";
-import {useQueryParams} from "lib/hooks";
+import useAppContext from "lib/hooks/use-app-context";
+import useQueryParams from "lib/hooks/use-query-params";
 
 export default function Notifications() {
-  const [{notifications}, dispatch] = useContext(Context);
+  const [{notifications}, dispatch] = useAppContext();
   const location = useLocation();
   const params = useQueryParams();
 

@@ -1,14 +1,15 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {useHistory} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {create as createPage} from "app/requests/admin/pages";
-import {usePrompt} from "lib/hooks";
-import {valueFrom, withoutBlankValues} from "lib/object";
+import {valueFrom, valueFromTarget} from "lib/form";
+import useAppContext from "lib/hooks/use-app-context";
+import usePrompt from "lib/hooks/use-prompt";
+import {withoutBlankValues} from "lib/object";
 import Form from "./form";
 
 export default function AdminPagesNew() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const history = useHistory();
   const [block, setBlock] = useState(false);
   const [page, setPage] = useState({
@@ -18,9 +19,9 @@ export default function AdminPagesNew() {
     template: "default",
     path: ""
   });
-  const onChange = ({target: {checked, name, type, value}}) => {
+  const onChange = ({target}) => {
     setBlock(true);
-    setPage({...page, [name]: type === "checkbox" ? checked : value});
+    setPage({...page, [target.name]: valueFromTarget(target)});
   };
   const onSubmit = (e) => {
     e.preventDefault();

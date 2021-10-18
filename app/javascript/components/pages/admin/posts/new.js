@@ -1,16 +1,17 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {getAll as getEpisodes} from "app/requests/admin/episodes";
 import {create as createPost} from "app/requests/admin/posts";
 import {Loading} from "components/pages";
-import {usePrompt} from "lib/hooks";
-import {valueFrom, withoutBlankValues} from "lib/object";
+import {valueFrom, valueFromTarget} from "lib/form";
+import useAppContext from "lib/hooks/use-app-context";
+import usePrompt from "lib/hooks/use-prompt";
+import {withoutBlankValues} from "lib/object";
 import Form from "./form";
 
 export default function AdminPostsNew() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const history = useHistory();
   const [block, setBlock] = useState(false);
   const [episodes, setEpisodes] = useState(null);
@@ -28,9 +29,9 @@ export default function AdminPostsNew() {
 
   if(!episodes) { return <Loading />; }
 
-  const onChange = ({target: {checked, name, type, value}}) => {
+  const onChange = ({target}) => {
     setBlock(true);
-    setPost({...post, [name]: type === "checkbox" ? checked : value});
+    setPost({...post, [target.name]: valueFromTarget(target)});
   };
   const onSubmit = (e) => {
     e.preventDefault();

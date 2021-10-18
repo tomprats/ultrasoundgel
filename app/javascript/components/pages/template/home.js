@@ -16,7 +16,7 @@ function Home({page}) {
   const twitter = useContent("Social", "Twitter");
   const params = useQueryParams();
   const [pageNumber, setPageNumber] = useState(+(params.get("page") || 1));
-  const limit = +(params.get("limit") || 3);
+  const limit = +(params.get("limit") || 5);
   const search = params.get("search");
   const updatePage = (e) => {
     e.preventDefault();

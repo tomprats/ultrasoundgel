@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import {useContext, useEffect, useState} from "react";
-import {Context} from "app";
+import {useEffect, useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {destroy as destroyComment} from "app/requests/comments";
+import useAppContext from "lib/hooks/use-app-context";
 import {displayDateTime} from "lib/string";
 import New from "./new";
 
 function Comments({post}) {
-  const [{user}, dispatch] = useContext(Context);
+  const [{user}, dispatch] = useAppContext();
   const [comments, setComments] = useState(post.comments);
   const onDelete = (id) => {
     if(!window.confirm("Are you sure you want to hide this comment?")) { return; }

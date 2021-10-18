@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {getBlobUrlTemplate, getDirectUploadUrl} from "lib/active-storage";
 
 function ActionTextEditor({
@@ -22,7 +22,7 @@ function ActionTextEditor({
     setDirectUploadUrl(getDirectUploadUrl());
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateValue = ({target}) => { setNewValue(target.value); };
 
     editor.current.addEventListener("trix-change", updateValue);
@@ -30,7 +30,7 @@ function ActionTextEditor({
     return () => editor.current.removeEventListener("trix-change", updateValue);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateText = () => setText(
       editor.current.editor.getDocument().toString().trim()
     );
@@ -44,6 +44,7 @@ function ActionTextEditor({
   useEffect(() => {
     if(text !== null) { onTextChange && onTextChange(text || ""); }
   }, [text]);
+
   useEffect(() => {
     if(newValue !== null) { onChange({target: {name, value: newValue}}); }
   }, [newValue]);

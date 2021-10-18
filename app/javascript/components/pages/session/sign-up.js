@@ -1,13 +1,14 @@
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {setUser} from "app/actions/user";
 import {create as createProfile} from "app/requests/profile";
-import {FileInput, FormWithFiles} from "components/helpers";
+import File from "components/helpers/form/file";
+import FormWithFiles from "components/helpers/form/with-files";
+import useAppContext from "lib/hooks/use-app-context";
 import {withoutBlankValues} from "lib/object";
 
 export default function SignUp() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const [user, setChanges] = useState({
     email: "",
     first_name: "",
@@ -96,7 +97,7 @@ export default function SignUp() {
         </div>
         <div className="form-group">
           <div className="text-center">Profile Image</div>
-          <FileInput id="sign-up-image" name="image" />
+          <File id="sign-up-image" name="image" />
         </div>
         <div className="form-group">
           <div className="form-check">

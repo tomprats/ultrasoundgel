@@ -40,11 +40,11 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
 
-  img {
-    text-align: center;
-    max-width: 100%;
+  img, video {
     display: block;
     margin: auto;
+    max-width: 100%;
+    text-align: center;
   }
 }
 
@@ -58,6 +58,4 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 15;
 }
 
-.preserve-whitespace {
-  white-space: pre-wrap;
-}
+.preserve-whitespace { white-space: pre-wrap; }

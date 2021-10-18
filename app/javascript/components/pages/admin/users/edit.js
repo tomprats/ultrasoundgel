@@ -1,29 +1,25 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {get as getUser, update as updateUser} from "app/requests/admin/users";
+import File from "components/helpers/form/file";
+import FormWithFiles from "components/helpers/form/with-files";
 import {Loading} from "components/pages";
-import {FileInput, FormWithFiles} from "components/helpers";
-import {usePrompt} from "lib/hooks";
-import {valueFrom, withoutBlankValues} from "lib/object";
+import {valueFrom, valueFromTarget} from "lib/form";
+import useAppContext from "lib/hooks/use-app-context";
+import usePrompt from "lib/hooks/use-prompt";
+import {withoutBlankValues} from "lib/object";
 
 export default function AdminUsersEdit() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const history = useHistory();
   const {id} = useParams();
   const [block, setBlock] = useState(false);
   const [changes, setChanges] = useState({});
   const [user, setUser] = useState(null);
-  const onChange = ({target: {checked, name, type, value}}) => {
+  const onChange = ({target}) => {
     setBlock(true);
-    setChanges({...changes, [name]: type === "checkbox" ? checked : value});
-  };
-  const onImageChange = (e) => {
-    const file = e.target.files[0];
-
-    setBlock(true);
-    setChanges({...changes, image: file && file.name});
+    setChanges({...changes, [target.name]: valueFromTarget(target)});
   };
   const onSubmit = (files) => {
     const updates = withoutBlankValues({...changes, ...files});
@@ -106,11 +102,9 @@ export default function AdminUsersEdit() {
               <div className="input-group-prepend">
                 <label className="input-group-text" htmlFor="user-image">Profile Image</label>
               </div>
-              <FileInput id="user-image" name="image" onChange={onImageChange} />
+              <File id="user-image" name="image" onChange={onChange} />
+              <img alt="Preview" className="img-fluid" src={value("image")} />
             </div>
-            {!changes.image && user.image && (
-              <img alt="Profile" className="img-fluid mb-3" src={user.image} />
-            )}
             <div className="custom-control custom-switch text-center mb-3">
               <input
                 checked={value("admin", false)}
