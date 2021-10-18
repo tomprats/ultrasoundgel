@@ -52,7 +52,7 @@ export default function AdminEpisodesEdit() {
   return (
     <div className="container-fluid">
       <h1 className="text-center">Edit Episode</h1>
-      <Form {...{onChange, onSubmit, value}} />
+      <Form onChange={onChange} onSubmit={onSubmit} value={value} />
     </div>
   );
 }

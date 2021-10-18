@@ -10,7 +10,7 @@ class PreviewableAttachmentView extends Trix.PreviewableAttachmentView {
   createContentNodes() {
     if(this.isVideo()) {
       this.preview = Trix.makeElement({
-        attributes: {controls: "true", width: "100%"},
+        attributes: {controls: "true"},
         childNodes: Trix.makeElement({
           attributes: {src: "", type: ""},
           data: {trixMutable: true},
@@ -83,7 +83,7 @@ class PreviewableAttachmentView extends Trix.PreviewableAttachmentView {
       source.setAttribute("data-trix-serialized-attributes", serializedAttributes);
     }
 
-    const storeKey = ["previewElement", this.attachment.id, preview.src, preview.width, preview.height].join("/");
+    const storeKey = ["previewElement", this.attachment.id, source.src].join("/");
     preview.dataset.trixStoreKey = storeKey;
   }
   attachmentDidChangeAttributes() {

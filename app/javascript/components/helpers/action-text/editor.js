@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {getBlobUrlTemplate, getDirectUploadUrl} from "lib/active-storage";
 
 function ActionTextEditor({
@@ -7,6 +7,7 @@ function ActionTextEditor({
   id,
   name,
   onChange,
+  onPreviewChange,
   onTextChange,
   placeholder,
   value
@@ -14,40 +15,42 @@ function ActionTextEditor({
   const editor = useRef(null);
   const [blobUrlTemplate, setBlobUrlTemplate] = useState(null);
   const [directUploadUrl, setDirectUploadUrl] = useState(null);
-  const [newValue, setNewValue] = useState(null);
-  const [text, setText] = useState(null);
+  const setNewValue = (newValue) => {
+    if(newValue !== null) { onChange({target: {name, value: newValue}}); }
+  };
+  const setPreview = (preview) => onPreviewChange && onPreviewChange(preview);
+  const setText = (text) => onTextChange && onTextChange(text);
 
   useEffect(() => {
     setBlobUrlTemplate(getBlobUrlTemplate());
     setDirectUploadUrl(getDirectUploadUrl());
   }, []);
 
-  useLayoutEffect(() => {
-    const updateValue = ({target}) => { setNewValue(target.value); };
+  useEffect(() => {
+    const updateContent = ({target}) => { setNewValue(target.value); };
 
-    editor.current.addEventListener("trix-change", updateValue);
-
-    return () => editor.current.removeEventListener("trix-change", updateValue);
-  }, []);
-
-  useLayoutEffect(() => {
-    const updateText = () => setText(
-      editor.current.editor.getDocument().toString().trim()
-    );
-
-    editor.current.addEventListener("trix-change", updateText);
-    updateText();
-
-    return () => editor.current.removeEventListener("trix-change", updateText);
+    editor.current.addEventListener("trix-change", updateContent);
   }, []);
 
   useEffect(() => {
-    if(text !== null) { onTextChange && onTextChange(text || ""); }
-  }, [text]);
+    const updateContent = ({target}) => { setPreview(target.value); };
+
+    editor.current.addEventListener("trix-change", updateContent);
+  }, []);
 
   useEffect(() => {
-    if(newValue !== null) { onChange({target: {name, value: newValue}}); }
-  }, [newValue]);
+    const updateContent = () => { setText(editor.current.editor.getDocument().toString().trim()); };
+
+    editor.current.addEventListener("trix-change", updateContent);
+  }, []);
+
+  useEffect(() => {
+    setPreview(editor.current.editor.element.value);
+  }, []);
+
+  useEffect(() => {
+    setText(editor.current.editor.getDocument().toString().trim());
+  }, []);
 
   return (
     <div className={className}>
@@ -64,12 +67,18 @@ function ActionTextEditor({
   );
 }
 
-ActionTextEditor.defaultProps = {className: null, onTextChange: null, placeholder: null};
+ActionTextEditor.defaultProps = {
+  className: null,
+  onPreviewChange: null,
+  onTextChange: null,
+  placeholder: null
+};
 ActionTextEditor.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onPreviewChange: PropTypes.func,
   onTextChange: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired

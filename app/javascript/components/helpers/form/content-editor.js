@@ -6,7 +6,8 @@ import Editor from "components/helpers/action-text/editor";
 function ContentEditor({id, label, name, onChange, value}) {
   const [content, setContent] = useState(value);
   const [editContent, setEditContent] = useState(false);
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState(value);
+  const [showPreview, setShowPreview] = useState(false);
 
   return (
     <div className="content-editor">
@@ -24,15 +25,15 @@ function ContentEditor({id, label, name, onChange, value}) {
           value={content}
         />
         <div className="input-group-append">
-          <button className="btn btn-primary" onClick={() => setPreview(!preview)} type="button">{preview ? "Hide Preview" : "Preview"}</button>
+          <button className="btn btn-primary" onClick={() => setShowPreview(!showPreview)} type="button">{showPreview ? "Hide Preview" : "Preview"}</button>
         </div>
         <div className="input-group-append">
           <button className="btn btn-secondary" onClick={() => setEditContent(!editContent)} type="button">{editContent ? "Hide" : "Edit"}</button>
         </div>
       </div>
-      {preview && (
+      {showPreview && (
         <div className="custom-html mt-3">
-          <Content html={value} />
+          <Content html={preview} />
         </div>
       )}
       <Editor
@@ -40,6 +41,7 @@ function ContentEditor({id, label, name, onChange, value}) {
         id={id}
         name={name}
         onChange={onChange}
+        onPreviewChange={setPreview}
         onTextChange={setContent}
         value={value}
       />
