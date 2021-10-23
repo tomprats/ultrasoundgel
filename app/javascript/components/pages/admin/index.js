@@ -6,4 +6,5 @@ export * as Pages from "./pages";
 export * as Posts from "./posts";
 export * as Sections from "./sections";
 export * as Stats from "./stats";
+export * as Uploads from "./uploads";
 export * as Users from "./users";

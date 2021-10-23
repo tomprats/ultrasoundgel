@@ -21,7 +21,7 @@ function Episode({episode}) {
       <div className="col-sm-6">
         <h3 className="m-0 p-0">{episode.title}</h3>
         {episode.post && episode.post.published_at && (
-          <div>
+          <div className="my-2">
             <a href={`/posts/${episode.post.uid}`}>
               <i className="fas fa-pen-square" /> Post
             </a>

@@ -34,7 +34,7 @@ function AudioLinks({episode}) {
           </a>
         </audio>
       ) : (
-        <button onClick={() => setShowAudio(true)} type="button">
+        <button className="btn btn-themed my-2" onClick={() => setShowAudio(true)} type="button">
           <i className="fas fa-play" /> Play
         </button>
       )}

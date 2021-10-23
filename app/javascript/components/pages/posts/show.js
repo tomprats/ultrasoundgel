@@ -74,6 +74,7 @@ export default function PostsShow() {
                 {post.episode && (
                   <>
                     {post.episode.author && <div>By {post.episode.author}</div>}
+                    <small>Published on {displayDateTime(post.published_at) || "Unpublished"}</small>
                     <AudioLinks episode={post.episode} />
                   </>
                 )}

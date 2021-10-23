@@ -40,6 +40,9 @@ export default function Navbar() {
             <NavLink className="nav-link" to="/admin/stats">Stats</NavLink>
           </li>
           <li>
+            <NavLink className="nav-link" to="/admin/uploads">Uploads</NavLink>
+          </li>
+          <li>
             <NavLink className="nav-link" to="/admin/users">Users</NavLink>
           </li>
         </ul>
