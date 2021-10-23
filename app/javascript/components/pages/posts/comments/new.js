@@ -30,29 +30,27 @@ function New({post, setComments}) {
   };
 
   return (
-    <div className="row">
-      <div className="col-12">
-        <form onSubmit={onSubmit}>
-          <textarea className="form-control" name="text" onChange={onChange} placeholder="What do you think?" value={comment.text || ""} />
-          {user ? (
-            <div className="row">
-              <div className="col-sm-8">
-                <div className="form-check">
-                  <label className="form-check-label">
-                    <input className="form-check-input" name="anonymous" onChange={onChange} type="checkbox" value={comment.anonymous || false} />
-                    Post Anonymously?
-                  </label>
-                </div>
-              </div>
-              <div className="col-sm-4">
-                <button className="btn btn-themed float-right" type="submit">Comment</button>
+    <div>
+      <form onSubmit={onSubmit}>
+        <textarea className="form-control mb-1" name="text" onChange={onChange} placeholder="What do you think?" value={comment.text || ""} />
+        {user ? (
+          <div className="row">
+            <div className="col-sm-8">
+              <div className="form-check">
+                <label className="form-check-label">
+                  <input className="form-check-input" name="anonymous" onChange={onChange} type="checkbox" value={comment.anonymous || false} />
+                  Post Anonymously?
+                </label>
               </div>
             </div>
-          ) : (
-            <button className="btn btn-themed float-right" onClick={() => setShowModal(true)} type="button">Comment</button>
-          )}
-        </form>
-      </div>
+            <div className="col-sm-4">
+              <button className="btn btn-themed float-right" type="submit">Comment</button>
+            </div>
+          </div>
+        ) : (
+          <button className="btn btn-themed float-right" onClick={() => setShowModal(true)} type="button">Comment</button>
+        )}
+      </form>
       {!user && (
         <Modal onClose={() => setShowModal(false)} onSubmit={onModalSubmit} show={showModal} />
       )}

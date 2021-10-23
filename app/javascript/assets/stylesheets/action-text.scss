@@ -15,10 +15,13 @@
 .trix-content {
   img, video { max-width: 100%; }
 
-  :not(.attachment-gallery) > action-text-attachment {
-    display: block;
-    margin: 20px 0;
-    text-align: center;
+  :not(.attachment-gallery) {
+    > action-text-attachment,
+    > .attachment {
+      display: block;
+      margin: 20px 0;
+      text-align: center;
+    }
   }
 
   .attachment__caption { display: none; }

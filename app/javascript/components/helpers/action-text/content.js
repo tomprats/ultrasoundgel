@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import {useEffect, useRef} from "react";
 import truncate from "trunc-html";
-import {DangerousHTML} from "components/helpers";
+import DangerousHTML from "components/helpers/dangerous-html";
 
 function ActionTextContent({html: _html, truncate: truncateOptions, ...props}) {
   const content = useRef(null);

@@ -33,7 +33,7 @@ function ContentEditor({id, label, name, onChange, value}) {
       </div>
       {showPreview && (
         <div className="custom-html mt-3">
-          <Content html={preview} />
+          <Content className="trix-content" html={preview} />
         </div>
       )}
       <Editor

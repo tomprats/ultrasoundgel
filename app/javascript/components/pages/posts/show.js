@@ -59,43 +59,37 @@ export default function PostsShow() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-          <div className="row">
-            <div className="col-12">
-              <div className="text-center">
-                <h1>{post.title}</h1>
-                {post.public_tags.length > 0 && (
-                  <div className="my-2">
-                    {post.public_tags.map((tag) => (
-                      <a key={tag} className="badge badge-pill badge-themed m-1" href={`/?search=${tag}`}>{tag}</a>
-                    ))}
-                  </div>
-                )}
-                {post.episode && (
-                  <>
-                    {post.episode.author && <div>By {post.episode.author}</div>}
-                    <small>Published on {displayDateTime(post.published_at) || "Unpublished"}</small>
-                    <AudioLinks episode={post.episode} />
-                  </>
-                )}
+        <div className="col-md-8 offset-md-2">
+          <div className="text-center">
+            <h1>{post.title}</h1>
+            {post.public_tags.length > 0 && (
+              <div className="my-2">
+                {post.public_tags.map((tag) => (
+                  <a key={tag} className="badge badge-pill badge-themed m-1" href={`/?search=${tag}`}>{tag}</a>
+                ))}
               </div>
-              <div className="custom-html">
-                <ActionText.Content html={post.content} />
-              </div>
-            </div>
+            )}
+            {post.episode && (
+              <>
+                {post.episode.author && <div>By {post.episode.author}</div>}
+                <small>Published on {displayDateTime(post.published_at) || "Unpublished"}</small>
+                <AudioLinks episode={post.episode} />
+              </>
+            )}
           </div>
-          <div className="row text-center">
-            <div className="col-12">
-              <button aria-label="Share on Facebook" className="btn btn-icon" onClick={onFacebookShare} title="Share on Facebook" type="button">
-                <i className="fab fa-2x fa-facebook-square" />
-              </button>
-              <button aria-label="Share on Twitter" className="btn btn-icon" onClick={onTwitterShare} title="Share on Twitter" type="button">
-                <i className="fab fa-2x fa-twitter-square" />
-              </button>
-              <button aria-label="Share by Link" className="btn btn-icon" onClick={onLinkShare} title="Share by Link" type="button">
-                <i className="fas fa-2x fa-share-alt-square" />
-              </button>
-            </div>
+          <div className="custom-html">
+            <ActionText.Content html={post.content} />
+          </div>
+          <div className="text-center">
+            <button aria-label="Share on Facebook" className="btn btn-icon" onClick={onFacebookShare} title="Share on Facebook" type="button">
+              <i className="fab fa-2x fa-facebook-square" />
+            </button>
+            <button aria-label="Share on Twitter" className="btn btn-icon" onClick={onTwitterShare} title="Share on Twitter" type="button">
+              <i className="fab fa-2x fa-twitter-square" />
+            </button>
+            <button aria-label="Share by Link" className="btn btn-icon" onClick={onLinkShare} title="Share by Link" type="button">
+              <i className="fas fa-2x fa-share-alt-square" />
+            </button>
           </div>
           <div className="card bg-light my-3 text-center">
             <div className="card-body">
