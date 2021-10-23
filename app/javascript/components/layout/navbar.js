@@ -1,10 +1,11 @@
-import {useContext, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {destroy as destroySession} from "app/requests/session";
 import {Search as SearchModal} from "components/helpers/modal";
-import {useContent, useNavbar} from "lib/hooks";
+import useAppContext from "lib/hooks/use-app-context";
+import useContent from "lib/hooks/use-content";
+import useNavbar from "lib/hooks/use-navbar";
 
 export default function Navbar() {
   const email = useContent("Contact", "Email");
@@ -12,7 +13,7 @@ export default function Navbar() {
   const facebook = useContent("Social", "Facebook");
   const instagram = useContent("Social", "Instagram");
   const twitter = useContent("Social", "Twitter");
-  const [{pages, user}, dispatch] = useContext(Context);
+  const [{pages, user}, dispatch] = useAppContext();
   const [showSearch, setShowSearch] = useState(false);
   const ref = useRef(null);
   const {toggleMenu} = useNavbar({ref});

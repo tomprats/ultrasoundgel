@@ -13,7 +13,7 @@ function ActionTextContent({html: _html, truncate: truncateOptions, ...props}) {
         a.setAttribute("target", "_blank");
       }
     });
-  }, []);
+  }, [html]);
 
   return (
     <>

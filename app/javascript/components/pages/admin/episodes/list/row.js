@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {destroy as destroyEpisode, publish, unpublish} from "app/requests/admin/episodes";
 import {Publish as PublishModal} from "components/helpers/modal";
+import useAppContext from "lib/hooks/use-app-context";
 import {displayDate} from "lib/string";
 
 function AdminEpisodesListRow({episode: originalEpisode, onDestroy}) {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const [episode, setEpisode] = useState(originalEpisode);
   const [showPublish, setShowPublish] = useState(false);
   const onDelete = () => {

@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {Loading} from "components/helpers";
-import {useScript} from "lib/hooks";
+import useAppContext from "lib/hooks/use-app-context";
+import useScript from "lib/hooks/use-script";
 
 function CommentModal({onClose, onSubmit, show}) {
-  const [{app: {recaptcha}}] = useContext(Context);
+  const [{app: {recaptcha}}] = useAppContext();
   const [loading, setLoading] = useState(true);
   const onComment = () => onSubmit({recaptcha: window.grecaptcha.getResponse()});
 

@@ -1,5 +1,5 @@
-import {useContext, useEffect, useState} from "react";
-import {Context} from "app";
+import {useEffect, useState} from "react";
+import useAppContext from "./use-app-context";
 
 const getContent = ({contentName, sectionName, sections}) => {
   if(!sections) { return; }
@@ -14,7 +14,7 @@ const getContent = ({contentName, sectionName, sections}) => {
 };
 
 export default function useContent(sectionName, contentName) {
-  const [{sections}] = useContext(Context);
+  const [{sections}] = useAppContext();
   const [value, setValue] = useState(getContent({contentName, sectionName, sections})?.value);
 
   useEffect(() => {

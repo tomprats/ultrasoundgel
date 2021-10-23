@@ -1,16 +1,27 @@
 @import "~trix/dist/trix";
 
+.content-editor {
+  max-width: map-get($grid-breakpoints, md);
+  margin-left: auto;
+  margin-right: auto;
+
+  @include media-breakpoint-up(md) {
+    margin-left: -50%;
+    margin-right: -50%;
+    width: map-get($grid-breakpoints, md);
+  }
+}
+
 .trix-content {
+  img, video { max-width: 100%; }
+
   :not(.attachment-gallery) > action-text-attachment {
     display: block;
     margin: 20px 0;
     text-align: center;
   }
 
-  .attachment__caption {
-    margin-top: 20px;
-  }
-
+  .attachment__caption { display: none; }
   .attachment-gallery {
     margin: 20px 0;
 
@@ -52,7 +63,5 @@ trix-toolbar {
   top: 0;
   z-index: 1;
 
-  .trix-button-group {
-    margin-bottom: 0;
-  }
+  .trix-button-group { margin-bottom: 0; }
 }

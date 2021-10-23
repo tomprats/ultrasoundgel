@@ -1,11 +1,10 @@
-import {useContext} from "react";
 import {Redirect} from "react-router-dom";
-import {Context} from "app";
+import useAppContext from "lib/hooks/use-app-context";
 import SignIn from "./sign-in";
 import SignUp from "./sign-up";
 
 export default function Session() {
-  const [{user}] = useContext(Context);
+  const [{user}] = useAppContext();
 
   if(user) { return <Redirect to="/profile" />; }
 

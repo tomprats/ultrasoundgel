@@ -1,12 +1,9 @@
 import PropTypes from "prop-types";
-import {useState} from "react";
-import {ActionText} from "components/helpers";
+import ContentEditor from "components/helpers/form/content-editor";
 import {useContent} from "lib/hooks";
 
 function AdminPostsForm({episodes, onChange, onSubmit, value}) {
   const allPublicTags = useContent("General", "Public Tags").split(", ");
-  const [content, setContent] = useState(value("content"));
-  const [editContent, setEditContent] = useState(false);
   const publicTags = value("public_tags") || [];
   const onTagChange = (tag, {target: {checked, name}}) => {
     const tags = checked ? [...publicTags, tag] : publicTags.filter((t) => t !== tag);
@@ -38,32 +35,16 @@ function AdminPostsForm({episodes, onChange, onSubmit, value}) {
               </select>
             </div>
           )}
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="post-content-disabled">Content</label>
-            </div>
-            <textarea
-              className="form-control"
-              disabled={true}
-              id="post-content-disabled"
-              name="content-disabled"
-              placeholder="This content can include formatting and links"
-              rows={4}
-              value={content}
-            />
-            <div className="input-group-append">
-              <button className="btn btn-secondary" onClick={() => setEditContent(!editContent)} type="button">{editContent ? "Hide" : "Edit"}</button>
-            </div>
+          <div className="mb-3">
             <small className="form-text text-muted mb-3">
               The plain text version of the content (displayed above)
               will be used in places podcast apps and websites don't support html
             </small>
-            <ActionText.Editor
-              className={`mt-3 w-100 ${editContent ? "" : "d-none"}`}
+            <ContentEditor
               id="post-content"
+              label="Content"
               name="content"
               onChange={onChange}
-              onTextChange={setContent}
               value={value("content")}
             />
           </div>

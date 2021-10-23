@@ -1,16 +1,16 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {get as getSection, update as updateSection} from "app/requests/admin/sections";
-import {FormWithFiles} from "components/helpers";
+import FormWithFiles from "components/helpers/form/with-files";
 import {Loading} from "components/pages";
-import {usePrompt} from "lib/hooks";
+import useAppContext from "lib/hooks/use-app-context";
+import usePrompt from "lib/hooks/use-prompt";
 import Content from "./content";
 
 export default function AdminSectionsEdit() {
   const [changes, setChanges] = useState({});
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const history = useHistory();
   const {id} = useParams();
   const [block, setBlock] = useState(false);

@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
-import {useContext} from "react";
-import {Context} from "app";
+import useAppContext from "lib/hooks/use-app-context";
 import {displayDate} from "lib/string";
 
 function Citation({post}) {
-  const [{channel}] = useContext(Context);
+  const [{channel}] = useAppContext();
   const number = (post.episode && post.episode.number) || channel.episodeNumber + 1;
   const start = [
     post.episode && `${post.episode.author}.`,

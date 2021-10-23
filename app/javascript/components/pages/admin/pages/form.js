@@ -1,13 +1,9 @@
 import PropTypes from "prop-types";
-import {useState} from "react";
-import {ActionText} from "components/helpers";
+import ContentEditor from "components/helpers/form/content-editor";
 
 const templates = ["articles", "contact", "default", "home"];
 
 function AdminPagesForm({onChange, onSubmit, value}) {
-  const [content, setContent] = useState(value("content"));
-  const [editContent, setEditContent] = useState(false);
-
   return (
     <form onSubmit={onSubmit}>
       <div className="row">
@@ -85,28 +81,12 @@ function AdminPagesForm({onChange, onSubmit, value}) {
               value={value("path")}
             />
           </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="page-content-disabled">Content</label>
-            </div>
-            <textarea
-              className="form-control"
-              disabled={true}
-              id="page-content-disabled"
-              name="content-disabled"
-              placeholder="Preview"
-              rows={4}
-              value={content}
-            />
-            <div className="input-group-append">
-              <button className="btn btn-secondary" onClick={() => setEditContent(!editContent)} type="button">{editContent ? "Hide" : "Edit"}</button>
-            </div>
-            <ActionText.Editor
-              className={`mt-3 w-100 ${editContent ? "" : "d-none"}`}
+          <div className="mb-3">
+            <ContentEditor
               id="page-content"
+              label="Content"
               name="content"
               onChange={onChange}
-              onTextChange={setContent}
               value={value("content")}
             />
           </div>

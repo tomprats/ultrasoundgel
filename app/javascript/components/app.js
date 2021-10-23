@@ -1,6 +1,7 @@
 import {useEffect, useReducer} from "react";
-import {Context, Reducer} from "app";
 import {setApp} from "app/actions/app";
+import Context from "app/context";
+import Reducer from "app/reducer";
 import {get as getApp} from "app/requests/app";
 import Router from "components/router";
 

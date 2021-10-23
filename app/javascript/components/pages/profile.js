@@ -1,22 +1,19 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {Redirect} from "react-router-dom";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {setUser} from "app/actions/user";
 import {update as updateProfile} from "app/requests/profile";
-import {FileInput, FormWithFiles} from "components/helpers";
+import File from "components/helpers/form/file";
+import FormWithFiles from "components/helpers/form/with-files";
+import {valueFrom, valueFromTarget} from "lib/form";
+import useAppContext from "lib/hooks/use-app-context";
 
 export default function Profile() {
-  const [{user}, dispatch] = useContext(Context);
+  const [{user}, dispatch] = useAppContext();
   const [changes, setChanges] = useState({});
-  const onChange = ({target: {checked, name, type, value}}) => (
-    setChanges({...changes, [name]: type === "checkbox" ? checked : value})
+  const onChange = ({target}) => (
+    setChanges({...changes, [target.name]: valueFromTarget(target)})
   );
-  const onImageChange = (e) => {
-    const file = e.target.files[0];
-
-    setChanges({...changes, image: file && file.name});
-  };
   const onSubmit = (files) => {
     const updates = {...changes, ...files};
 
@@ -39,9 +36,7 @@ export default function Profile() {
       }
     });
   };
-  const value = (name) => (
-    changes[name] === undefined ? user[name] : changes[name]
-  );
+  const value = (name, defaultValue) => valueFrom({defaultValue, name, objects: [changes, user]});
 
   if(!user) { return <Redirect to="/session" />; }
 
@@ -111,10 +106,8 @@ export default function Profile() {
             </div>
             <div className="form-group">
               <div className="text-center">Profile Image</div>
-              {!changes.image && user.image && (
-                <img alt="Profile" className="img-fluid" src={user.image} />
-              )}
-              <FileInput id="profile-image" name="image" onChange={onImageChange} />
+              <File id="profile-image" name="image" onChange={onChange} />
+              {value("image") && <img alt="Preview" className="img-fluid" src={value("image")} />}
             </div>
             <div className="form-group">
               <div className="form-check">

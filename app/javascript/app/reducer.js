@@ -1,10 +1,10 @@
-import app from "./app";
-import channel from "./channel";
-import notifications from "./notifications";
-import page from "./page";
-import pages from "./pages";
-import sections from "./sections";
-import user from "./user";
+import app from "app/reducers/app";
+import channel from "app/reducers/channel";
+import notifications from "app/reducers/notifications";
+import page from "app/reducers/page";
+import pages from "app/reducers/pages";
+import sections from "app/reducers/sections";
+import user from "app/reducers/user";
 
 const combineReducers = (reducers) => (
   (state, action) => {

@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
-import {useContext} from "react";
-import {Context} from "app";
 import {createNotification} from "app/actions/notifications";
 import {Check} from "components/helpers";
 import {destroy as destroyUser} from "app/requests/admin/users";
+import useAppContext from "lib/hooks/use-app-context";
 import {displayDate} from "lib/string";
 
 function AdminUsersListRow({onDestroy, user}) {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const onDelete = () => {
     if(!window.confirm("Are you sure you want to delete this user?")) { return; }
 

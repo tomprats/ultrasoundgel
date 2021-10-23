@@ -1,13 +1,13 @@
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import {createNotification} from "app/actions/notifications";
 import {setUser} from "app/actions/user";
 import {create as createSession} from "app/requests/session";
-import {useToggle} from "lib/hooks";
+import useAppContext from "lib/hooks/use-app-context";
+import useToggle from "lib/hooks/use-toggle";
 import ForgotPassword from "./forgot-password";
 
 export default function SignIn() {
-  const dispatch = useContext(Context)[1];
+  const dispatch = useAppContext()[1];
   const [showForgotPassword, toggleForgotPassword] = useToggle(false);
   const [user, setChanges] = useState({email: "", password: ""});
   const onChange = ({target: {name, value}}) => setChanges({...user, [name]: value});

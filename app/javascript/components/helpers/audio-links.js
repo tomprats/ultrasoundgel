@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
-import {Context} from "app";
+import {useState} from "react";
 import appleImage from "assets/images/apple.svg";
 import googleImage from "assets/images/google.svg";
+import useAppContext from "lib/hooks/use-app-context";
 
 function AudioLinks({episode}) {
-  const [{channel}] = useContext(Context);
+  const [{channel}] = useAppContext();
   const [showAudio, setShowAudio] = useState(false);
   const audioLink = `/episodes/${episode.uid}/audio.${episode.audio_extension}`;
   const googleLink = episode.google_link || channel.google_link;
@@ -34,7 +34,7 @@ function AudioLinks({episode}) {
           </a>
         </audio>
       ) : (
-        <button onClick={() => setShowAudio(true)} type="button">
+        <button className="btn btn-themed my-2" onClick={() => setShowAudio(true)} type="button">
           <i className="fas fa-play" /> Play
         </button>
       )}

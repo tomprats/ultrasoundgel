@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import {useState} from "react";
-import {ActionText, FileInput, FormWithFiles} from "components/helpers";
+import ContentEditor from "components/helpers/form/content-editor";
+import File from "components/helpers/form/file";
+import FormWithFiles from "components/helpers/form/with-files";
 
 const guidelines = [
   "For where these fields are displayed and",
@@ -8,16 +9,6 @@ const guidelines = [
 ].join(" ");
 
 function AdminChannelsForm({onChange, onSubmit, value}) {
-  const [description, setDescription] = useState(value("description"));
-  const [editDescription, setEditDescription] = useState(false);
-  const [image, setImage] = useState(value("image"));
-  const onImageChange = (e) => {
-    const file = e.target.files[0];
-
-    onChange({target: {name: e.target.name, value: file && file.name}});
-    setImage(false);
-  };
-
   return (
     <FormWithFiles onSubmit={onSubmit}>
       <div className="row">
@@ -60,32 +51,16 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
             <span>For a list of categories, read the examples </span>
             <a href="https://help.apple.com/itc/podcasts_connect/#/itc9267a2f12" rel="noreferrer" target="_blank">here</a>
           </small>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text" htmlFor="channel-description-disabled">Description</label>
-            </div>
-            <textarea
-              className="form-control"
-              disabled={true}
-              id="channel-description-disabled"
-              name="description-disabled"
-              placeholder="This description can include formatting and links"
-              rows={4}
-              value={description}
-            />
-            <div className="input-group-append">
-              <button className="btn btn-secondary" onClick={() => setEditDescription(!editDescription)} type="button">{editDescription ? "Hide" : "Edit"}</button>
-            </div>
+          <div className="mb-3">
             <small className="form-text text-muted mb-3">
               The plain text version of the description (displayed above)
               will be used in places podcast apps and websites don't support html
             </small>
-            <ActionText.Editor
-              className={`mt-3 w-100 ${editDescription ? "" : "d-none"}`}
+            <ContentEditor
               id="channel-description"
+              label="Description"
               name="description"
               onChange={onChange}
-              onTextChange={setDescription}
               value={value("description")}
             />
           </div>
@@ -104,9 +79,9 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
             <div className="input-group-prepend">
               <label className="input-group-text" htmlFor="channel-image">Image</label>
             </div>
-            <FileInput accept=".jpg,.jpeg,.png" id="channel-image" name="image" onChange={onImageChange} />
+            <File accept=".jpg,.jpeg,.png" id="channel-image" name="image" onChange={onChange} />
+            {value("image") && <img alt="Channel" className="img-fluid" src={value("image")} />}
           </div>
-          {image && <img alt="Channel" className="img-fluid mb-3" src={image} />}
           {value("published_at") && (
             <>
               <div className="input-group mb-3">
