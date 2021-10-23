@@ -9,7 +9,8 @@ GIT
 
 GIT
   remote: https://github.com/tomprats/rails.git
-  revision: fcc46228c626b02f7ace689843dbbcf400d118df
+  revision: 5575b4ead34a56005c7cb91b2aa8c767693b1b56
+  ref: 5575b4ead34a56005c7cb91b2aa8c767693b1b56
   branch: active-storage-byte-range
   specs:
     actioncable (7.0.0.alpha)
@@ -34,7 +35,7 @@ GIT
     actionpack (7.0.0.alpha)
       actionview (= 7.0.0.alpha)
       activesupport (= 7.0.0.alpha)
-      rack (~> 2.0, >= 2.2.0)
+      rack (~> 2.0, >= 2.0.9)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
@@ -70,7 +71,7 @@ GIT
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.5.0.beta)
+      zeitwerk (~> 2.3)
     rails (7.0.0.alpha)
       actioncable (= 7.0.0.alpha)
       actionmailbox (= 7.0.0.alpha)
