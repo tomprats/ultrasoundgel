@@ -27,6 +27,7 @@ export default function AdminChannelsList() {
             <table className="table table-hover text-center">
               <thead className="thead-dark">
                 <tr>
+                  <th>Redirect</th>
                   <th>Published</th>
                   <th>Author</th>
                   <th>Image</th>

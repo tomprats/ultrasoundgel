@@ -8,6 +8,7 @@ class ChannelsController < ApplicationController
   def index
     @channel = Channel.published.last || Channel.new
 
+    return redirect_to(@channel.redirect, status: :moved_permanently) if @channel.redirect.present?
     render formats: :rss, layout: false
   end
 

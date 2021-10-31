@@ -41,6 +41,7 @@ function AdminChannelsListRow({channel: originalChannel, onDestroy}) {
 
   return (
     <tr>
+      <td>{channel.redirect ? "Yes" : "None"}</td>
       <td>{channel.published_at ? displayDate(channel.published_at) : "None"}</td>
       <td>{channel.author}</td>
       <td>{channel.image ? <a href={channel.image} rel="noopener noreferrer" target="_blank">View</a> : "None"}</td>
@@ -78,6 +79,7 @@ AdminChannelsListRow.propTypes = {
     owner_email: PropTypes.string,
     owner_name: PropTypes.string,
     published_at: PropTypes.string,
+    redirect: PropTypes.string,
     title: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired
   }).isRequired,

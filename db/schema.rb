@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_06_024603) do
+ActiveRecord::Schema.define(version: 2021_10_31_042444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 2021_05_06_024603) do
     t.string "instagram"
     t.string "google_analytics_code"
     t.text "resources"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.text "announcements"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "public_tags", default: [], array: true
   end
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2021_05_06_024603) do
     t.datetime "updated_at", null: false
     t.string "itunes_link"
     t.string "google_link"
+    t.string "redirect"
     t.index ["published_at"], name: "index_channels_on_published_at"
   end
 

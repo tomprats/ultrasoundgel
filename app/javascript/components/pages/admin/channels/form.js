@@ -191,7 +191,28 @@ function AdminChannelsForm({onChange, onSubmit, value}) {
               value={value("title")}
             />
           </div>
-          <small className="form-text text-muted mb-3">This will not yet publish your channel</small>
+          {value("id") ? (
+            <>
+              <hr />
+              <small className="form-text text-muted mb-3">Add a redirect to permanently point your podcast elsewhere</small>
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <label className="input-group-text" htmlFor="channel-redirect">Redirect</label>
+                </div>
+                <input
+                  className="form-control"
+                  id="channel-redirect"
+                  name="redirect"
+                  onChange={onChange}
+                  placeholder="https://podcast.com/migrate-your-podcast"
+                  type="url"
+                  value={value("redirect")}
+                />
+              </div>
+            </>
+          ) : (
+            <small className="form-text text-muted mb-3">This will not yet publish your channel</small>
+          )}
           <div className="form-group text-center">
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>

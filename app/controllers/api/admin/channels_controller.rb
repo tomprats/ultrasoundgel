@@ -84,6 +84,7 @@ class Api::Admin::ChannelsController < Api::Admin::ApplicationController
       :link,
       :owner_name,
       :owner_email,
+      :redirect,
       :subtitle,
       :title,
       :uid
@@ -101,6 +102,7 @@ class Api::Admin::ChannelsController < Api::Admin::ApplicationController
       :owner_name,
       :owner_email,
       :published_at,
+      :redirect,
       :title,
       :uid
     ]).merge(image: channel.current_image)
@@ -118,6 +120,7 @@ class Api::Admin::ChannelsController < Api::Admin::ApplicationController
       :link,
       :owner_name,
       :owner_email,
+      :redirect,
       :subtitle,
       :title
     )

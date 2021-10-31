@@ -3,6 +3,7 @@ class Channel < ApplicationRecord
   has_rich_text :description
   has_one_attached :image
 
+  validates_format_of :redirect, with: URI.regexp, allow_blank: true
   validates_presence_of :title
 
   on_publish do |record|
