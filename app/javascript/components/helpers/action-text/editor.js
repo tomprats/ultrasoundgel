@@ -12,14 +12,24 @@ function ActionTextEditor({
   placeholder,
   value
 }) {
+  const changeHandler = useRef(onChange);
   const editor = useRef(null);
+  const previewHandler = useRef(onPreviewChange);
+  const textHandler = useRef(onTextChange);
   const [blobUrlTemplate, setBlobUrlTemplate] = useState(null);
   const [directUploadUrl, setDirectUploadUrl] = useState(null);
+
+  useEffect(() => {
+    changeHandler.current = onChange;
+    previewHandler.current = onPreviewChange;
+    textHandler.current = onTextChange;
+  });
+
   const setNewValue = (newValue) => {
-    if(newValue !== null) { onChange({target: {name, value: newValue}}); }
+    if(newValue !== null) { changeHandler.current({target: {name, value: newValue}}); }
   };
-  const setPreview = (preview) => onPreviewChange && onPreviewChange(preview);
-  const setText = (text) => onTextChange && onTextChange(text);
+  const setPreview = (preview) => previewHandler.current && previewHandler.current(preview);
+  const setText = (text) => textHandler.current && textHandler.current(text);
 
   useEffect(() => {
     setBlobUrlTemplate(getBlobUrlTemplate());
@@ -27,28 +37,17 @@ function ActionTextEditor({
   }, []);
 
   useEffect(() => {
-    const updateContent = ({target}) => { setNewValue(target.value); };
-
-    editor.current.addEventListener("trix-change", updateContent);
-  }, []);
-
-  useEffect(() => {
-    const updateContent = ({target}) => { setPreview(target.value); };
-
-    editor.current.addEventListener("trix-change", updateContent);
-  }, []);
-
-  useEffect(() => {
-    const updateContent = () => { setText(editor.current.editor.getDocument().toString().trim()); };
+    const updateContent = ({target}) => {
+      setNewValue(target.value);
+      setPreview(target.value);
+      setText(editor.current.editor.getDocument().toString().trim());
+    };
 
     editor.current.addEventListener("trix-change", updateContent);
   }, []);
 
   useEffect(() => {
     setPreview(editor.current.editor.element.value);
-  }, []);
-
-  useEffect(() => {
     setText(editor.current.editor.getDocument().toString().trim());
   }, []);
 

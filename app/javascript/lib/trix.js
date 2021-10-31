@@ -1,6 +1,36 @@
 /* eslint-disable no-param-reassign */
 import Trix from "trix";
 import {dig} from "lib/object";
+import {reverse} from "lib/string";
+
+const getHTML = Trix.config.toolbar.getDefaultHTML;
+
+[2, 3, 4, 5, 6].forEach((index) => {
+  Trix.config.blockAttributes[`heading${index}`] = {
+    breakOnReturn: true,
+    group: false,
+    tagName: `h${index}`,
+    terminal: true
+  };
+});
+
+Trix.config.toolbar.getDefaultHTML = () => {
+  const defaultHTML = getHTML();
+  const headingIndex = defaultHTML.indexOf(`data-trix-attribute="heading1"`);
+  const endIndex = defaultHTML.indexOf("</button>", headingIndex) + "</button>".length;
+  const startIndex = defaultHTML.length - reverse(defaultHTML).indexOf(reverse("<button"), defaultHTML.length - headingIndex) - "<button".length;
+  const buttonHTML = defaultHTML.slice(startIndex, endIndex);
+  const buttons = [1, 2, 3, 4, 5, 6].map((index) => (
+    buttonHTML
+      .replace(/trix-button--icon-heading-1/g, "")
+      .replace(/trix-button--icon/g, "")
+      .replace(/Heading/g, `h${index}`)
+      .replace(/heading1/g, `heading${index}`)
+      .replace(/heading-1/g, `heading-${index}`)
+  ));
+
+  return defaultHTML.replace(buttonHTML, buttons.join("\n"));
+};
 
 Trix.Attachment.previewablePattern = /^(image(\/(gif|png|jpe?g)|$)|video(\/(mpeg|mp4|quicktime)|$))/;
 Trix.config.attachments.preview.caption.name = false;

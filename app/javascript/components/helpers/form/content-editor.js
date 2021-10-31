@@ -22,7 +22,7 @@ function ContentEditor({id, label, name, onChange, value}) {
           name={`${name}-disabled`}
           placeholder="Preview"
           rows={4}
-          value={content}
+          value={content || ""}
         />
         <div className="input-group-append">
           <button className="btn btn-primary" onClick={() => setShowPreview(!showPreview)} type="button">{showPreview ? "Hide Preview" : "Preview"}</button>

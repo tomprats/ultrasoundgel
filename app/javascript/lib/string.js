@@ -49,3 +49,5 @@ export const isBlankHTML = (string) => {
 
   return updatedString === "";
 };
+
+export const reverse = (string) => [...string].reverse().join("");
