@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_042444) do
+ActiveRecord::Schema.define(version: 2021_11_08_025514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_042444) do
     t.string "itunes_link"
     t.string "google_link"
     t.integer "number"
+    t.string "podbean_id"
     t.index ["channel_id"], name: "index_episodes_on_channel_id"
     t.index ["published_at", "channel_id"], name: "index_episodes_on_published_at_and_channel_id"
     t.index ["published_at"], name: "index_episodes_on_published_at"

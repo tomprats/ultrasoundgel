@@ -166,12 +166,17 @@ GEM
     connection_pool (2.2.5)
     crass (1.0.6)
     debug_inspector (1.1.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     ed25519 (1.2.4)
     erubi (1.10.0)
     et-orbi (1.2.5)
       tzinfo
     excon (0.87.0)
     ffi (1.15.4)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     fog-aws (3.12.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -197,6 +202,14 @@ GEM
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
+    http (5.0.4)
+      addressable (~> 2.8)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      llhttp-ffi (~> 0.4.0)
+    http-cookie (1.0.4)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -210,6 +223,9 @@ GEM
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    llhttp-ffi (0.4.0)
+      ffi-compiler (~> 1.0)
+      rake (~> 13.0)
     loofah (2.12.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -312,6 +328,9 @@ GEM
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8)
     unicode-display_width (1.6.1)
     unicorn (6.0.0)
       kgio (~> 2.6)
@@ -348,6 +367,7 @@ DEPENDENCIES
   ed25519
   fog-aws
   haml
+  http
   image_processing
   listen
   mini_magick

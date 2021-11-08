@@ -23,8 +23,11 @@ module Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.time_zone = "Eastern Time (US & Canada)"
+    config.active_record.logger = nil
     config.autoload_paths += Dir[Rails.root.join("app", "models", "{*/}")]
+    config.cache_store = :memory_store
     config.eager_load_paths += Dir[Rails.root.join("app", "models", "{*/}")]
+    config.generators.system_tests = nil
+    config.time_zone = "Eastern Time (US & Canada)"
   end
 end
