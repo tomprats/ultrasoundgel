@@ -6,7 +6,7 @@ class AudioUpload < Upload
   before_destroy :check_associations
 
   def self.podcast_approved_types
-    ["mp3", "mpeg"]
+    ["m4a", "mp3", "mpeg"]
   end
 
   def duration_time

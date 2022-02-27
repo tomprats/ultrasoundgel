@@ -1,7 +1,9 @@
 Rails.application.config.active_storage.content_types_allowed_inline += [
+  "audio/m4a",
   "audio/mp3",
   "audio/mp4",
-  "audio/mpeg"
+  "audio/mpeg",
+  "audio/x-m4a"
 ]
 
 ActionText::ContentHelper.allowed_attributes.add "style"

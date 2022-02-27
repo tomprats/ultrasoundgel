@@ -21,7 +21,7 @@ function AdminEpisodesForm({channels, onChange, onSubmit, value}) {
             <div className="input-group-prepend">
               <label className="input-group-text" htmlFor="episode-audio">Audio</label>
             </div>
-            <File accept=".mp3,.mpeg" id="episode-audio" name="audio" onChange={onChange} />
+            <File accept=".m4a,.mp3,.mpeg" id="episode-audio" name="audio" onChange={onChange} />
             {value("audio") && (
               <div className="input-group-append">
                 <a className="btn btn-secondary" href={value("audio")} rel="noreferrer" target="_blank">Play</a>
