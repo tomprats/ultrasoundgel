@@ -1,7 +1,12 @@
 class PublishJob < ApplicationJob
   def perform
-    Post.published.where(notified_at: nil).each do |post|
-      post.episode.update(number: Episode.maximum(:number) + 1) unless post.episode.number
+    Episode.published.ascending.where(podbean_published_at: nil).each do |episode|
+      episode.number = (Episode.maximum(:number) || 0) + 1 unless episode.number
+      episode.podbean_published_at = DateTime.now
+      episode.save
+    end
+
+    Post.published.ascending.where(notified_at: nil).each do |post|
       post.update(notified_at: DateTime.now)
 
       User.where(post_notifications: true).find_each do |user|

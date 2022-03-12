@@ -1,16 +1,29 @@
 class Podbean
   class << self
+    def create_episode(params)
+      post("/episodes", params: params)
+    end
+
     def episodes(limit: 100, offset: 0)
-      get("/episodes", limit: limit, offset: offset)
+      get("/episodes", params: {limit: limit, offset: offset})
+    end
+
+    def podcasts
+      get("/podcasts")
     end
 
     def sync(offset: 0)
       batch = episodes(offset: offset)
-      batch["episodes"].each do |episode|
-        Episode.find_by(title: episode["title"])&.update(podbean_id: episode["id"])
+      batch["episodes"].each do |podbean_episode|
+        episode = Episode.find_by(title: podbean_episode["title"])
+        episode.update(podbean_id: podbean_episode["id"]) unless episode&.podbean_id
       end
 
       sync(offset: batch["limit"] + batch["offset"]) if batch["has_more"]
+    end
+
+    def update_episode(id, params)
+      post("/episodes/#{id}", params: params)
     end
 
     private
@@ -33,23 +46,28 @@ class Podbean
       "https://api.podbean.com/v1"
     end
 
-    def get(path, attempts: 0, **params)
+    def get(path, attempts: 0, params: {})
       params[:access_token] ||= access_token
-      http_response = http.get("#{base_url}#{path}", params: params)
+      http_response = HTTP.get("#{base_url}#{path}", params: params)
       return JSON.parse(http_response) if attempts > 0 || http_response.code != 400
 
       params[:access_token] = refresh_token["access_token"]
-      get(path, params, attempts: attempts + 1)
+      get(path, attempts: attempts + 1, params: params)
     end
 
-    def http
-      HTTP[content_type: "application/json"]
+    def post(path, attempts: 0, params: {})
+      params[:access_token] ||= access_token
+      http_response = HTTP.post("#{base_url}#{path}", form: params)
+      return JSON.parse(http_response) if attempts > 0 || http_response.code != 400
+
+      params[:access_token] = refresh_token["access_token"]
+      post(path, attempts: attempts + 1, params: params)
     end
 
     def refresh_token
       username = Rails.application.credentials.dig(:podbean, :public_key)
       password = Rails.application.credentials.dig(:podbean, :secret_key)
-      http_response = http.basic_auth(user: username, pass: password)
+      http_response = HTTP.basic_auth(user: username, pass: password)
         .post("#{base_url}/oauth/token", json: {grant_type: :client_credentials})
       response = JSON.parse(http_response)
       expires_in = response["expires_in"] - 1.minute

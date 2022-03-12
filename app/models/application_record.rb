@@ -20,16 +20,4 @@ class ApplicationRecord < ActiveRecord::Base
 
     after_save :bust_html_cache
   end
-
-  # TODO: Remove
-  def self.date_from(*attrs)
-    attrs.each do |attr|
-      define_method("#{attr}_date") do
-        value = read_attribute attr
-        value && value.strftime("%m/%d/%y %I:%M %p")
-      end
-    end
-  end
-
-  date_from :created_at, :updated_at
 end

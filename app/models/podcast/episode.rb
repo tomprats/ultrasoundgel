@@ -36,6 +36,8 @@ class Episode < ApplicationRecord
   before_save :publish, if: -> (episode){ episode.published_at_changed? && episode.published_at }
   before_destroy :unpublished!
 
+  after_save :update_podbean
+
   def self.search(value)
     result = left_joins(:post)
     sql = <<-SQL
@@ -130,6 +132,12 @@ class Episode < ApplicationRecord
     errors.add(:audio, :blank) if current_audio.blank?
   end
 
+  def base_url
+    return "https://www.ultrasoundgel.org" if Rails.env.development?
+
+    Rails.application.routes.url_helpers.root_url.chomp("/")
+  end
+
   def channel_check
     errors.add(:channel, "cannot be changed if publishing") if publishing?
   end
@@ -154,5 +162,34 @@ class Episode < ApplicationRecord
 
   def unpublishable
     errors.add(:published_at, "cannot be changed if published") if published?
+  end
+
+  def update_podbean
+    params = {
+      content: current_description_html,
+      status: published? ? "publish" : "draft",
+      title: title,
+      type: "public"
+    }
+
+    if audio.blob&.saved_changes? && current_audio
+      params[:remote_media_url] = "#{base_url}/file/redirect/#{audio.filename}?url=#{CGI::escape(current_audio)}"
+    end
+
+    if image.blob&.saved_changes? && current_image
+      params[:remote_logo_url] = "#{base_url}/file/redirect/#{image.filename}?url=#{CGI::escape(current_image)}"
+    end
+
+    params[:episode_number] = number if number
+    response = Podbean.update_episode(podbean_id, params) if podbean_id
+    response ||= Podbean.create_episode(params)
+
+    if response["error_description"].present?
+      errors.add(:base, response["error_description"])
+
+      raise(ActiveRecord::RecordInvalid, self)
+    end
+
+    update_columns(podbean_id: response["episode"]["id"]) unless podbean_id
   end
 end
