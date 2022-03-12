@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "episodes/:uid/audio", to: "episodes#audio", as: :episode_audio
   get "episodes/:uid/image", to: "episodes#image", as: :episode_image
   get :feed, to: "channels#index"
+  get "file/redirect/*filename", to: "files#show"
 
   namespace :api do
     get :app, to: "application#environment"
