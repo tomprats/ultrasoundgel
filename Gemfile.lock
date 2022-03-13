@@ -277,7 +277,7 @@ GEM
     recaptcha (5.8.1)
       json
     redcarpet (3.5.1)
-    redis (4.5.1)
+    redis (4.6.0)
     rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -303,7 +303,7 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     semantic_range (3.0.0)
-    sidekiq (6.2.2)
+    sidekiq (6.4.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
