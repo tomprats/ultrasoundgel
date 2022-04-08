@@ -22,6 +22,21 @@ class Podbean
       sync(offset: batch["limit"] + batch["offset"]) if batch["has_more"]
     end
 
+    def sync_numbers(offset: 0)
+      episodes = Episode.published.ascending
+        .where.not(number: nil)
+        .where.not(podbean_id: nil)
+        .offset(offset)
+
+      episodes.find_each.with_index do |episode, index|
+        response = Podbean.update_episode(
+          episode.podbean_id,
+          {episode_number: episode.number}
+        )
+        puts "#{index}, #{response["error_description"]}, #{episode.id}"
+      end
+    end
+
     def update_episode(id, params)
       post("/episodes/#{id}", params: params)
     end
