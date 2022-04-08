@@ -22,6 +22,7 @@ class Podbean
       sync(offset: batch["limit"] + batch["offset"]) if batch["has_more"]
     end
 
+    # NOTE: Doesn't work because update episode requires more data
     def sync_numbers(offset: 0)
       episodes = Episode.published.ascending
         .where.not(number: nil)
