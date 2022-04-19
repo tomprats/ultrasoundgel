@@ -2,11 +2,17 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import {useState} from "react";
 
-function PublishModal({onClose, onPublish, onUnpublish, show}) {
+function PublishModal({onClose, onPublish: _onPublish, onUnpublish, show}) {
   const [date, setDate] = useState(null);
   const [placeholder] = useState(moment().format(moment.HTML5_FMT.DATETIME_LOCAL));
   const onDateChange = ({target: {value}}) => setDate(value ? moment(value).format() : value);
   const value = date ? moment(date).format(moment.HTML5_FMT.DATETIME_LOCAL) : "";
+  const onPublish = () => {
+    const response = date || window.confirm("Are you sure you want to publish immediately");
+    if(!response) { return; }
+
+    _onPublish(date);
+  };
 
   return (
     <div className={`modal fade ${show ? "d-block show" : ""}`} role="dialog">
@@ -37,7 +43,7 @@ function PublishModal({onClose, onPublish, onUnpublish, show}) {
           <div className="modal-footer">
             <button className="btn btn-secondary" onClick={onClose} type="button">Cancel</button>
             <button className="btn btn-danger" onClick={onUnpublish} type="button">Unpublish</button>
-            <button className="btn btn-primary" onClick={() => onPublish(date)} type="button">Publish</button>
+            <button className="btn btn-primary" onClick={onPublish} type="button">Publish</button>
           </div>
         </div>
       </div>
