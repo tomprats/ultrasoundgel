@@ -180,6 +180,9 @@ class Episode < ApplicationRecord
       params[:remote_logo_url] = "#{base_url}/file/redirect/#{image.filename}?url=#{CGI::escape(current_image)}"
     end
 
+    Rails.logger.info("Updating #{podbean_id || "new episode"}")
+    Rails.logger.info(params)
+
     # NOTE: Removed because not all episodes have numbers yet
     # params[:episode_number] = number if number
     response = Podbean.update_episode(podbean_id, params) if podbean_id
