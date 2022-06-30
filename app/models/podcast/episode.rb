@@ -184,7 +184,8 @@ class Episode < ApplicationRecord
     Rails.logger.info(params)
 
     # NOTE: Removed because not all episodes have numbers yet
-    # params[:episode_number] = number if number
+    # NOTE: Podbean requires 0 to prevent auto setting it
+    params[:episode_number] = 0
     response = Podbean.update_episode(podbean_id, params) if podbean_id
     response ||= Podbean.create_episode(params)
 

@@ -33,7 +33,7 @@ class Api::EpisodesController < Api::ApplicationController
   def all
     render json: {
       episodes: Episode.published.ascending.map do |episode|
-        post = episode.post.published? && episode.post.as_json(only: [:published_at, :title])
+        post = episode.post&.published? && episode.post.as_json(only: [:published_at, :title])
 
         episode.as_json(
           only: [
@@ -93,7 +93,7 @@ class Api::EpisodesController < Api::ApplicationController
   end
 
   def post_as_json(post)
-    return unless post.published?
+    return unless post&.published?
 
     post.as_json(only: [:published_at, :uid])
   end
