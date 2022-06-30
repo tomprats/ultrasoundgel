@@ -16,9 +16,9 @@
 $navbar-height: 110px;
 $navbar-toggler-height: 16px;
 $navbar-toggler-padding-height: 14px;
-$navbar-toggler-margin-height: ($navbar-height - $navbar-toggler-height - $navbar-toggler-padding-height*2)/2;
-$navbar-brand-height: $navbar-height/2;
-$navbar-brand-padding-height: $navbar-brand-height/2;
+$navbar-toggler-margin-height: ($navbar-height - $navbar-toggler-height - $navbar-toggler-padding-height*2) * 0.5;
+$navbar-brand-height: $navbar-height * 0.5;
+$navbar-brand-padding-height: $navbar-brand-height * 0.5;
 
 nav {
   button {
@@ -92,7 +92,7 @@ nav.bg-theme {
 
 @include media-breakpoint-between(sm, md) {
   nav.bg-theme .navbar-brand {
-    padding-top: ($navbar-height - 40)/2;
+    padding-top: ($navbar-height - 40) * 0.5;
   }
 }
 

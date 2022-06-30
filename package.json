@@ -13,7 +13,7 @@
     "@rails/ujs": "^6.0.3",
     "@rails/webpacker": "^5.1.1",
     "@tomprats/fontawesome-pro": "5.13.0",
-    "bootstrap-scss": "^4.4.1",
+    "bootstrap-scss": "^4.6.1",
     "moment": "^2.29.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
