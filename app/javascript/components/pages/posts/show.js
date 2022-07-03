@@ -3,11 +3,11 @@ import {useParams} from "react-router-dom";
 import {createNotification} from "app/actions/notifications";
 import {get as getPost, subscribe, unsubscribe} from "app/requests/posts";
 import {ActionText, AudioLinks, Citation} from "components/helpers";
+import Comments from "components/helpers/comments";
 import {Share as ShareModal} from "components/helpers/modal";
 import {Loading} from "components/pages";
 import useAppContext from "lib/hooks/use-app-context";
 import {displayDateTime} from "lib/string";
-import Comments from "./comments";
 
 export default function PostsShow() {
   const [{user}, dispatch] = useAppContext();
@@ -17,13 +17,17 @@ export default function PostsShow() {
   const [subscribed, setSubscribed] = useState(null);
 
   useEffect(() => {
-    getPost(uid).then((data) => setPost(data.post));
+    getPost(uid).then((data) => setPost({...data.post, type: "Post"}));
   }, [uid]);
 
   useEffect(() => {
     if(!post || !user) { return; }
 
-    setSubscribed(!!user.comment_notifications.find(({post_id: id}) => id === post.id));
+    const notification = user.comment_notifications
+      .filter(({comment_notificationable_type: type}) => type === "Post")
+      .find(({comment_notificationable_id: id}) => id === post.id);
+
+    setSubscribed(!!notification);
   }, [post, user]);
 
   if(!post) { return <Loading />; }
@@ -109,7 +113,7 @@ export default function PostsShow() {
               )}
             </div>
           </div>
-          <Comments post={post} />
+          <Comments record={post} />
         </div>
       </div>
       <ShareModal show={showShare} onClose={() => setShowShare(false)} />

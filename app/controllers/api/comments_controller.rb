@@ -1,7 +1,6 @@
 class Api::CommentsController < Api::ApplicationController
   def create
     comment = Comment.new(comment_params)
-    post = comment.post
 
     if current_user
       recaptcha = true
@@ -11,16 +10,14 @@ class Api::CommentsController < Api::ApplicationController
     end
 
     if recaptcha && comment.save
-      current_user && current_user.comment_notifications.find_or_create_by(post_id: post.id)
+      current_user && current_user.comment_notifications.find_or_create_by(comment_notificationable: comment.commentable)
 
-      User.joins(:comment_notifications).where(
-        comment_notifications: {post_id: post.id}
-      ).each do |user|
-        PostMailer.comment_email(user, post_url(post)).deliver_later
+      comment.followers.each do |user|
+        CommentMailer.notification(user, comment.commentable).deliver_later
       end
 
       render json: {
-        comments: comments_as_json(comment.post.comments),
+        comments: comments_as_json(comment.commentable.comments),
         message: "Comment Saved",
         success: true
       }
@@ -36,7 +33,7 @@ class Api::CommentsController < Api::ApplicationController
 
     if comment.destroy
       render json: {
-        comments: comments_as_json(comment.post.comments),
+        comments: comments_as_json(comment.commentable.comments),
         message: "Comment Removed",
         success: true
       }
@@ -48,6 +45,11 @@ class Api::CommentsController < Api::ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:post_id, :text, :anonymous)
+    params.require(:comment).permit(
+      :anonymous,
+      :commentable_id,
+      :commentable_type,
+      :text
+    )
   end
 end

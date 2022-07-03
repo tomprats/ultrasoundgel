@@ -8,7 +8,7 @@ class Api::PostsController < Api::ApplicationController
   def subscribe
     render json: {success: false, message: "No one's home"} if current_user.blank?
 
-    current_user.comment_notifications.find_or_create_by(post_id: @post.id)
+    current_user.comment_notifications.find_or_create_by(comment_notificationable: @post)
 
     render json: {success: true, message: "Subscribed"}
   end
@@ -16,7 +16,7 @@ class Api::PostsController < Api::ApplicationController
   def unsubscribe
     render json: {success: false, message: "No one's home"} if current_user.blank?
 
-    current_user.comment_notifications.find_by(post_id: @post.id).try(:destroy)
+    current_user.comment_notifications.find_by(comment_notificationable: @post).try(:destroy)
 
     render json: {success: true, message: "Unsubscribed"}
   end

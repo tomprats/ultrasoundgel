@@ -6,9 +6,9 @@ import useAppContext from "lib/hooks/use-app-context";
 import {displayDateTime} from "lib/string";
 import New from "./new";
 
-function Comments({post}) {
+function Comments({record}) {
   const [{user}, dispatch] = useAppContext();
-  const [comments, setComments] = useState(post.comments);
+  const [comments, setComments] = useState(record.comments);
   const onDelete = (id) => {
     if(!window.confirm("Are you sure you want to hide this comment?")) { return; }
 
@@ -19,11 +19,11 @@ function Comments({post}) {
     });
   };
 
-  useEffect(() => { setComments(post.comments); }, [post]);
+  useEffect(() => { setComments(record.comments); }, [record]);
 
   return (
     <div>
-      <New post={post} setComments={setComments} />
+      <New record={record} setComments={setComments} />
       {comments.map((comment) => (
         <div key={comment.id} className="media mt-3">
           <div className="media-left pr-2">
@@ -45,7 +45,7 @@ function Comments({post}) {
 }
 
 Comments.propTypes = {
-  post: PropTypes.shape({
+  record: PropTypes.shape({
     comments: PropTypes.arrayOf(
       PropTypes.shape({
         created_at: PropTypes.string.isRequired,
@@ -55,7 +55,8 @@ Comments.propTypes = {
         user_id: PropTypes.number
       }).isRequired
     ).isRequired,
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
   }).isRequired
 };
 

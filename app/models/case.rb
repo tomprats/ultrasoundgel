@@ -1,4 +1,4 @@
-class Post < ApplicationRecord
+class Case < ApplicationRecord
   include Published
 
   has_many :comments, as: :commentable

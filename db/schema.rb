@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_12_194915) do
+ActiveRecord::Schema.define(version: 2022_07_02_234649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,25 +121,30 @@ ActiveRecord::Schema.define(version: 2022_03_12_194915) do
   end
 
   create_table "comment_notifications", id: :serial, force: :cascade do |t|
-    t.integer "post_id", null: false
+    t.integer "comment_notificationable_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id", "user_id"], name: "index_comment_notifications_on_post_id_and_user_id"
-    t.index ["post_id"], name: "index_comment_notifications_on_post_id"
+    t.string "comment_notificationable_type"
+    t.index ["comment_notificationable_id"], name: "index_comment_notifications_on_comment_notificationable_id"
+    t.index ["comment_notificationable_type", "comment_notificationable_id", "user_id"], name: "index_comment_notificationable_and_user"
+    t.index ["comment_notificationable_type", "comment_notificationable_id"], name: "index_comment_notificationable"
     t.index ["user_id"], name: "index_comment_notifications_on_user_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
-    t.integer "post_id"
+    t.integer "commentable_id"
     t.integer "user_id"
     t.boolean "active", default: true
     t.text "text"
     t.boolean "anonymous"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentable_type"
     t.index ["active", "created_at"], name: "index_comments_on_active_and_created_at"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["commentable_type", "commentable_id", "user_id"], name: "index_comments_on_commentable_and_user"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

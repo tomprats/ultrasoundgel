@@ -14,6 +14,7 @@ export default function Footer() {
               <span className="mx-1"> | </span>
               <a href="/disclaimer">Disclaimer</a>
             </p>
+            <p>This site is owned by Peregrine Industries LLC</p>
             <p>
               Website by <a href="https://www.tomify.me" rel="noopener noreferrer" target="_blank">Tomify</a>
             </p>

@@ -5,9 +5,12 @@ import {create as createComment} from "app/requests/comments";
 import useAppContext from "lib/hooks/use-app-context";
 import Modal from "./modal";
 
-function New({post, setComments}) {
+function New({record, setComments}) {
   const [{user}, dispatch] = useAppContext();
-  const [comment, setComment] = useState({post_id: post.id});
+  const [comment, setComment] = useState({
+    commentable_id: record.id,
+    commentable_type: record.type
+  });
   const [showModal, setShowModal] = useState(false);
   const submit = (params) => {
     createComment({comment: params}).then(({comments, message, success}) => {
@@ -15,7 +18,10 @@ function New({post, setComments}) {
       setShowModal(false);
 
       if(success) {
-        setComment({post_id: post.id});
+        setComment({
+          commentable_id: record.id,
+          commentable_type: record.type
+        });
         setComments(comments);
       }
     });
@@ -59,7 +65,10 @@ function New({post, setComments}) {
 }
 
 New.propTypes = {
-  post: PropTypes.shape({id: PropTypes.number.isRequired}).isRequired,
+  record: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
+  }).isRequired,
   setComments: PropTypes.func.isRequired
 };
 

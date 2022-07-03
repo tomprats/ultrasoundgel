@@ -12,7 +12,7 @@ class PublishJob < ApplicationJob
       User.where(post_notifications: true).find_each do |user|
         PostMailer.publish_email(user, post).deliver_later
 
-        user.comment_notifications.find_or_create_by(post_id: post.id) if user.admin
+        user.comment_notifications.find_or_create_by(comment_notificationable: post) if user.admin
       end
     end
   end

@@ -1,12 +1,8 @@
-class PostPreview < ActionMailer::Preview
+class CommentPreview < ActionMailer::Preview
   include Rails.application.routes.url_helpers
 
-  def publish_email
-    PostMailer.publish_email(user, post)
-  end
-
-  def unpublish_email
-    PostMailer.unpublish_email(user)
+  def notification
+    CommentMailer.notification(user, post)
   end
 
   private
