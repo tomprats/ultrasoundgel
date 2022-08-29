@@ -20,8 +20,13 @@ export default function AdminPostsList() {
       <div className="row">
         <div className="col-md-10 offset-md-1">
           <h1 className="text-center">Posts</h1>
-          <div className="text-right mb-1">
-            <a className="btn btn-outline-secondary btn-sm" href="/admin/posts/new">New Post</a>
+          <div className="row">
+            <div className="col-6 text-left mb-1">
+              <a className="btn btn-outline-secondary btn-sm" href="/preview/posts">Preview</a>
+            </div>
+            <div className="col-6 text-right mb-1">
+              <a className="btn btn-outline-secondary btn-sm" href="/admin/posts/new">New Post</a>
+            </div>
           </div>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">

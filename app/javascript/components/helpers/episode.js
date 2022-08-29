@@ -3,12 +3,12 @@ import {displayDateTime} from "lib/string";
 import Content from "./action-text/content";
 import AudioLinks from "./audio-links";
 
-function Episode({episode}) {
+function Episode({episode, prefix}) {
   return (
     <div className="row">
       <div className="col-sm-6">
         {(episode.post && episode.post.published_at) ? (
-          <a href={`/posts/${episode.post.uid}`}>
+          <a href={`${prefix}/posts/${episode.post.uid}`}>
             <img alt="Episode cover art" className="img-fluid" src={`/episodes/${episode.uid}/image.${episode.image_extension}`} />
           </a>
         ) : (
@@ -22,7 +22,7 @@ function Episode({episode}) {
         <h3 className="m-0 p-0">{episode.title}</h3>
         {episode.post && episode.post.published_at && (
           <div className="my-2">
-            <a href={`/posts/${episode.post.uid}`}>
+            <a href={`${prefix}/posts/${episode.post.uid}`}>
               <i className="fas fa-pen-square" /> Post
             </a>
           </div>
@@ -36,6 +36,7 @@ function Episode({episode}) {
   );
 }
 
+Episode.defaultProps = {prefix: ""};
 Episode.propTypes = {
   episode: PropTypes.shape({
     author: PropTypes.string.isRequired,
@@ -49,7 +50,8 @@ Episode.propTypes = {
     subtitle: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  prefix: PropTypes.string
 };
 
 export default Episode;

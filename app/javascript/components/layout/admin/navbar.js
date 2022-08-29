@@ -22,6 +22,9 @@ export default function Navbar() {
             </div>
           </li>
           <li>
+            <NavLink className="nav-link" to="/admin/cases">Cases</NavLink>
+          </li>
+          <li>
             <NavLink className="nav-link" to="/admin/sections">Content</NavLink>
           </li>
           <li>

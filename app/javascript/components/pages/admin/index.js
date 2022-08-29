@@ -1,5 +1,6 @@
 export * as ArticleCategories from "./article-categories";
 export * as Articles from "./articles";
+export * as Cases from "./cases";
 export * as Channels from "./channels";
 export * as Episodes from "./episodes";
 export * as Pages from "./pages";

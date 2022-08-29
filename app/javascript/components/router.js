@@ -10,6 +10,7 @@ import useAppContext from "lib/hooks/use-app-context";
 
 export default function Router() {
   const [{app, pages, user}] = useAppContext();
+  const admin = user && user.admin;
 
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function Router() {
             ) : (
               <Switch>
                 <Route exact={true} path="/" component={Pages.Template} />
+                <Route path="/cases/:uid" component={Pages.Cases.Show} />
                 <Route path="/episodes/:uid" component={Pages.Episodes.Show} />
                 <Route path="/posts/:uid" component={Pages.Posts.Show} />
                 <Route path="/profile" component={Pages.Profile} />
@@ -34,7 +36,7 @@ export default function Router() {
                 ))}
                 <Route path="/citations" component={Pages.Citations} />
                 <Route path="/disclaimer" component={Pages.Disclaimer} />
-                {(user && user.admin) ? (
+                {admin ? (
                   <Redirect exact={true} from="/admin" to="/admin/messages" />
                 ) : (
                   <Redirect from="/admin" to="/session" />
@@ -45,6 +47,9 @@ export default function Router() {
                 <Route path="/admin/articles/new" component={Pages.Admin.Articles.New} />
                 <Route path="/admin/articles/:id" component={Pages.Admin.Articles.Edit} />
                 <Route path="/admin/articles" component={Pages.Admin.Articles.List} />
+                <Route path="/admin/cases/new" component={Pages.Admin.Cases.New} />
+                <Route path="/admin/cases/:uid" component={Pages.Admin.Cases.Edit} />
+                <Route path="/admin/cases" component={Pages.Admin.Cases.List} />
                 <Route path="/admin/channels/new" component={Pages.Admin.Channels.New} />
                 <Route path="/admin/channels/:uid" component={Pages.Admin.Channels.Edit} />
                 <Route path="/admin/channels" component={Pages.Admin.Channels.List} />
@@ -63,6 +68,13 @@ export default function Router() {
                 <Route path="/admin/uploads" component={Pages.Admin.Uploads.List} />
                 <Route path="/admin/users/:id" component={Pages.Admin.Users.Edit} />
                 <Route path="/admin/users" component={Pages.Admin.Users.List} />
+                {!admin && <Redirect from="/preview" to="/session" />}
+                <Route path="/preview/cases/:uid" component={Pages.Preview.Cases.Show} />
+                <Route path="/preview/cases" component={Pages.Preview.Cases.List} />
+                <Route path="/preview/episodes/:uid" component={Pages.Preview.Episodes.Show} />
+                <Route path="/preview/episodes" component={Pages.Preview.Episodes.List} />
+                <Route path="/preview/posts/:uid" component={Pages.Preview.Posts.Show} />
+                <Route path="/preview/posts" component={Pages.Preview.Posts.List} />
                 <Route component={Pages.NotFound} />
               </Switch>
             )}

@@ -1,28 +1,28 @@
 import headers from "app/requests/headers";
 
 export const get = (uid) => (
-  fetch(`/api/posts/${uid}`, {
+  fetch(`/api/cases/${uid}`, {
     headers: headers(),
     method: "GET"
   }).then((response) => response.json())
 );
 
 export const getAll = () => (
-  fetch("/api/posts", {
+  fetch("/api/cases", {
     headers: headers(),
     method: "GET"
   }).then((response) => response.json())
 );
 
 export const subscribe = (uid) => (
-  fetch(`/api/posts/${uid}/subscribe`, {
+  fetch(`/api/cases/${uid}/subscribe`, {
     headers: headers(),
     method: "POST"
   }).then((response) => response.json())
 );
 
 export const unsubscribe = (uid) => (
-  fetch(`/api/posts/${uid}/unsubscribe`, {
+  fetch(`/api/cases/${uid}/unsubscribe`, {
     headers: headers(),
     method: "POST"
   }).then((response) => response.json())

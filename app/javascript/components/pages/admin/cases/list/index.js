@@ -1,31 +1,31 @@
 import {useEffect, useState} from "react";
-import {getAll as getEpisodes} from "app/requests/admin/episodes";
+import {getAll as getRecords} from "app/requests/admin/cases";
 import {Loading} from "components/helpers";
 import Row from "./row";
 
-export default function AdminEpisodesList() {
-  const [episodes, setEpisodes] = useState(null);
+export default function AdminCasesList() {
+  const [records, setRecords] = useState(null);
   const onDestroy = (uid) => {
-    setEpisodes(episodes.filter((episode) => episode.uid !== uid));
+    setRecords(records.filter((record) => record.uid !== uid));
   };
 
   useEffect(() => {
-    getEpisodes().then((data) => setEpisodes(data.episodes));
+    getRecords().then((data) => setRecords(data.cases));
   }, []);
 
-  if(!episodes) { return <Loading />; }
+  if(!records) { return <Loading />; }
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-10 offset-md-1">
-          <h1 className="text-center">Episodes</h1>
+          <h1 className="text-center">Cases</h1>
           <div className="row">
             <div className="col-6 text-left mb-1">
-              <a className="btn btn-outline-secondary btn-sm" href="/preview/episodes">Preview</a>
+              <a className="btn btn-outline-secondary btn-sm" href="/preview/cases">Preview</a>
             </div>
             <div className="col-6 text-right mb-1">
-              <a className="btn btn-outline-secondary btn-sm" href="/admin/episodes/new">New Episode</a>
+              <a className="btn btn-outline-secondary btn-sm" href="/admin/cases/new">New Case</a>
             </div>
           </div>
           <div className="table-responsive rounded">
@@ -33,18 +33,15 @@ export default function AdminEpisodesList() {
               <thead className="thead-dark">
                 <tr>
                   <th>Published</th>
-                  <th>Audio</th>
-                  <th>Author</th>
-                  <th>Channel</th>
-                  <th>Image</th>
+                  <th>Public Tags</th>
                   <th>Title</th>
                   <th>Created At</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {episodes.map((episode) => (
-                  <Row key={episode.uid} episode={episode} onDestroy={onDestroy} />
+                {records.map((record) => (
+                  <Row key={record.uid} onDestroy={onDestroy} record={record} />
                 ))}
               </tbody>
             </table>

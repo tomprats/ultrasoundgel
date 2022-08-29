@@ -1,10 +1,16 @@
-class Api::PostsController < Api::ApplicationController
-  include PostConcerns
+class Api::CasesController < Api::ApplicationController
+  include CaseConcerns
 
-  before_action :set_record
+  before_action :set_record, except: :index
+
+  def index
+    records = Case.all
+
+    render json: {cases: cases_as_json(records)}
+  end
 
   def show
-    render json: {post: post_as_json(@record)}
+    render json: {case: case_as_json(@record)}
   end
 
   def subscribe
@@ -26,6 +32,6 @@ class Api::PostsController < Api::ApplicationController
   private
 
   def set_record
-    @record = Post.find_by!(uid: params[:uid])
+    @record = Case.find_by!(uid: params[:uid])
   end
 end

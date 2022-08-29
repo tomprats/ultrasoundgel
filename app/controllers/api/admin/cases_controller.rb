@@ -1,12 +1,12 @@
-class Api::Admin::PostsController < Api::Admin::ApplicationController
+class Api::Admin::CasesController < Api::Admin::ApplicationController
   def index
-    records = Post.all
+    records = Case.all
 
-    render json: {posts: records_as_json(records)}
+    render json: {cases: records_as_json(records)}
   end
 
   def create
-    record = Post.new(record_params)
+    record = Case.new(record_params)
 
     if record.save
       render json: {message: "#{record.title} created", success: true}
@@ -16,9 +16,9 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def show
-    record = Post.find_by(uid: params[:uid])
+    record = Case.find_by(uid: params[:uid])
 
-    render json: {post: record_as_json(record)}
+    render json: {case: record_as_json(record)}
   end
 
   def update
@@ -32,7 +32,7 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def destroy
-    record = Post.find_by(uid: params[:uid])
+    record = Case.find_by(uid: params[:uid])
 
     if record.destroy
       render json: {message: "#{record.title} deleted", success: true}
@@ -42,13 +42,13 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def publish
-    record = Post.find_by(uid: params[:uid])
+    record = Case.find_by(uid: params[:uid])
     published_at = params[:published_at]
     published_at = published_at.blank? ? Time.zone.now : Time.zone.parse(published_at)
 
     if record.update(published_at: published_at)
       render json: {
-        post: record_as_json_for_index(record),
+        case: record_as_json_for_index(record),
         message: "#{record.title} published",
         success: true
       }
@@ -58,11 +58,11 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def unpublish
-    record = Post.find_by(uid: params[:uid])
+    record = Case.find_by(uid: params[:uid])
 
     if record.update(published_at: nil)
       render json: {
-        post: record_as_json_for_index(record),
+        case: record_as_json_for_index(record),
         message: "#{record.title} unpublished",
         success: true
       }
@@ -75,7 +75,6 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
 
   def record_as_json(record)
     record.as_json(only: [
-      :episode_id,
       :id,
       :public_tags,
       :tags,
@@ -86,10 +85,8 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
 
   def record_as_json_for_index(record)
     record.as_json(
-      include: {episode: {only: [:id, :title, :uid]}},
       only: [
         :created_at,
-        :episode_id,
         :id,
         :public_tags,
         :published_at,
@@ -100,9 +97,8 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def record_params
-    params.require(:post).permit(
+    params.require(:case).permit(
       :content,
-      :episode_id,
       :tags,
       :title,
       public_tags: []

@@ -1,15 +1,23 @@
 import PropTypes from "prop-types";
-import {useState} from "react";
 import appleImage from "assets/images/apple.svg";
 import googleImage from "assets/images/google.svg";
 import useAppContext from "lib/hooks/use-app-context";
 
 function AudioLinks({episode}) {
   const [{channel}] = useAppContext();
-  const [showAudio, setShowAudio] = useState(false);
-  const audioLink = `/episodes/${episode.uid}/audio.${episode.audio_extension}`;
   const googleLink = episode.google_link || channel.google_link;
   const itunesLink = episode.itunes_link || channel.itunes_link;
+  const iframeLink = [
+    `https://www.podbean.com/player-v2/?i=${episode.podbean_id}-pb`,
+    "btn-skin=2baf9e",
+    "download=1",
+    "font-color=auto",
+    "fonts=Arial",
+    "rtl=0",
+    "skin=1",
+    "share=1",
+    "logo_link=podcast_page"
+  ].join("&");
 
   return (
     <>
@@ -27,27 +35,26 @@ function AudioLinks({episode}) {
           )}
         </div>
       )}
-      {showAudio ? (
-        <audio controls={true} src={audioLink} type={episode.audio_type}>
-          <a href={audioLink}>
-            <i className="fas fa-headphones" /> Listen
-          </a>
-        </audio>
-      ) : (
-        <button className="btn btn-themed my-2" onClick={() => setShowAudio(true)} type="button">
-          <i className="fas fa-play" /> Play
-        </button>
-      )}
+      <iframe
+        allowtransparency="true"
+        data-name="pb-iframe-player"
+        height="150"
+        title={episode.title}
+        style={{border: "none", minWidth: "min(100%, 430px)"}}
+        scrolling="no"
+        src={iframeLink}
+        width="100%"
+      />
     </>
   );
 }
 
 AudioLinks.propTypes = {
   episode: PropTypes.shape({
-    audio_extension: PropTypes.string.isRequired,
-    audio_type: PropTypes.string.isRequired,
     google_link: PropTypes.string,
     itunes_link: PropTypes.string,
+    podbean_id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired
   }).isRequired
 };
