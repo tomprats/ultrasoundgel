@@ -69,7 +69,15 @@ class Api::ApplicationController < ApplicationController
     return if user.blank?
 
     user.as_json(
-      include: {comment_notifications: {only: [:post_id, :user_id]}},
+      include: {
+        comment_notifications: {
+          only: [
+            :comment_notificationable_id,
+            :comment_notificationable_type,
+            :user_id
+          ]
+        }
+      },
       only: [
         :admin,
         :email,

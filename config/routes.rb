@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # Named Page Routes
   root "pages#show"
+  get "cases/:uid", to: "pages#show", as: :case
   get "episodes/:uid", to: "pages#show", as: :episode
   get "posts/:uid", to: "pages#show", as: :post
   get "profile", to: "pages#show", as: :profile
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     get :app, to: "application#environment"
 
     resources :articles, only: [:index]
+    resources :cases, only: [:index, :show], param: :uid
     resources :comments, only: [:create, :destroy]
     resources :episodes, only: [:index, :show], param: :uid
     resources :posts, only: [:show], param: :uid
@@ -37,6 +39,9 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :article_categories, only: [:index, :create, :show, :update, :destroy]
       resources :articles, only: [:index, :create, :show, :update, :destroy]
+      resources :cases, only: [:index, :create, :show, :update, :destroy], param: :uid
+      post "cases/:uid/publish", to: "cases#publish"
+      delete "cases/:uid/publish", to: "cases#unpublish"
       resources :channels, only: [:index, :create, :show, :update, :destroy], param: :uid
       post "channels/:uid/publish", to: "channels#publish"
       delete "channels/:uid/publish", to: "channels#unpublish"
@@ -51,6 +56,12 @@ Rails.application.routes.draw do
       resources :stats, only: [:index]
       resources :uploads, only: [:index]
       resources :users, only: [:index, :show, :update, :destroy]
+    end
+
+    namespace :preview do
+      resources :cases, only: [:index, :show], param: :uid
+      resources :episodes, only: [:index, :show], param: :uid
+      resources :posts, only: [:index, :show], param: :uid
     end
   end
 

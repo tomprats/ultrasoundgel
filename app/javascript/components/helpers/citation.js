@@ -24,7 +24,7 @@ Citation.propTypes = {
       author: PropTypes.string.isRequired,
       number: PropTypes.number
     }),
-    published_at: PropTypes.string.isRequired,
+    published_at: PropTypes.string,
     title: PropTypes.string.isRequired
   }).isRequired
 };

@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   include Published
 
-  has_many :comments
+  has_many :comments, as: :commentable
   has_rich_text :content
   belongs_to :episode, optional: true
 

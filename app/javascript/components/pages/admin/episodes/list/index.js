@@ -20,8 +20,13 @@ export default function AdminEpisodesList() {
       <div className="row">
         <div className="col-md-10 offset-md-1">
           <h1 className="text-center">Episodes</h1>
-          <div className="text-right mb-1">
-            <a className="btn btn-outline-secondary btn-sm" href="/admin/episodes/new">New Episode</a>
+          <div className="row">
+            <div className="col-6 text-left mb-1">
+              <a className="btn btn-outline-secondary btn-sm" href="/preview/episodes">Preview</a>
+            </div>
+            <div className="col-6 text-right mb-1">
+              <a className="btn btn-outline-secondary btn-sm" href="/admin/episodes/new">New Episode</a>
+            </div>
           </div>
           <div className="table-responsive rounded">
             <table className="table table-hover text-center">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_12_194915) do
+ActiveRecord::Schema.define(version: 2022_07_04_014808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,18 @@ ActiveRecord::Schema.define(version: 2022_03_12_194915) do
     t.index ["category_id"], name: "index_articles_on_category_id"
   end
 
+  create_table "cases", force: :cascade do |t|
+    t.string "uid", null: false
+    t.string "title", null: false
+    t.text "tags"
+    t.string "public_tags", default: [], array: true
+    t.datetime "notified_at"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["published_at"], name: "index_cases_on_published_at"
+  end
+
   create_table "channels", id: :serial, force: :cascade do |t|
     t.integer "legacy_image_id"
     t.string "uid", null: false
@@ -121,25 +133,30 @@ ActiveRecord::Schema.define(version: 2022_03_12_194915) do
   end
 
   create_table "comment_notifications", id: :serial, force: :cascade do |t|
-    t.integer "post_id", null: false
+    t.integer "comment_notificationable_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id", "user_id"], name: "index_comment_notifications_on_post_id_and_user_id"
-    t.index ["post_id"], name: "index_comment_notifications_on_post_id"
+    t.string "comment_notificationable_type"
+    t.index ["comment_notificationable_id"], name: "index_comment_notifications_on_comment_notificationable_id"
+    t.index ["comment_notificationable_type", "comment_notificationable_id", "user_id"], name: "index_comment_notificationable_and_user"
+    t.index ["comment_notificationable_type", "comment_notificationable_id"], name: "index_comment_notificationable"
     t.index ["user_id"], name: "index_comment_notifications_on_user_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
-    t.integer "post_id"
+    t.integer "commentable_id"
     t.integer "user_id"
     t.boolean "active", default: true
     t.text "text"
     t.boolean "anonymous"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentable_type"
     t.index ["active", "created_at"], name: "index_comments_on_active_and_created_at"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["commentable_type", "commentable_id", "user_id"], name: "index_comments_on_commentable_and_user"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

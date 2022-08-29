@@ -7,6 +7,13 @@ export const get = (uid) => (
   }).then((response) => response.json())
 );
 
+export const getAll = () => (
+  fetch("/api/posts", {
+    headers: headers(),
+    method: "GET"
+  }).then((response) => response.json())
+);
+
 export const subscribe = (uid) => (
   fetch(`/api/posts/${uid}/subscribe`, {
     headers: headers(),

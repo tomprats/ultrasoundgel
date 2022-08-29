@@ -1,91 +1,91 @@
 class Api::Admin::PostsController < Api::Admin::ApplicationController
   def index
-    posts = Post.all
+    records = Post.all
 
-    render json: {posts: posts_as_json(posts)}
+    render json: {posts: records_as_json(records)}
   end
 
   def create
-    post = Post.new(post_params)
+    record = Post.new(record_params)
 
-    if post.save
-      render json: {message: "#{post.title} created", success: true}
+    if record.save
+      render json: {message: "#{record.title} created", success: true}
     else
-      render json: {message: post.errors.full_messages.join(", "), success: false}
+      render json: {message: record.errors.full_messages.join(", "), success: false}
     end
   end
 
   def show
-    post = Post.find_by(uid: params[:uid])
+    record = Post.find_by(uid: params[:uid])
 
-    render json: {post: post_as_json(post)}
+    render json: {post: record_as_json(record)}
   end
 
   def update
-    post = Post.find_by(uid: params[:uid])
+    record = record.find_by(uid: params[:uid])
 
-    if post.update(post_params)
-      render json: {message: "#{post.title} updated", success: true}
+    if record.update(record_params)
+      render json: {message: "#{record.title} updated", success: true}
     else
-      render json: {message: post.errors.full_messages.join(", "), success: false}
+      render json: {message: record.errors.full_messages.join(", "), success: false}
     end
   end
 
   def destroy
-    post = Post.find_by(uid: params[:uid])
+    record = Post.find_by(uid: params[:uid])
 
-    if post.destroy
-      render json: {message: "#{post.title} deleted", success: true}
+    if record.destroy
+      render json: {message: "#{record.title} deleted", success: true}
     else
       render json: {message: "There was an issue", success: false}
     end
   end
 
   def publish
-    post = Post.find_by(uid: params[:uid])
+    record = Post.find_by(uid: params[:uid])
     published_at = params[:published_at]
     published_at = published_at.blank? ? Time.zone.now : Time.zone.parse(published_at)
 
-    if post.update(published_at: published_at)
+    if record.update(published_at: published_at)
       render json: {
-        post: post_as_json_for_index(post),
-        message: "#{post.title} published",
+        post: record_as_json_for_index(record),
+        message: "#{record.title} published",
         success: true
       }
     else
-      render json: {message: post.errors.full_messages.join(", "), success: false}
+      render json: {message: record.errors.full_messages.join(", "), success: false}
     end
   end
 
   def unpublish
-    post = Post.find_by(uid: params[:uid])
+    record = Post.find_by(uid: params[:uid])
 
-    if post.update(published_at: nil)
+    if record.update(published_at: nil)
       render json: {
-        post: post_as_json_for_index(post),
-        message: "#{post.title} unpublished",
+        post: record_as_json_for_index(record),
+        message: "#{record.title} unpublished",
         success: true
       }
     else
-      render json: {message: post.errors.full_messages.join(", "), success: false}
+      render json: {message: record.errors.full_messages.join(", "), success: false}
     end
   end
 
   private
 
-  def post_as_json(post)
-    post.as_json(only: [
+  def record_as_json(record)
+    record.as_json(only: [
       :episode_id,
       :id,
       :public_tags,
       :tags,
       :title,
       :uid
-    ]).merge(content: post.content_edit_value)
+    ]).merge(content: record.content_edit_value)
   end
 
-  def post_as_json_for_index(post)
-    post.as_json(
+  def record_as_json_for_index(record)
+    record.as_json(
       include: {episode: {only: [:id, :title, :uid]}},
       only: [
         :created_at,
@@ -99,7 +99,7 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
     )
   end
 
-  def post_params
+  def record_params
     params.require(:post).permit(
       :content,
       :episode_id,
@@ -109,7 +109,7 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
     )
   end
 
-  def posts_as_json(posts)
-    posts.map{ |post| post_as_json_for_index(post) }
+  def records_as_json(records)
+    records.map{ |record| record_as_json_for_index(record) }
   end
 end
