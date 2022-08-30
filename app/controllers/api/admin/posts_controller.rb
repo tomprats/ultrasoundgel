@@ -22,7 +22,7 @@ class Api::Admin::PostsController < Api::Admin::ApplicationController
   end
 
   def update
-    record = record.find_by(uid: params[:uid])
+    record = Post.find_by(uid: params[:uid])
 
     if record.update(record_params)
       render json: {message: "#{record.title} updated", success: true}
