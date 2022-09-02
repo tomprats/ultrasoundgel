@@ -7,6 +7,7 @@ else
   host = "www.ultrasoundgel.org"
 end
 
+ActionController::Base.raise_on_open_redirects = false
 Rails.application.config.action_mailer.asset_host = asset_host
 Rails.application.config.action_mailer.default_url_options = {host: host}
 Rails.application.routes.default_url_options[:host] = host
