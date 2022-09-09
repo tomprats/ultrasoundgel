@@ -173,11 +173,11 @@ class Episode < ApplicationRecord
     }
 
     if audio.blob&.saved_changes? && current_audio
-      params[:remote_media_url] = "#{base_url}/file/redirect?url=#{CGI::escape(current_audio)}"
+      params[:remote_media_url] = "#{base_url}/file/redirect/#{uid}.#{audio_extension}?url=#{CGI::escape(current_audio)}"
     end
 
     if image.blob&.saved_changes? && current_image
-      params[:remote_logo_url] = "#{base_url}/file/redirect?url=#{CGI::escape(current_image)}"
+      params[:remote_logo_url] = "#{base_url}/file/redirect/#{uid}.#{image_extension}?url=#{CGI::escape(current_image)}"
     end
 
     Rails.logger.info("Updating #{podbean_id || "new episode"}")
