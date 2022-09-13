@@ -9,8 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 9b6abb50b2c99fe4c5b1249367f790d30fc1e64d
-  ref: 9b6abb50b2c99fe4c5b1249367f790d30fc1e64d
+  revision: 46bfabcfd40b3281f7c71149befce073ea0722d9
   specs:
     actioncable (7.1.0.alpha)
       actionpack (= 7.1.0.alpha)
@@ -41,7 +40,7 @@ GIT
     actionpack (7.1.0.alpha)
       actionview (= 7.1.0.alpha)
       activesupport (= 7.1.0.alpha)
-      rack (~> 2.0, >= 2.2.0)
+      rack (~> 2.0, >= 2.2.4)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)

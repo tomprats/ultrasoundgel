@@ -5,6 +5,7 @@ Rails.application.config.active_storage.content_types_allowed_inline += [
   "audio/mpeg",
   "audio/x-m4a"
 ]
+Rails.application.config.active_storage.variant_processor = :mini_magick
 
 ActionText::ContentHelper.allowed_attributes.add "style"
 ActionText::ContentHelper.allowed_attributes.add "controls"
