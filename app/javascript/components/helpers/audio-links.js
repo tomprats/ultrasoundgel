@@ -4,41 +4,13 @@ import appleImage from "assets/images/apple.svg";
 import googleImage from "assets/images/google.svg";
 import useAppContext from "lib/hooks/use-app-context";
 
+// TODO: Get player_url and set number in Podbean
+// TODO: Remove this component and put player iframe directly in 2 components
 function AudioLinks({episode}) {
-  const [{channel}] = useAppContext();
-  const [showAudio, setShowAudio] = useState(false);
-  const audioLink = `/episodes/${episode.uid}/audio.${episode.audio_extension}`;
-  const googleLink = episode.google_link || channel.google_link;
-  const itunesLink = episode.itunes_link || channel.itunes_link;
+  if(!episode.player_url) { return null; }
 
   return (
-    <>
-      {(itunesLink || googleLink) && (
-        <div className="my-1 store-links">
-          {itunesLink && (
-            <a className="apple" href={itunesLink} rel="noreferrer" target="_blank">
-              <img alt="Listen on Apple Podcasts" width="200" src={appleImage} />
-            </a>
-          )}
-          {googleLink && (
-            <a className="google" href={googleLink} rel="noreferrer" target="_blank">
-              <img alt="Listen on Google Podcasts" width="200" src={googleImage} />
-            </a>
-          )}
-        </div>
-      )}
-      {showAudio ? (
-        <audio controls={true} src={audioLink} type={episode.audio_type}>
-          <a href={audioLink}>
-            <i className="fas fa-headphones" /> Listen
-          </a>
-        </audio>
-      ) : (
-        <button className="btn btn-themed my-2" onClick={() => setShowAudio(true)} type="button">
-          <i className="fas fa-play" /> Play
-        </button>
-      )}
-    </>
+    <iframe className="mt-4" src={episode.player_url} title="Episode Audio" />
   );
 }
 
