@@ -1,7 +1,7 @@
 class PublishJob < ApplicationJob
   def perform
     Episode.published.ascending.where(podbean_published_at: nil).each do |episode|
-      episode.number = (Episode.maximum(:number) || 0) + 1 unless episode.number
+      episode.number ||= (Episode.maximum(:number) || 0) + 1 if episode.full?
       episode.podbean_published_at = DateTime.now
       episode.save
     end

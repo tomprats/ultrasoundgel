@@ -11,8 +11,8 @@ class PagesController < ApplicationController
     number = params[:path].to_i
     return unless number > 0
 
-    episode = Episode.ascending.published.find_by(number: number)
-    episode ||= Episode.ascending.published.offset(number - 1).first
+    episode = Episode.ascending.published.full.find_by(number: number)
+    episode ||= Episode.ascending.published.full.offset(number - 1).first
     return unless episode
 
     redirect_to episode.post || episode

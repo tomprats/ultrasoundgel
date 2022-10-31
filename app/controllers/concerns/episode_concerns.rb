@@ -52,6 +52,7 @@ module EpisodeConcerns
       :author,
       :google_link,
       :itunes_link,
+      :kind,
       :number,
       :published_at,
       :subtitle,

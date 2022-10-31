@@ -130,6 +130,23 @@ function AdminEpisodesForm({channels, onChange, onSubmit, value}) {
           )}
           <div className="input-group mb-3">
             <div className="input-group-prepend">
+              <label className="input-group-text" htmlFor="episode-kind">Kind</label>
+            </div>
+            <select
+              className="form-control"
+              id="episode-kind"
+              name="kind"
+              onChange={onChange}
+              required={true}
+              value={value("kind")}
+            >
+              <option value="Full">Full</option>
+              <option value="Trailer">Trailer</option>
+              <option value="Bonus">None</option>
+            </select>
+          </div>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
               <label className="input-group-text" htmlFor="episode-subtitle">Subtitle</label>
             </div>
             <input

@@ -24,7 +24,7 @@ class Podbean
 
     # NOTE: Doesn't work because update episode requires more data
     def sync_numbers(offset: 0)
-      episodes = Episode.published.ascending
+      episodes = Episode.published.full.ascending
         .where.not(number: nil)
         .where.not(podbean_id: nil)
         .offset(offset)

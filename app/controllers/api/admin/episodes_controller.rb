@@ -80,6 +80,7 @@ class Api::Admin::EpisodesController < Api::Admin::ApplicationController
       :google_link,
       :id,
       :itunes_link,
+      :kind,
       :subtitle,
       :title,
       :uid
@@ -98,6 +99,7 @@ class Api::Admin::EpisodesController < Api::Admin::ApplicationController
         :channel_id,
         :created_at,
         :id,
+        :kind,
         :published_at,
         :title,
         :uid
@@ -118,6 +120,7 @@ class Api::Admin::EpisodesController < Api::Admin::ApplicationController
       :google_link,
       :image,
       :itunes_link,
+      :kind,
       :subtitle,
       :title
     )

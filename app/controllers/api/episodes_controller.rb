@@ -6,7 +6,7 @@ class Api::EpisodesController < Api::ApplicationController
   def index
     return all if params[:limit] == "none"
 
-    episodes = Episode.published.descending.with_attached_image
+    episodes = Episode.published.full.descending.with_attached_image
 
     render json: paginated_episodes(episodes)
   end
@@ -21,7 +21,7 @@ class Api::EpisodesController < Api::ApplicationController
 
   def all
     render json: {
-      episodes: Episode.published.ascending.map do |episode|
+      episodes: Episode.published.full.ascending.map do |episode|
         post = episode.post&.published? && episode.post.as_json(only: [:published_at, :title])
 
         episode.as_json(
@@ -42,7 +42,7 @@ class Api::EpisodesController < Api::ApplicationController
   end
 
   def verify_published
-    Episode.published.ascending.where(number: nil).each do |episode|
+    Episode.published.full.ascending.where(number: nil).each do |episode|
       episode.update(number: (Episode.maximum(:number) || 0) + 1)
     end
   end

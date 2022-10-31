@@ -2,7 +2,7 @@ module PostConcerns
   extend ActiveSupport::Concern
 
   def post_as_json(record)
-    record.as_json(only: [:id, :public_tags, :published_at, :title]).merge(
+    record.as_json(only: [:id, :public_tags, :published_at, :title, :uid]).merge(
       content: record.current_content,
       comments: comments_as_json(record.comments),
       episode: episode_as_json(record.episode)
@@ -28,6 +28,7 @@ module PostConcerns
         :author,
         :google_link,
         :itunes_link,
+        :kind,
         :number,
         :published_at,
         :title,
