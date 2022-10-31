@@ -39,6 +39,7 @@ xml.rss(
           xml.cdata!(episode.current_description_html)
         end
         xml.itunes :author, episode.author
+        xml.itunes :episodeType, episode.kind
         xml.itunes :subtitle, episode.subtitle
         xml.itunes :image, href: episode_image_url(episode.uid, format: episode.image_extension)
         xml.enclosure(

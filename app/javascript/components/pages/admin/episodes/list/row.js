@@ -46,6 +46,7 @@ function AdminEpisodesListRow({episode: originalEpisode, onDestroy}) {
       <td>{episode.author}</td>
       <td><a href={`/admin/channels/${episode.channel.uid}`} rel="noopener noreferrer" target="_blank">{episode.channel.title}</a></td>
       <td>{episode.image ? <a href={episode.image} rel="noopener noreferrer" target="_blank">View</a> : "None"}</td>
+      <td>{episode.kind}</td>
       <td>{episode.title}</td>
       <td>{displayDate(episode.created_at)}</td>
       <td>
@@ -81,6 +82,7 @@ AdminEpisodesListRow.propTypes = {
     }).isRequired,
     created_at: PropTypes.string.isRequired,
     image: PropTypes.string,
+    kind: PropTypes.string.isRequired,
     published_at: PropTypes.string,
     title: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired

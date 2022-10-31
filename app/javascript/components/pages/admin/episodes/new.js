@@ -21,6 +21,7 @@ export default function AdminEpisodesNew() {
     explicit: false,
     google_link: "",
     itunes_link: "",
+    kind: "Full",
     subtitle: "",
     title: ""
   });

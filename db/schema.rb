@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_04_014808) do
-
+ActiveRecord::Schema[7.1].define(version: 2022_10_31_223120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
@@ -21,16 +20,16 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.text "body"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_record_internal_metadatas", id: false, force: :cascade do |t|
     t.string "key", limit: 191, null: false
     t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["key"], name: "unique_active_record_internal_metadatas", unique: true
   end
 
@@ -39,7 +38,7 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -51,7 +50,7 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -74,16 +73,16 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "google_analytics_code"
     t.text "resources"
     t.text "announcements"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "public_tags", default: [], array: true
   end
 
   create_table "article_categories", force: :cascade do |t|
     t.integer "rank", default: 100, null: false
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["rank"], name: "index_article_categories_on_rank"
   end
 
@@ -94,8 +93,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "journal", null: false
     t.integer "year", null: false
     t.integer "month", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["category_id"], name: "index_articles_on_category_id"
   end
 
@@ -104,10 +103,10 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "title", null: false
     t.text "tags"
     t.string "public_tags", default: [], array: true
-    t.datetime "notified_at"
-    t.datetime "published_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "notified_at", precision: nil
+    t.datetime "published_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["published_at"], name: "index_cases_on_published_at"
   end
 
@@ -123,9 +122,9 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "summary"
     t.string "categories"
     t.boolean "explicit", default: false
-    t.datetime "published_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "published_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "itunes_link"
     t.string "google_link"
     t.string "redirect"
@@ -135,8 +134,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
   create_table "comment_notifications", id: :serial, force: :cascade do |t|
     t.integer "comment_notificationable_id", null: false
     t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "comment_notificationable_type"
     t.index ["comment_notificationable_id"], name: "index_comment_notifications_on_comment_notificationable_id"
     t.index ["comment_notificationable_type", "comment_notificationable_id", "user_id"], name: "index_comment_notificationable_and_user"
@@ -150,8 +149,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.boolean "active", default: true
     t.text "text"
     t.boolean "anonymous"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "commentable_type"
     t.index ["active", "created_at"], name: "index_comments_on_active_and_created_at"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
@@ -165,8 +164,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "name", null: false
     t.string "kind", null: false
     t.json "data", default: {}, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_contents_on_name"
     t.index ["section_id"], name: "index_contents_on_section_id"
   end
@@ -176,8 +175,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.bigint "episode_id", null: false
     t.string "ip_address"
     t.json "raw_data", default: {}, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["episode_id"], name: "index_episode_audio_stats_on_episode_id"
   end
 
@@ -191,14 +190,15 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "author"
     t.string "summary"
     t.boolean "explicit", default: false
-    t.datetime "published_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "published_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "itunes_link"
     t.string "google_link"
     t.integer "number"
     t.string "podbean_id"
-    t.datetime "podbean_published_at"
+    t.datetime "podbean_published_at", precision: nil
+    t.string "kind", default: "Full"
     t.index ["channel_id"], name: "index_episodes_on_channel_id"
     t.index ["published_at", "channel_id"], name: "index_episodes_on_published_at_and_channel_id"
     t.index ["published_at"], name: "index_episodes_on_published_at"
@@ -210,8 +210,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "path", null: false
     t.string "name", null: false
     t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "template", null: false
     t.index ["active", "rank"], name: "index_pages_on_active_and_rank"
     t.index ["path"], name: "index_pages_on_path"
@@ -224,10 +224,10 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "title", null: false
     t.text "text"
     t.text "tags"
-    t.datetime "published_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "notified_at"
+    t.datetime "published_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "notified_at", precision: nil
     t.string "public_tags", default: [], array: true
     t.index ["episode_id"], name: "index_posts_on_episode_id"
     t.index ["published_at"], name: "index_posts_on_published_at"
@@ -235,16 +235,16 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
 
   create_table "sections", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sections_on_name", unique: true
   end
 
   create_table "tokens", force: :cascade do |t|
     t.integer "user_id", null: false
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
@@ -256,8 +256,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "size", null: false
     t.string "content_type", null: false
     t.integer "duration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["type", "name"], name: "index_uploads_on_type_and_name"
     t.index ["type"], name: "index_uploads_on_type"
   end
@@ -268,8 +268,8 @@ ActiveRecord::Schema.define(version: 2022_07_04_014808) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "legacy_image"
     t.boolean "post_notifications", default: false
     t.index ["admin"], name: "index_users_on_admin"

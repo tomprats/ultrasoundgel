@@ -7,6 +7,12 @@ class Episode < ApplicationRecord
   has_one_attached :image
   has_one :action_text_rich_text, as: :record, class_name: "ActionText::RichText"
   has_many :audio_stats, class_name: "EpisodeAudioStat"
+  belongs_to :channel
+  belongs_to :legacy_audio, class_name: "AudioUpload", optional: true
+  belongs_to :legacy_image, class_name: "ImageUpload", optional: true
+  has_one :post
+
+  scope :full, ->{ where(kind: "Full") }
 
   validates_presence_of :title, :uid
   validate :channel_check, if: :channel_id_changed?
@@ -26,11 +32,6 @@ class Episode < ApplicationRecord
   on_unpublish do |record|
     record.validate :unpublishable
   end
-
-  belongs_to :channel
-  belongs_to :legacy_audio, class_name: "AudioUpload", optional: true
-  belongs_to :legacy_image, class_name: "ImageUpload", optional: true
-  has_one :post
 
   before_validation :set_uid, on: :create
   before_save :publish, if: -> (episode){ episode.published_at_changed? && episode.published_at }
@@ -100,6 +101,10 @@ class Episode < ApplicationRecord
 
   def description_edit_value
     description.present? ? description.body.to_trix_html : summary
+  end
+
+  def full?
+    kind == "Full"
   end
 
   def image_extension

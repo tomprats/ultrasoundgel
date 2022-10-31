@@ -37,6 +37,7 @@ export default function AdminEpisodesList() {
                   <th>Author</th>
                   <th>Channel</th>
                   <th>Image</th>
+                  <th>Kind</th>
                   <th>Title</th>
                   <th>Created At</th>
                   <th>Actions</th>
