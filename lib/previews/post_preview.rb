@@ -9,6 +9,10 @@ class PostPreview < ActionMailer::Preview
     PostMailer.unpublish_email(user)
   end
 
+  def unpublish_email_with_title
+    PostMailer.unpublish_email(user, "Inclusion in POCUS Part 2")
+  end
+
   private
 
   def post

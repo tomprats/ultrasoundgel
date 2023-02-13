@@ -1,5 +1,5 @@
 %p Hi #{@user.first_name},
-%p Earlier today an episode was released a little early. It has been removed but will be available at a later time.
+%p Earlier today an episode was released a little early#{" (#{@title})" if @title}. It has been removed but will be available at a later time.
 %p Thanks for listening!
 %div Mike & the US GEL Gang
 %div= link_to "@PratsEM", "https://twitter.com/PratsEM"
