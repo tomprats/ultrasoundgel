@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from "react";
+import {useEffect, useMemo, useReducer} from "react";
 import {setApp} from "app/actions/app";
 import Context from "app/context";
 import Reducer from "app/reducer";
@@ -15,13 +15,14 @@ const initialState = {
 
 export default function App() {
   const [state, dispatch] = useReducer(Reducer, initialState);
+  const value = useMemo(() => [state, dispatch], [state, dispatch]);
 
   useEffect(() => {
     getApp().then((data) => { dispatch(setApp(data)); });
   }, []);
 
   return (
-    <Context.Provider value={[state, dispatch]}>
+    <Context.Provider value={value}>
       <Router />
     </Context.Provider>
   );

@@ -12,11 +12,11 @@ gem "image_processing"
 gem "pg"
 gem "rails", github: "rails/rails"
 gem "recaptcha", require: "recaptcha/rails"
+gem "shakapacker"
 gem "sidekiq"
 gem "sidekiq-cron"
 gem "taglib-ruby"
 gem "unicorn"
-gem "webpacker"
 
 # OpenSSH
 gem "bcrypt_pbkdf"

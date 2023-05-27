@@ -3,7 +3,7 @@
 - description = content_for(:meta_description) ? yield(:meta_description) : get_content("Sharing", "Description")
 - image = yield(:meta_image) if content_for(:meta_image)
 - image ||= get_content("Sharing", "Image")
-- image ||= asset_pack_url("media/assets/images/logo.jpg")
+- image ||= image_pack_url("static/images/logo.jpg")
 - url = request.original_url
 
 %title= title

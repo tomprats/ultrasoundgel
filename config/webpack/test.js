@@ -1,5 +1,7 @@
-process.env.NODE_ENV = process.env.NODE_ENV || "development"
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-const environment = require("./environment")
+const {merge} = require("shakapacker");
+const webpackConfig = require("./base");
+const linterConfig = require("./custom/linter");
 
-module.exports = environment.toWebpackConfig()
+module.exports = merge(webpackConfig, linterConfig);
