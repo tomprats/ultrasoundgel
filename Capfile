@@ -1,13 +1,13 @@
 require "capistrano/setup"
 require "capistrano/deploy"
 
+require "capistrano/asdf"
 require "capistrano/bundler"
 require "capistrano/logrotate"
 require "capistrano/postgresql"
 require "capistrano/rails/assets"
 require "capistrano/rails/collection"
 require "capistrano/rails/migrations"
-require "capistrano/rvm"
 require "capistrano/sidekiq"
 require "capistrano/unicorn_nginx"
 

@@ -29,11 +29,11 @@ gem "mini_magick"
 gem "redcarpet"
 
 group :development do
+  gem "capistrano-asdf"
   gem "capistrano-logrotate"
   gem "capistrano-postgresql"
   gem "capistrano-rails"
   gem "capistrano-rails-collection"
-  gem "capistrano-rvm"
   gem "capistrano-sidekiq"
   gem "capistrano-unicorn-nginx",
     branch: "systemd",
