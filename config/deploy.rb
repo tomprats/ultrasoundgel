@@ -26,16 +26,17 @@ set :migration_role, :app
 
 # Other plugin options
 set :asdf_custom_path, "/opt/asdf"
+set :assets_prefix, "packs"
 set :init_system, :systemd
 set :logrotate_user, "deploy"
 set :logrotate_group, "deploy"
 set :nginx_server_name, "www.ultrasoundgel.org"
-# set :nginx_ssl_cert, "fullchain.pem"
-# set :nginx_ssl_cert_path, "/etc/letsencrypt/live/www.ultrasoundgel.org/"
-# set :nginx_ssl_cert_key, "privkey.pem"
-# set :nginx_ssl_cert_key_path, "/etc/letsencrypt/live/www.ultrasoundgel.org/"
+set :nginx_ssl_cert, "fullchain.pem"
+set :nginx_ssl_cert_path, "/etc/letsencrypt/live/www.ultrasoundgel.org/"
+set :nginx_ssl_cert_key, "privkey.pem"
+set :nginx_ssl_cert_key_path, "/etc/letsencrypt/live/www.ultrasoundgel.org/"
 set :nginx_upload_local_cert, false
-# set :nginx_use_ssl, true
+set :nginx_use_ssl, true
 set :pg_system_user, "deploy"
 set :pg_without_sudo, true
 set :pg_generate_random_password, true
