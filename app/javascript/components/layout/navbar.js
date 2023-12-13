@@ -47,6 +47,9 @@ export default function Navbar() {
                 <NavLink className="nav-link" to={`/${page.path}`}>{page.name}</NavLink>
               </li>
             ))}
+            <li>
+              <NavLink className="nav-link" to="/store">Store</NavLink>
+            </li>
             {user ? (
               <li className="dropdown">
                 <button className="nav-link dropdown-toggle" type="button">Profile</button>

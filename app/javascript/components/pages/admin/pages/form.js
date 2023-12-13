@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import ContentEditor from "components/helpers/form/content-editor";
 
-const templates = ["articles", "contact", "default", "home"];
+const templates = ["articles", "contact", "default", "home", "store"];
 
 function AdminPagesForm({onChange, onSubmit, value}) {
   return (

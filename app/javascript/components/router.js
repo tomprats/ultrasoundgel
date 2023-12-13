@@ -31,6 +31,8 @@ export default function Router() {
                 <Route path="/posts/:uid" component={Pages.Posts.Show} />
                 <Route path="/profile" component={Pages.Profile} />
                 <Route path="/session" component={Pages.Session} />
+                <Route path="/store/cart" component={Pages.Store.Cart} />
+                <Route path="/store" component={Pages.Store.Show} />
                 {pages.map((page) => (
                   <Route key={page.path} component={Pages.Template} exact={true} path={`/${page.path}`} />
                 ))}

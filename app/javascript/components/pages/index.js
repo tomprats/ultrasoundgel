@@ -10,4 +10,5 @@ export * as Posts from "./posts";
 export * as Preview from "./preview";
 export Profile from "./profile";
 export Session from "./session";
+export * as Store from "./store";
 export Template from "./template";

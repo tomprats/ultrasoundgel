@@ -4,9 +4,11 @@ import Context from "app/context";
 import Reducer from "app/reducer";
 import {get as getApp} from "app/requests/app";
 import Router from "components/router";
+import Cache from "lib/cache";
 
 const initialState = {
   app: {loading: true},
+  cart: Cache.get("cart") || {},
   notifications: [],
   page: {},
   pages: [],

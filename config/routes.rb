@@ -63,6 +63,14 @@ Rails.application.routes.draw do
       resources :episodes, only: [:index, :show], param: :uid
       resources :posts, only: [:index, :show], param: :uid
     end
+
+    namespace :store do
+      resources :countries, only: [:index]
+      resources :products, only: [:index]
+      resource :cart, only: [] do
+        post :shipping, on: :collection
+      end
+    end
   end
 
   get "*path",

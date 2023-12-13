@@ -1,4 +1,5 @@
 import app from "app/reducers/app";
+import cart from "app/reducers/cart";
 import channel from "app/reducers/channel";
 import notifications from "app/reducers/notifications";
 import page from "app/reducers/page";
@@ -20,6 +21,7 @@ const combineReducers = (reducers) => (
 
 export default combineReducers({
   app,
+  cart,
   channel,
   notifications,
   page,
