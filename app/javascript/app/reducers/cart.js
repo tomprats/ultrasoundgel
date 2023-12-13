@@ -1,4 +1,10 @@
-import {SET_CART, SET_ITEMS, SET_SHIPPING} from "app/actions/cart";
+import {
+  SET_CART,
+  SET_ITEMS,
+  SET_SHIPPING_RATE,
+  SET_SHIPPING_RATES,
+  SET_SHIPPING_RECIPIENT
+} from "app/actions/cart";
 import Cache from "lib/cache";
 
 export default function cart(state, action) {
@@ -11,14 +17,35 @@ export default function cart(state, action) {
       return {...data};
     }
     case SET_ITEMS: {
-      const data = {...state, items: action.payload};
+      const data = {...state, shipping: {...state.shipping}};
+      data.items = action.payload;
+      data.shipping.rate = null;
+      data.shipping.rates = null;
 
       Cache.set("cart", data);
 
       return {...data};
     }
-    case SET_SHIPPING: {
-      const data = {...state, shipping: action.payload};
+    case SET_SHIPPING_RATE: {
+      const data = {...state, shipping: {...state.shipping}};
+      data.shipping.rate = action.payload;
+
+      Cache.set("cart", data);
+
+      return {...data};
+    }
+    case SET_SHIPPING_RATES: {
+      const data = {...state, shipping: {...state.shipping}};
+      data.shipping.rate = null;
+      data.shipping.rates = action.payload;
+
+      Cache.set("cart", data);
+
+      return {...data};
+    }
+    case SET_SHIPPING_RECIPIENT: {
+      const data = {...state, shipping: {...state.shipping}};
+      data.shipping.recipient = action.payload;
 
       Cache.set("cart", data);
 

@@ -8,7 +8,7 @@ import Cache from "lib/cache";
 
 const initialState = {
   app: {loading: true},
-  cart: Cache.get("cart") || {},
+  cart: Cache.get("cart") || {shipping: {}},
   notifications: [],
   page: {},
   pages: [],

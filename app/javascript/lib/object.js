@@ -4,6 +4,15 @@ export function dig(object, ...keys) {
   return keys.reduce(reducer, object);
 }
 
+export function mutable(object) {
+  if(object === null || typeof object !== "object") { return object; }
+  if(Array.isArray(object)) { return object.map((item) => mutable(item)); }
+
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [key, mutable(value)])
+  );
+}
+
 export function valueFrom({defaultValue, name, objects}) {
   const source = objects.find((object) => object[name] != null);
 

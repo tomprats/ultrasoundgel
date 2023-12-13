@@ -1,5 +1,6 @@
 import Items from "./items";
-import Shipping from "./shipping";
+import ShippingRate from "./shipping/rate";
+import ShippingRecipient from "./shipping/recipient";
 
 export default function Cart() {
   return (
@@ -7,7 +8,8 @@ export default function Cart() {
       <div className="row">
         <div className="col-md-8 offset-md-2">
           <Items />
-          <Shipping />
+          <ShippingRecipient />
+          <ShippingRate />
         </div>
       </div>
     </div>
